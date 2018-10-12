@@ -18,6 +18,8 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         [TestCase(Move.MoveForwards, Move.MoveBackwards, 4, 5, TestName = "A moves forwards, B moves backwards")]
         [TestCase(Move.MoveBackwards, Move.MoveForwards, 2, 3, TestName = "A moves backwards, B moves forwards")]
         [TestCase(Move.AttackWithAxe, Move.MoveForwards, 3, 4, 100, 90, TestName = "A attacks with an axe while B moves forwards")]
+        [TestCase(Move.MoveForwards, Move.AttackWithAxe, 3, 4, 90, 100, TestName = "A moves forward while B attacks with an axe")]
+        [TestCase(Move.AttackWithAxe, Move.AttackWithAxe, 3, 4, 90, 90, TestName = "Both attack with axes")]
         public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition, int botAExpectedHealth = 100, int botBExpectedHealth = 100)
         {
             this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
