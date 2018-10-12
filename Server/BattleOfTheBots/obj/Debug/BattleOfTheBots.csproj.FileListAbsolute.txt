@@ -1,0 +1,10 @@
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\bin\Debug\BattleOfTheBots.exe.config
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\bin\Debug\BattleOfTheBots.exe
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\bin\Debug\BattleOfTheBots.pdb
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\obj\Debug\BattleOfTheBots.LeaderboardForm.resources
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\obj\Debug\BattleOfTheBots.MainForm.resources
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\obj\Debug\BattleOfTheBots.Properties.Resources.resources
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\obj\Debug\BattleOfTheBots.csproj.GenerateResource.Cache
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\obj\Debug\BattleOfTheBots.csproj.CoreCompileInputs.cache
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\obj\Debug\BattleOfTheBots.exe
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots\obj\Debug\BattleOfTheBots.pdb
