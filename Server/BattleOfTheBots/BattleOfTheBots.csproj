@@ -44,8 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\BotMove.cs" />
+    <Compile Include="State\Arena.cs" />
+    <Compile Include="State\Bot.cs" />
     <Compile Include="Classes\BotClass.cs" />
+    <Compile Include="Logic\Move.cs" />
     <Compile Include="Classes\GameClass.cs" />
+    <Compile Include="Logic\MoveManager.cs" />
     <Compile Include="HTTP\HTTPUtility.cs" />
     <Compile Include="LeaderboardForm.cs">
       <SubType>Form</SubType>
