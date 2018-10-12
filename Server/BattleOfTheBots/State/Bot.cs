@@ -6,5 +6,7 @@
         public int Position { get; set; }
 
         public int Health { get; set; }
+
+        public int NumberOfFlipsRemaining { get; set; }
     }
 }

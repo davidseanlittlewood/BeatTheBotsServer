@@ -36,6 +36,24 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.AreEqual(botBExpectedHealth, this.LastBot.Health, "Bot B has an incorrect health");
         }
 
+        [TestCase(Move.Flip, Move.Flip)]
+        [TestCase(Move.Flip, Move.Shunt)]
+        [TestCase(Move.Flip, Move.AttackWithAxe)]
+        [TestCase(Move.Flip, Move.MoveForwards)]
+        [TestCase(Move.Flip, Move.MoveBackwards)]
+        [TestCase(Move.Shunt, Move.Flip)]
+        [TestCase(Move.AttackWithAxe, Move.Flip)]
+        [TestCase(Move.MoveForwards, Move.Flip)]
+        [TestCase(Move.MoveBackwards, Move.Flip)]
+
+        public void CheckTheFlippingMoves(Move botAMove, Move botBMove)
+        {
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
+
+            Assert.AreEqual(botAMove == Move.Flip ? 4 : 5, this.FirstBot.Position, "Bot A has an incorrect number of flips remaining");
+            Assert.AreEqual(botBMove == Move.Flip ? 4 : 5, this.LastBot.Position, "Bot B has an incorrect number of flips remaining");
+        }
+
         public MoveManager MoveManager { get; }
         public Arena Arena { get; set; }
 
@@ -48,8 +66,8 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         {
             this.Arena = new Arena(new Bot[] 
             {
-                new Bot { Name = Guid.NewGuid().ToString(), Position = 3, Health = 100 },
-                new Bot { Name = Guid.NewGuid().ToString(), Position = 4, Health = 100 }
+                new Bot { Name = Guid.NewGuid().ToString(), Position = 3, Health = 100, NumberOfFlipsRemaining = 5 },
+                new Bot { Name = Guid.NewGuid().ToString(), Position = 4, Health = 100, NumberOfFlipsRemaining = 5 }
             });            
         }
     }
