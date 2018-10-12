@@ -12,7 +12,7 @@ namespace BattleOfTheBots.State
 
         public int NumberOfSquares { get; set; }
 
-        public Arena(int numberOfSquares = 9)
+        public Arena(IEnumerable<Bot> bots, int numberOfSquares = 9)
         {
             this.NumberOfSquares = numberOfSquares;
         }

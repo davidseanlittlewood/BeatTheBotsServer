@@ -11,7 +11,7 @@ namespace BattleOfTheBots.Logic
         Invalid = 0,
         Flip,
         Shunt,
-        AttakWithAxe,
+        AttackWithAxe,
         MoveForwards,
         MoveBackwards
     }
