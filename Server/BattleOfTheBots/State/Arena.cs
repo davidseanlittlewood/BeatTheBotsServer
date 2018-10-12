@@ -10,11 +10,13 @@ namespace BattleOfTheBots.State
     {
         public IEnumerable<Bot> Bots { get; set; }
 
-        public int NumberOfSquares { get; set; }
+        public int NumberOfSquares { get; }
+        public int AxeDamage { get; }
 
-        public Arena(IEnumerable<Bot> bots, int numberOfSquares = 9)
+        public Arena(IEnumerable<Bot> bots, int numberOfSquares = 9, int axeDamage = 10)
         {
             this.NumberOfSquares = numberOfSquares;
+            this.AxeDamage = axeDamage;
         }
     }
 }

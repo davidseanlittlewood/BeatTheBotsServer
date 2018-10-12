@@ -17,12 +17,16 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         [TestCase(Move.MoveBackwards, Move.MoveBackwards, 2, 5, TestName = "Both move backwards")]
         [TestCase(Move.MoveForwards, Move.MoveBackwards, 4, 5, TestName = "A moves forwards, B moves backwards")]
         [TestCase(Move.MoveBackwards, Move.MoveForwards, 2, 3, TestName = "A moves backwards, B moves forwards")]
-        public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition)
+        [TestCase(Move.AttackWithAxe, Move.MoveForwards, 3, 4, 100, 90, TestName = "A attacks with an axe while B moves forwards")]
+        public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition, int botAExpectedHealth = 100, int botBExpectedHealth = 100)
         {
             this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
 
-            Assert.AreEqual(botAExpectedPosition, this.FirstBot.Position);
-            Assert.AreEqual(botBExpectedPosition, this.LastBot.Position);
+            Assert.AreEqual(botAExpectedPosition, this.FirstBot.Position, "Bot A was in an incorrect position");
+            Assert.AreEqual(botBExpectedPosition, this.LastBot.Position, "Bot B was in an incorrect position");
+
+            Assert.AreEqual(botAExpectedHealth, this.FirstBot.Health, "Bot A has an incorrect health");
+            Assert.AreEqual(botBExpectedHealth, this.LastBot.Health, "Bot B has an incorrect health");
         }
 
         public MoveManager MoveManager { get; }
@@ -35,7 +39,11 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         [SetUp]
         public void RestoreArena()
         {
-            this.Arena = new Arena(new Bot[] { new Bot { Name = Guid.NewGuid().ToString(), Position = 3 }, new Bot { Name = Guid.NewGuid().ToString(), Position = 4 } });
+            this.Arena = new Arena(new Bot[] 
+            {
+                new Bot { Name = Guid.NewGuid().ToString(), Position = 3, Health = 100 },
+                new Bot { Name = Guid.NewGuid().ToString(), Position = 4, Health = 100 }
+            });            
         }
     }
 }
