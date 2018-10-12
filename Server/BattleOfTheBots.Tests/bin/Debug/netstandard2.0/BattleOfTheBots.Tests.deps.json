@@ -9,6 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "BattleOfTheBots.Tests/1.0.0": {
         "dependencies": {
+          "BattleOfTheBots": "1.0.0",
           "NETStandard.Library": "2.0.0",
           "NUnit": "3.11.0"
         },
@@ -28,6 +29,11 @@
         },
         "runtime": {
           "lib/netstandard2.0/nunit.framework.dll": {}
+        }
+      },
+      "BattleOfTheBots/1.0.0": {
+        "runtime": {
+          "BattleOfTheBots.exe": {}
         }
       }
     }
@@ -58,6 +64,11 @@
       "sha512": "sha512-zecrYxUA5p5w8AZ2bvbBbiUIcrQnZAVPrziNMSWMdcOi0D2Oe7yKUNivWPIQMcUwQDHmWtS/ijnD48ubU/eHZQ==",
       "path": "nunit/3.11.0",
       "hashPath": "nunit.3.11.0.nupkg.sha512"
+    },
+    "BattleOfTheBots/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

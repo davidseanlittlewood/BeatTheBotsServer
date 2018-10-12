@@ -40,6 +40,15 @@
         "build": {
           "build/NUnit.props": {}
         }
+      },
+      "BattleOfTheBots/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/BattleOfTheBots.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BattleOfTheBots.dll": {}
+        }
       }
     }
   },
@@ -217,10 +226,16 @@
         "nunit.3.11.0.nupkg.sha512",
         "nunit.nuspec"
       ]
+    },
+    "BattleOfTheBots/1.0.0": {
+      "type": "project",
+      "path": "../BattleOfTheBots/BattleOfTheBots.csproj",
+      "msbuildProject": "../BattleOfTheBots/BattleOfTheBots.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "BattleOfTheBots >= 1.0.0",
       "NETStandard.Library >= 2.0.0",
       "NUnit >= 3.11.0"
     ]
@@ -257,7 +272,11 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\adamgr\\Documents\\GitHub\\BeatTheBotsServer\\Server\\BattleOfTheBots\\BattleOfTheBots.csproj": {
+              "projectPath": "C:\\Users\\adamgr\\Documents\\GitHub\\BeatTheBotsServer\\Server\\BattleOfTheBots\\BattleOfTheBots.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

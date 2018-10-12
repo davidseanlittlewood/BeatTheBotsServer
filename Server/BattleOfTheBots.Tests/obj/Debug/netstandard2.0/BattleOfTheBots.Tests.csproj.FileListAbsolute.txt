@@ -7,3 +7,6 @@ C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots.Tests\
 C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots.Tests\bin\Debug\netstandard2.0\BattleOfTheBots.Tests.pdb
 C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots.Tests\obj\Debug\netstandard2.0\BattleOfTheBots.Tests.dll
 C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots.Tests\obj\Debug\netstandard2.0\BattleOfTheBots.Tests.pdb
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots.Tests\bin\Debug\netstandard2.0\BattleOfTheBots.exe
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots.Tests\bin\Debug\netstandard2.0\BattleOfTheBots.pdb
+C:\Users\adamgr\Documents\GitHub\BeatTheBotsServer\Server\BattleOfTheBots.Tests\bin\Debug\netstandard2.0\BattleOfTheBots.exe.config
