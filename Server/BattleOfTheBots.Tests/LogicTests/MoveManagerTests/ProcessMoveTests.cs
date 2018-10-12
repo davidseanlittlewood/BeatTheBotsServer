@@ -13,13 +13,13 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             this.MoveManager = new MoveManager();
         }
 
-        [Test]
-        public void CheckMove()
+        [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 4)]
+        public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition)
         {
-            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, Move.MoveForwards), new BotMove(this.LastBot, Move.MoveForwards));
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
 
-            Assert.AreEqual(3, this.FirstBot.Position);
-            Assert.AreEqual(4, this.LastBot.Position);
+            Assert.AreEqual(botAExpectedPosition, this.FirstBot.Position);
+            Assert.AreEqual(botBExpectedPosition, this.LastBot.Position);
         }
 
         public MoveManager MoveManager { get; }
