@@ -13,7 +13,10 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             this.MoveManager = new MoveManager();
         }
 
-        [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 4)]
+        [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 4, TestName = "Both move forwards")]
+        [TestCase(Move.MoveBackwards, Move.MoveBackwards, 2, 5, TestName = "Both move backwards")]
+        [TestCase(Move.MoveForwards, Move.MoveBackwards, 4, 5, TestName = "A moves forwards, B moves backwards")]
+        [TestCase(Move.MoveBackwards, Move.MoveForwards, 2, 3, TestName = "A moves backwards, B moves forwards")]
         public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition)
         {
             this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
