@@ -25,7 +25,16 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         [TestCase(Move.Shunt, Move.MoveBackwards, 4, 5, 100, 100, TestName = "When Bot A shunts and Bot B moves backwards then both bots will move to the right and no damage is taken")]
         [TestCase(Move.MoveBackwards, Move.Shunt, 2, 3, 100, 100, TestName = "When Bot A moves backwards and Bot B shunts then both will move to the left but no damage is taken")]
         [TestCase(Move.Shunt, Move.Shunt, 3, 4, 95, 95, TestName = "When both Bots shunt then neither will move but both will take damage")]
-        public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition, int botAExpectedHealth = 100, int botBExpectedHealth = 100)
+        [TestCase(Move.Flip, Move.Flip, 3, 4, 100, 100, true, true, TestName = "When both bots flip then both bots will be turned upside down")]
+        [TestCase(Move.Flip, Move.Shunt, 3, 5, 100, 95, false, true, TestName = "When bot A flips and bot B shunts then bot B will be damanged, turned upside down, and moved right a space")]
+        [TestCase(Move.Flip, Move.AttackWithAxe, 3, 4, 90, 100, false, true, TestName = "When bot A flips and bot B attacks with an axe then bot A will be damaged but bot B will be flipped")]
+        [TestCase(Move.Flip, Move.MoveForwards, 3, 4, 100, 100, false, true, TestName = "When bot A flips and bot B moves forward then bot A will be unaffected but bot B will be flipped")]
+        [TestCase(Move.Flip, Move.MoveBackwards, 3, 5, 100, 100, false, false, TestName = "When bot A flips and bot B moves backwards then B will move to the right")]
+        [TestCase(Move.Shunt, Move.Flip, 2, 5, 95, 100, true, false, TestName = "When bot A shunts and bot B flips then B will be unaffected but A will be damaged, flipped, and moved to the left")]
+        [TestCase(Move.AttackWithAxe, Move.Flip, 3, 4, 100, 90, true, false, TestName = "When bot A attacks with an axe and bot B flips then A will be flipped but B will be damaged")]
+        [TestCase(Move.MoveForwards, Move.Flip, 3, 4, 100, 100, true, false, TestName = "When bot A moves forward and bot B flips then bot B will be turned over")]
+        [TestCase(Move.MoveBackwards, Move.Flip, 2, 4, 100, 100, false, false, TestName ="When bot A moves backward and bot B flips then bot A will move left")]
+        public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition, int botAExpectedHealth = 100, int botBExpectedHealth = 100, bool expectedFlipAStatus = false, bool expectedFlipBStatus = false)
         {
             this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
 
@@ -34,25 +43,12 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
 
             Assert.AreEqual(botAExpectedHealth, this.FirstBot.Health, "Bot A has an incorrect health");
             Assert.AreEqual(botBExpectedHealth, this.LastBot.Health, "Bot B has an incorrect health");
+
+            Assert.AreEqual(expectedFlipAStatus, this.FirstBot.IsFlipped, "Bot A is incorrectly flipped");
+            Assert.AreEqual(expectedFlipBStatus, this.LastBot.IsFlipped, "Bot B is incorrectly flipped");
         }
 
-        [TestCase(Move.Flip, Move.Flip)]
-        [TestCase(Move.Flip, Move.Shunt)]
-        [TestCase(Move.Flip, Move.AttackWithAxe)]
-        [TestCase(Move.Flip, Move.MoveForwards)]
-        [TestCase(Move.Flip, Move.MoveBackwards)]
-        [TestCase(Move.Shunt, Move.Flip)]
-        [TestCase(Move.AttackWithAxe, Move.Flip)]
-        [TestCase(Move.MoveForwards, Move.Flip)]
-        [TestCase(Move.MoveBackwards, Move.Flip)]
-
-        public void CheckTheFlippingMoves(Move botAMove, Move botBMove)
-        {
-            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
-
-            Assert.AreEqual(botAMove == Move.Flip ? 4 : 5, this.FirstBot.Position, "Bot A has an incorrect number of flips remaining");
-            Assert.AreEqual(botBMove == Move.Flip ? 4 : 5, this.LastBot.Position, "Bot B has an incorrect number of flips remaining");
-        }
+        
 
         public MoveManager MoveManager { get; }
         public Arena Arena { get; set; }

@@ -8,5 +8,11 @@
         public int Health { get; set; }
 
         public int NumberOfFlipsRemaining { get; set; }
+        public bool IsFlipped { get; set; }
+
+        public Bot()
+        {
+            this.IsFlipped = false;
+        }
     }
 }
