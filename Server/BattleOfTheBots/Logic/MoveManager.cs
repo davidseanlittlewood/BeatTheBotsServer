@@ -10,38 +10,13 @@ namespace BattleOfTheBots.Logic
     public class MoveManager
     {        
         public void ProcessMove(Arena arena, BotMove botA, BotMove botB)
-        {
-            ProcessShunts(arena, botA, botB);
-            MoveBots(arena, botA, botB);
+        {            
+            MoveAndShunt(arena, botA, botB);
             ProcessAxeDamage(arena, botA, botB);
             ProcessFlips(arena, botA, botB);            
             CheckForVictory(arena, botA, botB);
         }
-
-        private void ProcessShunts(Arena arena, BotMove botA, BotMove botB)
-        {
-            if (botA.Move == Move.Shunt)
-            {
-                // Let's get the obvious one out of the way first - both are shunting with no space
-                if (botB.Move == Move.Shunt)
-                {
-                    if (this.AreSideBySide(botA, botB))
-                    {
-                        botA.Bot.Health -= arena.ShuntDamage; // no movement, no damage
-                        botB.Bot.Health -= arena.ShuntDamage;
-                    }
-                    else if (botA.Bot.Position + 1 == botB.Bot.Position) // both shunting with a space between
-                    {
-                        botA.Bot.Health -= arena.ShuntDamage; // no movement, no damage
-                        botB.Bot.Health -= arena.ShuntDamage;
-                    }
-                }
-                else // A is shunting B is not
-                {
-
-                }
-            }
-        }
+       
 
         private void ProcessFlips(Arena arena, BotMove botA, BotMove botB)
         {
@@ -49,22 +24,23 @@ namespace BattleOfTheBots.Logic
             {
                 if (botA.Move == Move.Flip)
                 {
-                    botA.Bot.NumberOfFlipsRemaining--;
-                    botB.Bot.IsFlipped = true;
+                    TheBotIsFlippedOntoItsBack(botA, botB);
+                    
                     if(botB.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
-                        botB.Bot.Position++;
-                        botB.Bot.Health -= arena.ShuntDamage;
+                        TheBotMovesRight(botB);
+                        TheBotTakesDamage(botB, arena.ShuntDamage);
                     }
                 }
                 if (botB.Move == Move.Flip)
                 {
+                    TheBotIsFlippedOntoItsBack(botB, botA);
                     botA.Bot.IsFlipped = true;
                     botB.Bot.NumberOfFlipsRemaining--;
                     if (botA.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
-                        botA.Bot.Position++;
-                        botA.Bot.Health -= arena.ShuntDamage;
+                        TheBotMovesRight(botA);
+                        TheBotTakesDamage(botA, arena.ShuntDamage);
                     }
                 }
             }
@@ -72,13 +48,11 @@ namespace BattleOfTheBots.Logic
             // flip yourself back over
             if (botA.Move == Move.Flip && botA.Bot.IsFlipped)
             {
-                botA.Bot.NumberOfFlipsRemaining--;
-                botB.Bot.IsFlipped = true;
+                TheBotIsFlippedOntoItsWheels(botA);
             }
             if (botB.Move == Move.Flip && botB.Bot.IsFlipped)
             {
-                botA.Bot.IsFlipped = true;
-                botB.Bot.NumberOfFlipsRemaining--;
+                TheBotIsFlippedOntoItsWheels(botB);
             }
         }
 
@@ -86,8 +60,8 @@ namespace BattleOfTheBots.Logic
         {
             if(AreSideBySide(botA, botB)) // only deal damage if they're side by side
             {
-                if (botA.Move == Move.AttackWithAxe) botB.Bot.Health -= arena.AxeDamage;
-                if (botB.Move == Move.AttackWithAxe) botA.Bot.Health -= arena.AxeDamage;
+                TheBotTakesDamage(botA, arena.AxeDamage);
+                TheBotTakesDamage(botB, arena.AxeDamage);
             }
         }
 
@@ -105,7 +79,7 @@ namespace BattleOfTheBots.Logic
             if (botB.Bot.Health <= 0) arena.Winner = botA.Bot;
         }
 
-        private void MoveBots(Arena arena, BotMove botA, BotMove botB)
+        private void MoveAndShunt(Arena arena, BotMove botA, BotMove botB)
         {
             if(botA.Move == Move.MoveForwards)
             {
@@ -113,16 +87,19 @@ namespace BattleOfTheBots.Logic
                 if(botB.Bot.Position == botA.Bot.Position + 1 && botB.Move != Move.MoveBackwards) // Bot B is in front and not moving back
                 {
                     // Bot A can't move because Bot B is in the way
+                    NothingHappens(botA);
+                    NothingHappens(botB);
                 }
 
                 if(botB.Bot.Position == botA.Bot.Position + 2 && botB.Move == Move.MoveForwards) // Bot B is a space away but both want to move into the same space
                 {
-                    return; // abort - neither can move!
+                    NothingHappens(botA);
+                    NothingHappens(botB);
                 }
             }
             else if(botA.Move == Move.MoveBackwards) // you can always move backwards (although sometimes it may not be a great idea)
             {
-                botA.Bot.Position--;
+                TheBotMovesLeft(botA);
             }
 
             if (botB.Move == Move.MoveForwards)
@@ -135,8 +112,40 @@ namespace BattleOfTheBots.Logic
             }
             else if (botB.Move == Move.MoveBackwards) // you can always move backwards (although sometimes it may not be a great idea)
             {
-                botB.Bot.Position++;
+                TheBotMovesRight(botB);
             }
+        }
+
+
+        private void NothingHappens(BotMove bot)
+        {
+        }
+
+        private void TheBotIsFlippedOntoItsBack(BotMove flipper, BotMove flipee)
+        {
+            flipper.Bot.NumberOfFlipsRemaining--;
+            flipee.Bot.IsFlipped = true;
+        }
+
+        private void TheBotIsFlippedOntoItsWheels(BotMove bot)
+        {
+            bot.Bot.NumberOfFlipsRemaining--;
+            bot.Bot.IsFlipped = false;
+        }
+
+        private void TheBotTakesDamage(BotMove bot, int amountOfDamage)
+        {
+            bot.Bot.Health -= amountOfDamage;
+        }
+
+        private void TheBotMovesLeft(BotMove bot)
+        {
+            bot.Bot.Position--;
+        }
+
+        private void TheBotMovesRight(BotMove bot)
+        {
+            bot.Bot.Position++;
         }
     }
 }
