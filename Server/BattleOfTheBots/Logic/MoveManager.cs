@@ -25,11 +25,21 @@ namespace BattleOfTheBots.Logic
                 {
                     botA.Bot.NumberOfFlipsRemaining--;
                     botB.Bot.IsFlipped = true;
+                    if(botB.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
+                    {
+                        botB.Bot.Position++;
+                        botB.Bot.Health -= arena.ShuntDamage;
+                    }
                 }
                 if (botB.Move == Move.Flip)
                 {
                     botA.Bot.IsFlipped = true;
                     botB.Bot.NumberOfFlipsRemaining--;
+                    if (botA.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
+                    {
+                        botA.Bot.Position++;
+                        botA.Bot.Health -= arena.ShuntDamage;
+                    }
                 }
             }
 
