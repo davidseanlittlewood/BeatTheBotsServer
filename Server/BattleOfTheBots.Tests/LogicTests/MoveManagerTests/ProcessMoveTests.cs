@@ -52,7 +52,34 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.AreEqual(expectedFlipBStatus, this.LastBot.IsFlipped, "Bot B is incorrectly flipped");
         }
 
-        
+                
+        [TestCase(TestName = "Verifies that nothing happens when the two bots are not in contact")]
+        public void CheckThatNothingHappens()
+        {            
+            for (int botAPosition = 0; botAPosition <= this.Arena.NumberOfSquares - 2; botAPosition++)
+            {
+                int botBPosition = botAPosition + 2;
+                var allValues = Enum.GetValues(typeof(Move));
+
+                foreach (Move botAMove in allValues)
+                {
+                    foreach (Move botBMove in allValues)
+                    {
+                        FirstBot.Position = botAPosition;
+                        LastBot.Position = botBPosition;
+
+                        this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, botAMove), new BotMove(LastBot, botBMove));
+
+                        var status = $"BotA: {botAPosition}/{botAMove} and BotB: {botBPosition}/{botBMove}";
+                        Assert.AreEqual(100, this.FirstBot.Health, $"The first bot was damaged {status}");
+                        Assert.AreEqual(100, this.LastBot.Health, $"The second bot was damaged {status}");
+                    }
+                }
+            }
+        }
+
+
+
 
         public MoveManager MoveManager { get; }
         public Arena Arena { get; set; }
