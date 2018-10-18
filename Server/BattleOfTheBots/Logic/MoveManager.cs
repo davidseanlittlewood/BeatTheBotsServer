@@ -12,6 +12,18 @@ namespace BattleOfTheBots.Logic
         public void ProcessMove(Arena arena, BotMove botA, BotMove botB)
         {
             MoveBots(arena, botA, botB);
+
+
+            CheckForVictory(arena, botA, botB);
+        }
+
+        private void CheckForVictory(Arena arena, BotMove botA, BotMove botB)
+        {
+            if (botA.Bot.Position < 0) arena.Winner = botB.Bot;
+            if (botB.Bot.Position >= arena.NumberOfSquares) arena.Winner = botA.Bot;
+
+            if (botA.Bot.Health <= 0) arena.Winner = botB.Bot;
+            if (botB.Bot.Health <= 0) arena.Winner = botA.Bot;
         }
 
         private void MoveBots(Arena arena, BotMove botA, BotMove botB)
@@ -31,7 +43,7 @@ namespace BattleOfTheBots.Logic
             }
             else if(botA.Move == Move.MoveBackwards) // you can always move backwards (although sometimes it may not be a great idea)
             {
-                botA.Bot.Position++;
+                botA.Bot.Position--;
             }
 
             if (botB.Move == Move.MoveForwards)
@@ -44,7 +56,7 @@ namespace BattleOfTheBots.Logic
             }
             else if (botB.Move == Move.MoveBackwards) // you can always move backwards (although sometimes it may not be a great idea)
             {
-                botB.Bot.Position--;
+                botB.Bot.Position++;
             }
         }
     }
