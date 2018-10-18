@@ -13,8 +13,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             this.MoveManager = new MoveManager();
         }
 
-        [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 4, TestName = "When both Bots move forward then neither will move")]
-        [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 5, TestName = "When both Bots move forward with a space between them then neither will move")]
+        [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 4, TestName = "When both Bots move forward then neither will move")]        
         [TestCase(Move.MoveBackwards, Move.MoveBackwards, 2, 5, TestName = "When both Bots move backwards then both will move back a space")]
         [TestCase(Move.MoveForwards, Move.MoveBackwards, 4, 5, TestName = "When Bot A moves forwards and B moves backwards then both will move to the right")]
         [TestCase(Move.MoveBackwards, Move.MoveForwards, 2, 3, TestName = "When Bot A moves backwards and B moves forwards then both will move to the left")]
@@ -55,6 +54,23 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.IsNull(this.Arena.Winner);
         }
 
+        [TestCase(TestName = "When both Bots move forward with a space between them then neither will move")]
+        public void CheckMoveOverCompetingSpace()
+        {
+            this.FirstBot.Position = 3;
+            this.LastBot.Position = 5;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, Move.MoveForwards), new BotMove(this.LastBot, Move.MoveForwards));
+
+            Assert.AreEqual(3, this.FirstBot.Position, "Bot A was in an incorrect position");
+            Assert.AreEqual(5, this.LastBot.Position, "Bot B was in an incorrect position");
+
+            Assert.AreEqual(100, this.FirstBot.Health, "Bot A has an incorrect health");
+            Assert.AreEqual(100, this.LastBot.Health, "Bot B has an incorrect health");
+
+            Assert.IsFalse(this.FirstBot.IsFlipped, "Bot A is incorrectly flipped");
+            Assert.IsFalse(this.LastBot.IsFlipped, "Bot B is incorrectly flipped");
+            Assert.IsNull(this.Arena.Winner);
+        }
 
         [TestCase(TestName = "Verifies that nothing happens when the two bots are not in contact")]
         public void CheckThatNothingHappens()
