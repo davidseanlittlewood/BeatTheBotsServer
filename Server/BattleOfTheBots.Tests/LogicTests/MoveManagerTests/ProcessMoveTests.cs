@@ -14,6 +14,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         }
 
         [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 4, TestName = "When both Bots move forward then neither will move")]
+        [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 5, TestName = "When both Bots move forward with a space between them then neither will move")]
         [TestCase(Move.MoveBackwards, Move.MoveBackwards, 2, 5, TestName = "When both Bots move backwards then both will move back a space")]
         [TestCase(Move.MoveForwards, Move.MoveBackwards, 4, 5, TestName = "When Bot A moves forwards and B moves backwards then both will move to the right")]
         [TestCase(Move.MoveBackwards, Move.MoveForwards, 2, 3, TestName = "When Bot A moves backwards and B moves forwards then both will move to the left")]
@@ -29,6 +30,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         [TestCase(Move.Shunt, Move.MoveBackwards, 4, 5, 100, 100, TestName = "When Bot A shunts and Bot B moves backwards then both Bots will move to the right and no damage is taken")]
         [TestCase(Move.MoveBackwards, Move.Shunt, 2, 3, 100, 100, TestName = "When Bot A moves backwards and Bot B shunts then both will move to the left but no damage is taken")]
         [TestCase(Move.Shunt, Move.Shunt, 3, 4, 95, 95, TestName = "When both Bots shunt then neither will move but both will take damage")]
+        [TestCase(Move.Shunt, Move.Shunt, 3, 5, 95, 95, TestName = "When both Bots shunt with a space between them then neither will move but both will take damage")]
         [TestCase(Move.Flip, Move.Flip, 3, 4, 100, 100, true, true, TestName = "When both Bots flip then both Bots will be turned upside down")]
         [TestCase(Move.Flip, Move.Shunt, 3, 5, 100, 95, false, true, TestName = "When Bot A flips and Bot B shunts then Bot B will be damanged, turned upside down, and moved right a space")]
         [TestCase(Move.Flip, Move.AttackWithAxe, 3, 4, 90, 100, false, true, TestName = "When Bot A flips and Bot B attacks with an axe then Bot A will be damaged but Bot B will be flipped")]
