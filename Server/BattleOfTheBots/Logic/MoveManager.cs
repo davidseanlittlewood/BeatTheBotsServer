@@ -27,15 +27,18 @@ namespace BattleOfTheBots.Logic
                 {
                     if (this.AreSideBySide(botA, botB))
                     {
-                        {
-                            botA.Bot.Health -= arena.ShuntDamage;
-                            botB.Bot.Health -= arena.ShuntDamage;
-                        }
+                        botA.Bot.Health -= arena.ShuntDamage; // no movement, no damage
+                        botB.Bot.Health -= arena.ShuntDamage;
                     }
                     else if (botA.Bot.Position + 1 == botB.Bot.Position) // both shunting with a space between
                     {
-                        throw new NotImplementedException();
+                        botA.Bot.Health -= arena.ShuntDamage; // no movement, no damage
+                        botB.Bot.Health -= arena.ShuntDamage;
                     }
+                }
+                else // A is shunting B is not
+                {
+
                 }
             }
         }
