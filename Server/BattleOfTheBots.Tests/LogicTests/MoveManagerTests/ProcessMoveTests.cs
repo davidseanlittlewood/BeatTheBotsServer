@@ -90,6 +90,8 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             var expectedWinner = winnerIsBotA ? this.FirstBot : this.LastBot;
             this.FirstBot.Position = botAPosition;
             this.LastBot.Position = botBPosition;
+            this.FirstBot.Health = botAHealth;
+            this.LastBot.Health = botBHealth;
 
             this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
 
