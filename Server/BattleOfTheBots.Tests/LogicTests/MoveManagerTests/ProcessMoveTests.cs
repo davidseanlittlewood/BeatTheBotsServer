@@ -28,8 +28,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         [TestCase(Move.MoveForwards, Move.Shunt, 2, 3, 100, 95, TestName = "When Bot A moves forward and Bot B shunts then Bot A will be pushed left, Bot B will take damage and move left")]
         [TestCase(Move.Shunt, Move.MoveBackwards, 4, 5, 100, 100, TestName = "When Bot A shunts and Bot B moves backwards then both Bots will move to the right and no damage is taken")]
         [TestCase(Move.MoveBackwards, Move.Shunt, 2, 3, 100, 100, TestName = "When Bot A moves backwards and Bot B shunts then both will move to the left but no damage is taken")]
-        [TestCase(Move.Shunt, Move.Shunt, 3, 4, 95, 95, TestName = "When both Bots shunt then neither will move but both will take damage")]
-        [TestCase(Move.Shunt, Move.Shunt, 3, 5, 95, 95, TestName = "When both Bots shunt with a space between them then neither will move but both will take damage")]
+        [TestCase(Move.Shunt, Move.Shunt, 3, 4, 95, 95, TestName = "When both Bots shunt then neither will move but both will take damage")]        
         [TestCase(Move.Flip, Move.Flip, 3, 4, 100, 100, true, true, TestName = "When both Bots flip then both Bots will be turned upside down")]
         [TestCase(Move.Flip, Move.Shunt, 3, 5, 100, 95, false, true, TestName = "When Bot A flips and Bot B shunts then Bot B will be damanged, turned upside down, and moved right a space")]
         [TestCase(Move.Flip, Move.AttackWithAxe, 3, 4, 90, 100, false, true, TestName = "When Bot A flips and Bot B attacks with an axe then Bot A will be damaged but Bot B will be flipped")]
@@ -54,18 +53,19 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.IsNull(this.Arena.Winner);
         }
 
-        [TestCase(TestName = "When both Bots move forward with a space between them then neither will move")]
-        public void CheckMoveOverCompetingSpace()
+        [TestCase(Move.Shunt, 100, TestName = "When both Bots move forward with a space between them then neither will move")]
+        [TestCase(Move.Shunt, 95, TestName = "When both Bots shunt with a space between them then neither will move but both will take damage")]
+        public void CheckMoveOverCompetingSpace(Move botMove, int expectedHealth)
         {
             this.FirstBot.Position = 3;
             this.LastBot.Position = 5;
-            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, Move.MoveForwards), new BotMove(this.LastBot, Move.MoveForwards));
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botMove), new BotMove(this.LastBot, botMove));
 
             Assert.AreEqual(3, this.FirstBot.Position, "Bot A was in an incorrect position");
             Assert.AreEqual(5, this.LastBot.Position, "Bot B was in an incorrect position");
 
-            Assert.AreEqual(100, this.FirstBot.Health, "Bot A has an incorrect health");
-            Assert.AreEqual(100, this.LastBot.Health, "Bot B has an incorrect health");
+            Assert.AreEqual(expectedHealth, this.FirstBot.Health, "Bot A has an incorrect health");
+            Assert.AreEqual(expectedHealth, this.LastBot.Health, "Bot B has an incorrect health");
 
             Assert.IsFalse(this.FirstBot.IsFlipped, "Bot A is incorrectly flipped");
             Assert.IsFalse(this.LastBot.IsFlipped, "Bot B is incorrectly flipped");
