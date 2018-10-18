@@ -11,10 +11,33 @@ namespace BattleOfTheBots.Logic
     {        
         public void ProcessMove(Arena arena, BotMove botA, BotMove botB)
         {
+            ProcessShunts(arena, botA, botB);
             MoveBots(arena, botA, botB);
             ProcessAxeDamage(arena, botA, botB);
-            ProcessFlips(arena, botA, botB);
+            ProcessFlips(arena, botA, botB);            
             CheckForVictory(arena, botA, botB);
+        }
+
+        private void ProcessShunts(Arena arena, BotMove botA, BotMove botB)
+        {
+            if (botA.Move == Move.Shunt)
+            {
+                // Let's get the obvious one out of the way first - both are shunting with no space
+                if (botB.Move == Move.Shunt)
+                {
+                    if (this.AreSideBySide(botA, botB))
+                    {
+                        {
+                            botA.Bot.Health -= arena.ShuntDamage;
+                            botB.Bot.Health -= arena.ShuntDamage;
+                        }
+                    }
+                    else if (botA.Bot.Position + 1 == botB.Bot.Position) // both shunting with a space between
+                    {
+                        throw new NotImplementedException();
+                    }
+                }
+            }
         }
 
         private void ProcessFlips(Arena arena, BotMove botA, BotMove botB)
