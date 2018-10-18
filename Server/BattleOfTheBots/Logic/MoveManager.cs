@@ -12,9 +12,52 @@ namespace BattleOfTheBots.Logic
         public void ProcessMove(Arena arena, BotMove botA, BotMove botB)
         {
             MoveBots(arena, botA, botB);
-
-
+            ProcessAxeDamage(arena, botA, botB);
+            ProcessFlips(arena, botA, botB);
             CheckForVictory(arena, botA, botB);
+        }
+
+        private void ProcessFlips(Arena arena, BotMove botA, BotMove botB)
+        {
+            if (AreSideBySide(botA, botB)) // you can only flip if they're side by side
+            {
+                if (botA.Move == Move.Flip)
+                {
+                    botA.Bot.NumberOfFlipsRemaining--;
+                    botB.Bot.IsFlipped = true;
+                }
+                if (botB.Move == Move.Flip)
+                {
+                    botA.Bot.IsFlipped = true;
+                    botB.Bot.NumberOfFlipsRemaining--;
+                }
+            }
+
+            // flip yourself back over
+            if (botA.Move == Move.Flip && botA.Bot.IsFlipped)
+            {
+                botA.Bot.NumberOfFlipsRemaining--;
+                botB.Bot.IsFlipped = true;
+            }
+            if (botB.Move == Move.Flip && botB.Bot.IsFlipped)
+            {
+                botA.Bot.IsFlipped = true;
+                botB.Bot.NumberOfFlipsRemaining--;
+            }
+        }
+
+        private void ProcessAxeDamage(Arena arena, BotMove botA, BotMove botB)
+        {
+            if(AreSideBySide(botA, botB)) // only deal damage if they're side by side
+            {
+                if (botA.Move == Move.AttackWithAxe) botB.Bot.Health -= arena.AxeDamage;
+                if (botB.Move == Move.AttackWithAxe) botA.Bot.Health -= arena.AxeDamage;
+            }
+        }
+
+        private bool AreSideBySide(BotMove botA, BotMove botB)
+        {
+            return botA.Bot.Position + 1 == botB.Bot.Position;
         }
 
         private void CheckForVictory(Arena arena, BotMove botA, BotMove botB)
