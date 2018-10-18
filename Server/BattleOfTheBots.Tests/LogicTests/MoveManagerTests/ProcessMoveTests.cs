@@ -52,6 +52,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
 
             Assert.AreEqual(expectedFlipAStatus, this.FirstBot.IsFlipped, "Bot A is incorrectly flipped");
             Assert.AreEqual(expectedFlipBStatus, this.LastBot.IsFlipped, "Bot B is incorrectly flipped");
+            Assert.IsNull(this.Arena.Winner);
         }
 
                 
@@ -78,6 +79,21 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
                     }
                 }
             }
+        }
+
+        [TestCase(Move.MoveBackwards, Move.MoveForwards, 0, 4, false, TestName = "When Bots A drives off the edge Bot B wins")]
+        [TestCase(Move.MoveForwards, Move.MoveBackwards, 3, 8, true, TestName = "When Bots B drives off the edge Bot B wins")]
+        [TestCase(Move.AttackWithAxe, Move.MoveForwards, 4, 5, true, 5, 5, TestName = "When Bots A scores crucial damage on Bot B then Bot A wins")]
+        [TestCase(Move.MoveForwards, Move.AttackWithAxe, 4, 5, false, 5, 5, TestName = "When Bots B scores crucial damage on Bot A then Bot B wins")]
+        public void EndGame(Move botAMove, Move botBMove, int botAPosition, int botBPosition, bool winnerIsBotA, int botAHealth = 100, int botBHealth = 100)
+        {
+            var expectedWinner = winnerIsBotA ? this.FirstBot : this.LastBot;
+            this.FirstBot.Position = botAPosition;
+            this.LastBot.Position = botBPosition;
+
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
+
+            Assert.AreEqual(expectedWinner, this.Arena.Winner);
         }
 
 

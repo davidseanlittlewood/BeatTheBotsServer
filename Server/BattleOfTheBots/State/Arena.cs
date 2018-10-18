@@ -8,6 +8,8 @@ namespace BattleOfTheBots.State
 {
     public class Arena
     {
+        public Bot Winner { get; protected set; }
+
         public IEnumerable<Bot> Bots { get; set; }
 
         public int NumberOfSquares { get; }
