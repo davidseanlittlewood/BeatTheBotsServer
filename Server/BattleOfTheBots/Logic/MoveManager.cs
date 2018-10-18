@@ -187,10 +187,37 @@ namespace BattleOfTheBots.Logic
             }
             else // we're not both moving forward - no collision
             {
-                return false;
+                return this.AreSideBySide(botA, botB);
             }            
         }
 
+
+        public void OneBotStealsAnothersSpace(BotMove tortoise, BotMove hair, Direction direction)
+        {
+            if (direction == Direction.Left)
+            {
+                TheBotMovesLeft(hair);
+            }
+            else if (direction == Direction.Right)
+            {
+                TheBotMovesRight(hair);
+            }
+        }
+
+        public void OneBotShuntsAnother(Arena arena, BotMove shunter, BotMove shuntee, Direction direction)
+        {
+            TheBotTakesDamage(shunter, arena.ShuntDamage);
+            if(direction == Direction.Left)
+            {
+                TheBotMovesLeft(shunter);
+                TheBotMovesLeft(shuntee);
+            }
+            else if (direction == Direction.Right)
+            {
+                TheBotMovesRight(shunter);
+                TheBotMovesRight(shuntee);
+            }
+        }
 
 
         private void NothingHappens(BotMove bot)

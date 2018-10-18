@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\BotMove.cs" />
+    <Compile Include="Logic\Direction.cs" />
     <Compile Include="State\Arena.cs" />
     <Compile Include="State\Bot.cs" />
     <Compile Include="Classes\BotClass.cs" />
