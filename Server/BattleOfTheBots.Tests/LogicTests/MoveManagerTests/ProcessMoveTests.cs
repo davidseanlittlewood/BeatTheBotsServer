@@ -39,7 +39,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         [TestCase(Move.Shunt, Move.Flip, 2, 5, 95, 100, true, false, TestName = "When Bot A shunts and Bot B flips then B will be unaffected but A will be damaged, flipped, and moved to the left")]
         [TestCase(Move.AttackWithAxe, Move.Flip, 3, 4, 100, 90, true, false, TestName = "When Bot A attacks with an axe and Bot B flips then A will be flipped but B will be damaged")]
         [TestCase(Move.MoveForwards, Move.Flip, 3, 4, 100, 100, true, false, TestName = "When Bot A moves forward and Bot B flips then Bot B will be turned over")]
-        [TestCase(Move.MoveBackwards, Move.Flip, 2, 4, 100, 100, false, false, TestName ="When Bot A moves backward and bot B flips then bot A will move left")]
+        [TestCase(Move.MoveBackwards, Move.Flip, 2, 4, 100, 100, false, false, TestName = "When Bot A moves backward and bot B flips then bot A will move left")]
         public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition, int botAExpectedHealth = 100, int botBExpectedHealth = 100, bool expectedFlipAStatus = false, bool expectedFlipBStatus = false)
         {
             this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, botAMove), new BotMove(this.LastBot, botBMove));
@@ -55,7 +55,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.IsNull(this.Arena.Winner);
         }
 
-                
+
         [TestCase(TestName = "Verifies that nothing happens when the two bots are not in contact")]
         public void CheckThatNothingHappens()
         {            

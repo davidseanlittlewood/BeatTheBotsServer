@@ -18,9 +18,10 @@ namespace BattleOfTheBots.State
 
         public Arena(IEnumerable<Bot> bots, int numberOfSquares = 9, int axeDamage = 10, int shuntDamage = 5)
         {
+            this.Bots = bots;
             this.NumberOfSquares = numberOfSquares;
             this.AxeDamage = axeDamage;
-            this.ShuntDamage = shuntDamage;
+            this.ShuntDamage = shuntDamage;            
         }
     }
 }
