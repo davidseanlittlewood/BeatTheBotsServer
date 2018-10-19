@@ -27,7 +27,65 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
                 FirstBot.Position = botAPosition;
                 LastBot.Position = botBPosition;
 
-                Assert.IsTrue(this.MoveManager.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)));
+                Assert.IsTrue(this.MoveManager.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)), $"When BotA is at {botAPosition} and BotB is at {botBPosition} they are not reported as consecutive spaces");
+
+                var botBRange = Enumerable.Range(botBPosition + 1, this.Arena.NumberOfSquares - botBPosition - 1);
+                foreach(var botBNotInContactPosition in botBRange)
+                {                    
+                    LastBot.Position = botBNotInContactPosition;
+
+                    Assert.IsFalse(this.MoveManager.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)), $"When BotA is at {botAPosition} and BotB is at {botBNotInContactPosition} they are reported as consecutive spaces");
+                }
+            }
+        }
+
+        [Test]
+        public void AreSeperatedByOneSpaceTests()
+        {
+            var botARanges = Enumerable.Range(0, this.Arena.NumberOfSquares - 2); // minus the count/space and minus a space for the other bot
+            foreach (var botAPosition in botARanges)
+            {
+                var botBPosition = botAPosition + 2;
+
+                FirstBot.Position = botAPosition;
+                LastBot.Position = botBPosition;
+
+                Assert.IsTrue(this.MoveManager.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                    $"When Bot A is at {botAPosition} and Bot B is at {botBPosition} they should show as seperated by a single space");
+
+                var botBRange = Enumerable.Range(botBPosition + 1, this.Arena.NumberOfSquares - botBPosition - 1);
+                foreach (var botBNotInContactPosition in botBRange)
+                {
+                    LastBot.Position = botBNotInContactPosition;
+                    Assert.IsFalse(this.MoveManager.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                    $"When Bot A is at {botAPosition} and Bot B is at {botBPosition} they should not show as seperated by a single space");
+                }
+            }
+        }
+
+
+
+        [Test]
+        public void AreSeperatedByMoreThanOneSpaceTests()
+        {
+            var botARanges = Enumerable.Range(0, this.Arena.NumberOfSquares - 2); // minus the count/space and minus a space for the other bot
+            foreach (var botAPosition in botARanges)
+            {
+                var botBPosition = botAPosition + 3;
+
+                FirstBot.Position = botAPosition;
+                LastBot.Position = botBPosition;
+
+                Assert.IsTrue(this.MoveManager.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                    $"When Bot A is at {botAPosition} and Bot B is at {botBPosition} they should show as seperated by more than a single space");
+
+                var botBRange = Enumerable.Range(botBPosition + 1, this.Arena.NumberOfSquares - botBPosition - 1);
+                foreach (var botBNotInContactPosition in botBRange)
+                {
+                    LastBot.Position = botBNotInContactPosition;
+                    Assert.IsFalse(this.MoveManager.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                    $"When Bot A is at {botAPosition} and Bot B is at {botBPosition} they should not show as seperated by more than a single space");
+                }
             }
         }
 
