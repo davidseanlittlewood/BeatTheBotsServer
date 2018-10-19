@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogicTests\MoveManagerTests\ShuntingStatusChecks.cs" />
     <Compile Include="LogicTests\MoveManagerTests\AdvancingWithdrawingStatusChecks.cs" />
     <Compile Include="LogicTests\MoveManagerTests\AreSeperatedByTests.cs" />
     <Compile Include="LogicTests\MoveManagerTests\CommonTestBase.cs" />

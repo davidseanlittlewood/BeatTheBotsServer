@@ -192,13 +192,13 @@ namespace BattleOfTheBots.Logic
 
         #region Helpers
 
-        private bool EitherBotIsShunting(BotMove botA, BotMove botB)
+        public bool EitherBotIsShunting(BotMove botA, BotMove botB)
         {
             return (botA.Move == Move.Shunt && !botA.Bot.IsFlipped)
                 || (botB.Move == Move.Shunt && !botB.Bot.IsFlipped);
         }
 
-        private bool BothBotsAreShunting(BotMove botA, BotMove botB)
+        public bool BothBotsAreShunting(BotMove botA, BotMove botB)
         {
             return botA.Move == Move.Shunt
                 && botB.Move == Move.Shunt
