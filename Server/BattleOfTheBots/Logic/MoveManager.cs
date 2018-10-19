@@ -20,12 +20,13 @@ namespace BattleOfTheBots.Logic
 
         private void ProcessFlips(Arena arena, BotMove botA, BotMove botB)
         {
+            bool aFlippedThisTurn = false, bFlippedThisTurn = false; // you can't flip yourself back over in the same turn you're flipped
             if (AreSideBySide(botA, botB)) // you can only flip if they're side by side
             {
                 if (botA.Move == Move.Flip)
                 {
                     TheBotIsFlippedOntoItsBack(botA, botB);
-                    
+                    bFlippedThisTurn = true;
                     if(botB.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
                         TheBotMovesRight(botB);
@@ -34,8 +35,7 @@ namespace BattleOfTheBots.Logic
                 if (botB.Move == Move.Flip)
                 {
                     TheBotIsFlippedOntoItsBack(botB, botA);
-                    botA.Bot.IsFlipped = true;
-                    botB.Bot.NumberOfFlipsRemaining--;
+                    aFlippedThisTurn = true;
                     if (botA.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
                         TheBotMovesRight(botA);
@@ -44,11 +44,11 @@ namespace BattleOfTheBots.Logic
             }
 
             // flip yourself back over
-            if (botA.Move == Move.Flip && botA.Bot.IsFlipped)
+            if (botA.Move == Move.Flip && botA.Bot.IsFlipped && !aFlippedThisTurn)
             {
                 TheBotIsFlippedOntoItsWheels(botA);
             }
-            if (botB.Move == Move.Flip && botB.Bot.IsFlipped)
+            if (botB.Move == Move.Flip && botB.Bot.IsFlipped && !bFlippedThisTurn)
             {
                 TheBotIsFlippedOntoItsWheels(botB);
             }
