@@ -265,6 +265,11 @@ namespace BattleOfTheBots.Logic
 
         public void OneBotShuntsAnother(Arena arena, BotMove botA, BotMove botB)
         {
+            const string errorMessage = "This method can only be used when two bots are side by side and one is shunting";
+            if (BothBotsAreShunting(botA, botB)) throw new InvalidOperationException(errorMessage);
+            if (!AreSideBySide(botA, botB)) throw new InvalidOperationException(errorMessage);
+            if (botA.Move != Move.Shunt && botB.Move != Move.Shunt) throw new InvalidOperationException(errorMessage);
+
             BotMove shunter = GetShunter(botA, botB);
             BotMove shuntee = GetShuntee(botA, botB);
 
