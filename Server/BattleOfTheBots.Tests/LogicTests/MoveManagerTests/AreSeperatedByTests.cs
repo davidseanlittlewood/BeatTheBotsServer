@@ -63,6 +63,20 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             }
         }
 
+        [TestCase(0, 1, false)]
+        [TestCase(0, 2, false)]
+        [TestCase(0, 3, true)]
+        [TestCase(0, 4, true)]
+        public void AreSeperatedByMoreThanOneSpaceTests(int botA, int botB, bool expectedResult)
+        {
+            FirstBot.Position = botA;
+            LastBot.Position = botB;
+
+
+            Assert.AreEqual(expectedResult, this.MoveManager.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                    $"When Bot A is at {botA} and Bot B is at {botB} the expected result was {expectedResult}");
+
+        }
 
 
         [Test]
@@ -71,7 +85,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             var botARanges = Enumerable.Range(0, this.Arena.NumberOfSquares - 2); // minus the count/space and minus a space for the other bot
             foreach (var botAPosition in botARanges)
             {
-                var minBotBPosition = botAPosition + 2;
+                var minBotBPosition = botAPosition + 3;
                 var maxBotBPosition = this.Arena.NumberOfSquares - 1;
                 if(minBotBPosition > maxBotBPosition)
                 {

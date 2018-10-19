@@ -198,7 +198,7 @@ namespace BattleOfTheBots.Logic
 
         public bool AreSeperatedByMoreThanOneSpace(BotMove botA, BotMove botB)
         {
-            return botA.Bot.Position + 1 < botB.Bot.Position;
+            return botB.Bot.Position - botA.Bot.Position > 2;
         }
 
         #endregion

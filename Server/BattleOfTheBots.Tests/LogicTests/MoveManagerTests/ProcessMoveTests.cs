@@ -54,7 +54,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         }
 
         [TestCase(Move.MoveForwards, 100, TestName = "When both Bots move forward with a space between them then neither will move")]
-        [TestCase(Move.Shunt, 100, TestName = "When both Bots shunt with a space between them then neither will move and neitherwill take damage")]
+        [TestCase(Move.Shunt, 100, TestName = "When both Bots shunt with a space between them then neither will move and neither will take damage")]
         public void CheckMoveOverCompetingSpace(Move botMove, int expectedHealth)
         {
             this.FirstBot.Position = 3;
