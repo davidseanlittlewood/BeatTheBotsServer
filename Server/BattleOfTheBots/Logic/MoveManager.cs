@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BattleOfTheBots.Logic
 {
-    public class MoveManager
+    public class MoveManager : IMoveManager
     {        
         public void ProcessMove(Arena arena, BotMove botA, BotMove botB)
         {            
