@@ -155,6 +155,8 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, Move.Flip), new BotMove(LastBot, Move.MoveForwards));
 
             Assert.IsFalse(FirstBot.IsFlipped, "Bot A should have been able to flip itself back onto it's wheels");
+            Assert.AreEqual(0, FirstBot.NumberOfFlipsRemaining, "Bot A should used a flip usage righting itself");
+            Assert.AreEqual(5, LastBot.NumberOfFlipsRemaining, "Bot B shouldn't lose flips when Bot A rights itself");
         }
         
         [TestCase(TestName = "Wehn Bot B is upside down it can flip back onto it's wheels")]
@@ -165,6 +167,8 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, Move.MoveForwards), new BotMove(LastBot, Move.Flip));
 
             Assert.IsFalse(LastBot.IsFlipped, "Bot B should have been able to flip itself back onto it's wheels");
+            Assert.AreEqual(0, LastBot.NumberOfFlipsRemaining, "Bot B should used a flip usage righting itself");
+            Assert.AreEqual(5, FirstBot.NumberOfFlipsRemaining, "Bot A shouldn't lose flips when Bot B rights itself");
         }
 
 
@@ -178,6 +182,9 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
 
             Assert.IsFalse(FirstBot.IsFlipped, "Bot A should have been able to flip itself back onto it's wheels");
             Assert.IsFalse(LastBot.IsFlipped, "Bot B should have been able to flip itself back onto it's wheels");
+
+            Assert.AreEqual(4, FirstBot.NumberOfFlipsRemaining, "Bot A should used a flip usage righting itself");
+            Assert.AreEqual(4, LastBot.NumberOfFlipsRemaining, "Bot B should used a flip usage righting itself");
         }
 
         [TestCase(Move.MoveForwards, TestName = "When Bot A is upside down and bot B strikes it with an axe then it cannot move but it takes double damage")]
