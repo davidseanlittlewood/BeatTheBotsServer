@@ -129,8 +129,8 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         {
             this.Arena = new Arena(new Bot[] 
             {
-                new Bot { Name = Guid.NewGuid().ToString(), Position = 3, Health = 100, NumberOfFlipsRemaining = 5 },
-                new Bot { Name = Guid.NewGuid().ToString(), Position = 4, Health = 100, NumberOfFlipsRemaining = 5 }
+                new Bot(Direction.Right) { Name = Guid.NewGuid().ToString(), Position = 3, Health = 100, NumberOfFlipsRemaining = 5 },
+                new Bot(Direction.Left) { Name = Guid.NewGuid().ToString(), Position = 4, Health = 100, NumberOfFlipsRemaining = 5 }
             });            
         }
     }

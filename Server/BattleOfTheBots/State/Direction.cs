@@ -1,4 +1,4 @@
-﻿namespace BattleOfTheBots.Logic
+﻿namespace BattleOfTheBots.State
 {
     public enum Direction
     {

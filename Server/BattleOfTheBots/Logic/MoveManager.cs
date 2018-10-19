@@ -11,7 +11,7 @@ namespace BattleOfTheBots.Logic
     {        
         public void ProcessMove(Arena arena, BotMove botA, BotMove botB)
         {            
-            MoveAndShunt(arena, botA, botB);
+            ProcessMovements(arena, botA, botB);
             ProcessAxeDamage(arena, botA, botB);
             ProcessFlips(arena, botA, botB);            
             CheckForVictory(arena, botA, botB);
@@ -65,15 +65,6 @@ namespace BattleOfTheBots.Logic
             }
         }
 
-        private bool AreSideBySide(BotMove botA, BotMove botB)
-        {
-            return botA.Bot.Position + 1 == botB.Bot.Position;
-        }
-
-        private bool AreSeperatedByOneSpace(BotMove botA, BotMove botB)
-        {
-            return botA.Bot.Position + 2 == botB.Bot.Position;
-        }
 
         private void CheckForVictory(Arena arena, BotMove botA, BotMove botB)
         {
@@ -84,130 +75,160 @@ namespace BattleOfTheBots.Logic
             if (botB.Bot.Health <= 0) arena.Winner = botA.Bot;
         }
 
-        private void MoveAndShunt(Arena arena, BotMove botA, BotMove botB)
+        private void ProcessMovements(Arena arena, BotMove botA, BotMove botB)
         {
-            // Check for bots getting in each others' way and things smacking into each other
-            if(ProcessCollisions(arena, botA, botB))
+            // You can't obstruct a withdrawl so do those first
+            if(IsBotWithdrawing(botA))
             {
+                TheBotWithdraws(botA);
+            }
+            if (IsBotWithdrawing(botB))
+            {
+                TheBotWithdraws(botB);
+            }
+
+
+            // If we're seperated by more than one space then there's no issue
+            if (AreSeperatedByMoreThanOneSpace(botA, botB))
+            {
+                if(IsBotAdvancing(botA))
+                {
+                    TheBotAdvances(botA);
+                }
+
+                if (IsBotAdvancing(botB))
+                {
+                    TheBotAdvances(botB);
+                }
+
                 return;
             }
-
-
-            if (botA.Move == Move.MoveForwards)
+            else if(AreSeperatedByOneSpace(botA, botB))
             {
-                TheBotMovesRight(botA);
+                if(BothBotsAreShunting(botA, botB)) // both are shunting into an empty space
+                {
+                    NothingHappens();
+                }
+                else if(EitherBotIsShunting(botA, botB)) // one is shunting and the other isn't
+                {
+                    var hare = GetShunter(botA, botB);
+                    var tortoise = GetShuntee(botA, botB);
+                    OneBotStealsAnothersSpace(tortoise, hare);
+                }
+                else if(AreBothAdvancing(botA, botB)) // both are moving forward
+                {
+                    NothingHappens();
+                }
+                else if(IsEitherAdvancing(botA, botB))
+                {
+                    var both = new BotMove[] { botA, botB };
+                    var mover = both.Single(b => b.Move == Move.MoveForwards);
+                    var shaker = both.Single(b => !b.Equals(mover));
+                    OneBotStealsAnothersSpace(shaker, mover);
+                }
+                else // no one is going anywhere
+                {
+                    NothingHappens();
+                }
             }
-            else if(botA.Move == Move.MoveBackwards)
+            else // we're against each other and all withdrawls have been done
             {
-                TheBotMovesLeft(botA);
+                if(BothBotsAreShunting(botA, botB)) // we up against each other and both bots have shunted, no movement but damage on both sides
+                {
+                    TheBotTakesDamage(botA, arena.ShuntDamage);
+                    TheBotTakesDamage(botB, arena.ShuntDamage);
+                }
+                else if(EitherBotIsShunting(botA, botB)) // we're up against each other and one bot is shunting
+                {
+                    OneBotShuntsAnother(arena, botA, botB);
+                }
+                else // they are most likely attacking or doing something else
+                {
+                    NothingHappens();
+                }
             }
-
-            if(botB.Move == Move.MoveForwards)
-            {
-                TheBotMovesLeft(botB);
-            }
-            else if (botB.Move == Move.MoveBackwards)
-            {
-                TheBotMovesRight(botB);
-            }
+            
         }
 
-        public bool ProcessCollisions(Arena arena, BotMove botA, BotMove botB)
-        {
-            // firstly you can only have a collison if you're both moving forward!
-            if ((botA.Move == Move.MoveForwards || botA.Move == Move.Shunt)
-                && (botB.Move == Move.MoveForwards || botB.Move == Move.Shunt))
-            {
-                if (AreSideBySide(botA, botB))
-                {
-                    if (botA.Move == Move.MoveForwards) // if BotA is moving forwards
-                    {
-                        if (botB.Move == Move.MoveForwards) // and BotB is moving forwards
-                        {
-                            // then don't do anything
-                        }
-                        else // however if Bot B is shunting
-                        {
-                            TheBotTakesDamage(botB, arena.ShuntDamage); // then BotB is damaged
-                            TheBotMovesLeft(botA); // and both bot A and bot B move left
-                            TheBotMovesLeft(botB);
-                        }
-                    }
-                    else // otherwise bot A is shunting
-                    {
-                        if (botB.Move == Move.MoveForwards) // and BotB is moving forwards
-                        {
-                            TheBotTakesDamage(botA, arena.ShuntDamage); // then Bot A is damaged
-                            TheBotMovesLeft(botA); // and both bot A and bot B move left
-                            TheBotMovesLeft(botB);
-                        }
-                        else // AND Bot B is shunting
-                        {
-                            TheBotTakesDamage(botA, arena.ShuntDamage); // both bots are damaged
-                            TheBotTakesDamage(botB, arena.ShuntDamage); // both bots are damaged
-                                                                        // but neither move
-                        }
-                    }
-                }
-                else if (AreSeperatedByOneSpace(botA, botB)) // if there's one space between us
-                {
-                    if (botA.Move == Move.MoveForwards) // if BotA is moving forwards into the space
-                    {
-                        if (botB.Move == Move.MoveForwards) // and BotB is moving forwards into the space
-                        {
-                            // then don't do anything (no one gets it)
-                        }
-                        else // however if Bot B is shunting
-                        {
-                            TheBotTakesDamage(botB, arena.ShuntDamage); // then BotB is damaged
-                            TheBotMovesLeft(botB); // and wins the space
-                        }
-                    }
-                    else // otherwise bot A is shunting
-                    {
-                        if (botB.Move == Move.MoveForwards) // and BotB is moving forwards
-                        {
-                            TheBotTakesDamage(botA, arena.ShuntDamage); // then Bot A is damaged
-                            TheBotMovesRight(botA); // bot A wins the space                            
-                        }
-                        else // AND Bot B is shunting
-                        {
-                            TheBotTakesDamage(botA, arena.ShuntDamage); // both bots are damaged
-                            TheBotTakesDamage(botB, arena.ShuntDamage); // both bots are damaged
-                                                                        // but neither move into the space
-                        }
-                    }
-                }
-                else // otherwise there's a big gap - no collision
-                {
-                    return false;
-                }
+        #region Helpers
 
-                return true;
-            }
-            else // we're not both moving forward - no collision
-            {
-                return this.AreSideBySide(botA, botB);
-            }            
+        private bool EitherBotIsShunting(BotMove botA, BotMove botB)
+        {
+            return botA.Move == Move.Shunt || botB.Move == Move.Shunt;
+        }
+
+        private bool BothBotsAreShunting(BotMove botA, BotMove botB)
+        {
+            return botA.Move == Move.Shunt && botB.Move == Move.Shunt;
+        }
+
+        public bool IsBotAdvancing(BotMove bot)
+        {
+            return bot.Move == Move.MoveForwards || bot.Move == Move.Shunt;
+        }
+
+        public bool IsBotWithdrawing(BotMove bot)
+        {
+            return bot.Move == Move.MoveBackwards;
+        }
+
+        public bool AreBothAdvancing(BotMove botA, BotMove botB)
+        {
+            return IsBotAdvancing(botA) && IsBotAdvancing(botB);
+        }
+
+        public bool IsEitherAdvancing(BotMove botA, BotMove botB)
+        {
+            return IsBotAdvancing(botA) || IsBotAdvancing(botB);
+        }
+
+        public bool AreEitherWithdrawing(BotMove botA, BotMove botB)
+        {
+            return botA.Move == Move.MoveBackwards || botB.Move == Move.MoveBackwards;
         }
 
 
-        public void OneBotStealsAnothersSpace(BotMove tortoise, BotMove hair, Direction direction)
+        public bool AreSideBySide(BotMove botA, BotMove botB)
         {
+            return botA.Bot.Position + 1 == botB.Bot.Position;
+        }
+
+        public bool AreSeperatedByOneSpace(BotMove botA, BotMove botB)
+        {
+            return botA.Bot.Position + 2 == botB.Bot.Position;
+        }
+
+        public bool AreSeperatedByMoreThanOneSpace(BotMove botA, BotMove botB)
+        {
+            return botA.Bot.Position + 2 > botB.Bot.Position;
+        }
+
+        #endregion
+
+        #region Outcomes
+
+        public void OneBotStealsAnothersSpace(BotMove tortoise, BotMove hare)
+        {
+            var direction = hare.Bot.DesiredDirection;
             if (direction == Direction.Left)
             {
-                TheBotMovesLeft(hair);
+                TheBotMovesLeft(hare);
             }
             else if (direction == Direction.Right)
             {
-                TheBotMovesRight(hair);
+                TheBotMovesRight(hare);
             }
         }
 
-        public void OneBotShuntsAnother(Arena arena, BotMove shunter, BotMove shuntee, Direction direction)
+        public void OneBotShuntsAnother(Arena arena, BotMove botA, BotMove botB)
         {
+            BotMove shunter = GetShunter(botA, botB);
+            BotMove shuntee = GetShuntee(botA, botB);
+
+            var direction = shunter.Bot.DesiredDirection;
             TheBotTakesDamage(shunter, arena.ShuntDamage);
-            if(direction == Direction.Left)
+
+            if (direction == Direction.Left)
             {
                 TheBotMovesLeft(shunter);
                 TheBotMovesLeft(shuntee);
@@ -219,8 +240,17 @@ namespace BattleOfTheBots.Logic
             }
         }
 
+        private BotMove GetShuntee(BotMove botA, BotMove botB)
+        {
+            return botA.Move != Move.Shunt ? botA : botB;
+        }
 
-        private void NothingHappens(BotMove bot)
+        private BotMove GetShunter(BotMove botA, BotMove botB)
+        {
+            return botA.Move == Move.Shunt ? botA : botB;
+        }
+
+        private void NothingHappens()
         {
         }
 
@@ -241,6 +271,30 @@ namespace BattleOfTheBots.Logic
             bot.Bot.Health -= amountOfDamage;
         }
 
+        private void TheBotAdvances(BotMove bot)
+        {
+            if (bot.Bot.DesiredDirection == Direction.Left)
+            {
+                TheBotMovesLeft(bot);
+            }
+            else
+            {
+                TheBotMovesRight(bot);
+            }
+        }
+
+        private void TheBotWithdraws(BotMove bot)
+        {
+            if (bot.Bot.DesiredDirection == Direction.Right)
+            {
+                TheBotMovesLeft(bot);
+            }
+            else
+            {
+                TheBotMovesRight(bot);
+            }
+        }
+
         private void TheBotMovesLeft(BotMove bot)
         {
             bot.Bot.Position--;
@@ -250,5 +304,7 @@ namespace BattleOfTheBots.Logic
         {
             bot.Bot.Position++;
         }
+
+        #endregion
     }
 }
