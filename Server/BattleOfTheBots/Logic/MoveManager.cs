@@ -29,6 +29,7 @@ namespace BattleOfTheBots.Logic
                     bFlippedThisTurn = true;
                     if(botB.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
+                        TheBotMovesRight(botB); // we're moving twice here to counteract the effect of the shunt
                         TheBotMovesRight(botB);
                     }
                 }
@@ -38,7 +39,8 @@ namespace BattleOfTheBots.Logic
                     aFlippedThisTurn = true;
                     if (botA.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
-                        TheBotMovesRight(botA);
+                        TheBotMovesLeft(botA);
+                        TheBotMovesLeft(botA);
                     }
                 }
             }
