@@ -11,9 +11,9 @@ namespace BattleOfTheBots.Logic
     {        
         public void ProcessMove(Arena arena, BotMove botA, BotMove botB)
         {            
-            ProcessMovements(arena, botA, botB);
+            ProcessMovements(arena, botA, botB);            
+            ProcessFlips(arena, botA, botB);
             ProcessAxeDamage(arena, botA, botB);
-            ProcessFlips(arena, botA, botB);            
             CheckForVictory(arena, botA, botB);
         }
        
@@ -87,8 +87,21 @@ namespace BattleOfTheBots.Logic
         {
             if (AreSideBySide(botA, botB)) // only deal damage if they're side by side
             {
-                if (botB.Move == Move.AttackWithAxe) TheBotTakesDamage(botA, arena.AxeDamage);
-                if (botA.Move == Move.AttackWithAxe) TheBotTakesDamage(botB, arena.AxeDamage);
+                if (botB.Move == Move.AttackWithAxe && !botB.Bot.IsFlipped)
+                {
+                    var damage = botA.Bot.IsFlipped 
+                        ? (2 * arena.AxeDamage)
+                        : arena.AxeDamage;
+                    TheBotTakesDamage(botA, damage);
+                }
+
+                if (botA.Move == Move.AttackWithAxe && !botA.Bot.IsFlipped)
+                {
+                    var damage = botB.Bot.IsFlipped
+                        ? (2 * arena.AxeDamage)
+                        : arena.AxeDamage;
+                    TheBotTakesDamage(botB, damage);
+                }
             }
         }
 
@@ -181,32 +194,40 @@ namespace BattleOfTheBots.Logic
 
         private bool EitherBotIsShunting(BotMove botA, BotMove botB)
         {
-            return botA.Move == Move.Shunt || botB.Move == Move.Shunt;
+            return (botA.Move == Move.Shunt && !botA.Bot.IsFlipped)
+                || (botB.Move == Move.Shunt && !botB.Bot.IsFlipped);
         }
 
         private bool BothBotsAreShunting(BotMove botA, BotMove botB)
         {
-            return botA.Move == Move.Shunt && botB.Move == Move.Shunt;
+            return botA.Move == Move.Shunt
+                && botB.Move == Move.Shunt
+                && !botA.Bot.IsFlipped
+                && !botB.Bot.IsFlipped;
         }
 
         public bool IsBotAdvancing(BotMove bot)
         {
-            return bot.Move == Move.MoveForwards || bot.Move == Move.Shunt;
+            return !bot.Bot.IsFlipped && (bot.Move == Move.MoveForwards || bot.Move == Move.Shunt);
         }
 
         public bool IsBotWithdrawing(BotMove bot)
         {
-            return bot.Move == Move.MoveBackwards;
+            return !bot.Bot.IsFlipped && (bot.Move == Move.MoveBackwards);
         }
 
         public bool AreBothAdvancing(BotMove botA, BotMove botB)
         {
-            return IsBotAdvancing(botA) && IsBotAdvancing(botB);
+            return IsBotAdvancing(botA) 
+                && IsBotAdvancing(botB) 
+                && !botA.Bot.IsFlipped
+                && !botB.Bot.IsFlipped;
         }
 
         public bool IsEitherAdvancing(BotMove botA, BotMove botB)
         {
-            return IsBotAdvancing(botA) || IsBotAdvancing(botB);
+            return (IsBotAdvancing(botA) && !botA.Bot.IsFlipped)
+                || (IsBotAdvancing(botB) && !botB.Bot.IsFlipped);
         }
 
 

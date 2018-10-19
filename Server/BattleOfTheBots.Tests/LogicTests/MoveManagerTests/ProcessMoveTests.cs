@@ -31,11 +31,11 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         [TestCase(Move.Shunt, Move.Shunt, 3, 4, 95, 95, TestName = "When both Bots shunt then neither will move but both will take damage")]        
         [TestCase(Move.Flip, Move.Flip, 3, 4, 100, 100, true, true, TestName = "When both Bots flip then both Bots will be turned upside down")]
         [TestCase(Move.Flip, Move.Shunt, 2, 5, 100, 95, false, true, TestName = "When Bot A flips and Bot B shunts then Bot B will be damanged, turned upside down, and moved right a space and Bot A pushed back a space")]
-        [TestCase(Move.Flip, Move.AttackWithAxe, 3, 4, 90, 100, false, true, TestName = "When Bot A flips and Bot B attacks with an axe then Bot A will be damaged but Bot B will be flipped")]
+        [TestCase(Move.Flip, Move.AttackWithAxe, 3, 4, 100, 100, false, true, TestName = "When Bot A flips and Bot B attacks with an axe then Bot A will not be damaged because Bot B will be flipped")]
         [TestCase(Move.Flip, Move.MoveForwards, 3, 4, 100, 100, false, true, TestName = "When Bot A flips and Bot B moves forward then Bot A will be unaffected but Bot B will be flipped")]
         [TestCase(Move.Flip, Move.MoveBackwards, 3, 5, 100, 100, false, false, TestName = "When Bot A flips and Bot B moves backwards then B will move to the right")]
         [TestCase(Move.Shunt, Move.Flip, 2, 5, 95, 100, true, false, TestName = "When Bot A shunts and Bot B flips then B will be move backwards but A will be damaged, flipped, and moved to the left")]
-        [TestCase(Move.AttackWithAxe, Move.Flip, 3, 4, 100, 90, true, false, TestName = "When Bot A attacks with an axe and Bot B flips then A will be flipped but B will be damaged")]
+        [TestCase(Move.AttackWithAxe, Move.Flip, 3, 4, 100, 100, true, false, TestName = "When Bot A attacks with an axe and Bot B flips then A will flipped before bot B is damaged")]
         [TestCase(Move.MoveForwards, Move.Flip, 3, 4, 100, 100, true, false, TestName = "When Bot A moves forward and Bot B flips then Bot B will be turned over")]
         [TestCase(Move.MoveBackwards, Move.Flip, 2, 4, 100, 100, false, false, TestName = "When Bot A moves backward and bot B flips then bot A will move left")]
         public void CheckMove(Move botAMove, Move botBMove, int botAExpectedPosition, int botBExpectedPosition, int botAExpectedHealth = 100, int botBExpectedHealth = 100, bool expectedFlipAStatus = false, bool expectedFlipBStatus = false)
@@ -182,6 +182,34 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
 
             Assert.IsFalse(FirstBot.IsFlipped, "Bot A should have been able to flip itself back onto it's wheels");
             Assert.IsFalse(LastBot.IsFlipped, "Bot B should have been able to flip itself back onto it's wheels");
+        }
+
+        [TestCase(Move.MoveForwards, TestName = "When Bot A is upside down and bot B strikes it with an axe then it cannot move but it takes double damage")]
+        [TestCase(Move.MoveBackwards, TestName = "When Bot A is upside down and bot B strikes it with an axe then it cannot move backwards but it takes double damage")]
+        [TestCase(Move.AttackWithAxe, TestName = "When Bot A is upside down and bot B strikes it with an axe then it cannot shunt but it takes double damage")]
+        [TestCase(Move.Shunt, TestName = "When Bot A is upside down and bot B strikes it with an axe then it cannot shunt but it takes double damage")]
+        public void ADoubleDamageUpsideDown(Move botAMove)
+        {
+            FirstBot.IsFlipped = true;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, botAMove), new BotMove(LastBot, Move.AttackWithAxe));
+
+            Assert.AreEqual(80, FirstBot.Health, "Bot A didn't take double damage");
+            Assert.AreEqual(100, LastBot.Health, "Bot B took damage from a flipped opponent");
+            Assert.AreEqual(3, FirstBot.Position, "Bot A shouldn't be able to move while it is flipped");
+        }
+
+        [TestCase(Move.MoveForwards, TestName = "When Bot B is upside down and bot A strikes it with an axe then it cannot move but it takes double damage")]
+        [TestCase(Move.MoveBackwards, TestName = "When Bot B is upside down and bot A strikes it with an axe then it cannot move backwards but it takes double damage")]
+        [TestCase(Move.AttackWithAxe, TestName = "When Bot B is upside down and bot A strikes it with an axe then it cannot shunt but it takes double damage")]
+        [TestCase(Move.Shunt, TestName = "When Bot B is upside down and bot A strikes it with an axe then it cannot shunt but it takes double damage")]
+        public void BDoubleDamageUpsideDown(Move botBMove)
+        {
+            LastBot.IsFlipped = true;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, botBMove));
+
+            Assert.AreEqual(80, LastBot.Health, "Bot B didn't take double damage");
+            Assert.AreEqual(100, FirstBot.Health, "Bot A  took damage from a flipped opponent");
+            Assert.AreEqual(4, LastBot.Position, "Bot B shouldn't be able to move while it is flipped");
         }
 
 
