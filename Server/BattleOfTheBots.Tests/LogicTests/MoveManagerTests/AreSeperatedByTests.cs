@@ -72,8 +72,10 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
 
         [TestCase(0, 1, false)]
         [TestCase(0, 2, false)]
+        [TestCase(2, 0, false)]
         [TestCase(0, 3, true)]
         [TestCase(0, 4, true)]
+        [TestCase(4, 0, true)]        
         public void AreSeperatedByMoreThanOneSpaceTests(int botA, int botB, bool expectedResult)
         {
             FirstBot.Position = botA;
