@@ -29,7 +29,6 @@ namespace BattleOfTheBots.Logic
                     if(botB.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
                         TheBotMovesRight(botB);
-                        TheBotTakesDamage(botB, arena.ShuntDamage);
                     }
                 }
                 if (botB.Move == Move.Flip)
@@ -40,7 +39,6 @@ namespace BattleOfTheBots.Logic
                     if (botA.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
                         TheBotMovesRight(botA);
-                        TheBotTakesDamage(botA, arena.ShuntDamage);
                     }
                 }
             }
