@@ -233,7 +233,12 @@ namespace BattleOfTheBots.Logic
 
         public bool AreSideBySide(BotMove botA, BotMove botB)
         {
-            return botA.Bot.Position + 1 == botB.Bot.Position;
+            // We want to make sure this works regardless of which order the bots are supplied so check min/max to unscramble the positions
+            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
+            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);
+
+
+            return leftee + 1 == rightee;
         }
 
         public bool AreSeperatedByOneSpace(BotMove botA, BotMove botB)

@@ -34,6 +34,18 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             }
         }
 
+        [TestCase(3, 4, true)]
+        [TestCase(5, 4, true)]
+        [TestCase(3, 6, false)]
+        [TestCase(2, 7, false)]
+        public void SideBySideInTheWrongOrder(int positionA, int positionB, bool expectedResult)
+        {
+            FirstBot.Position = positionA;
+            LastBot.Position = positionB;
+
+            Assert.AreEqual(expectedResult, this.MoveManager.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)));
+        }
+
         [Test]
         public void AreSeperatedByOneSpaceTests()
         {
