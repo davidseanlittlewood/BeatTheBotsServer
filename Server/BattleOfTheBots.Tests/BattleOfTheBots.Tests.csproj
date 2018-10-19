@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogicTests\MoveManagerTests\AreSeperatedByTests.cs" />
     <Compile Include="LogicTests\MoveManagerTests\ProcessMoveTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

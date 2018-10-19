@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI\UIManager.cs" />
     <Compile Include="Logic\BotMove.cs" />
+    <Compile Include="State\Direction.cs" />
     <Compile Include="State\Arena.cs" />
     <Compile Include="State\Bot.cs" />
     <Compile Include="Classes\BotClass.cs" />

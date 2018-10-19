@@ -10,9 +10,12 @@
         public int NumberOfFlipsRemaining { get; set; }
         public bool IsFlipped { get; set; }
 
-        public Bot()
+        public Direction DesiredDirection { get; protected set; }
+
+        public Bot(Direction direction)
         {
             this.IsFlipped = false;
+            this.DesiredDirection = direction;
         }
     }
 }
