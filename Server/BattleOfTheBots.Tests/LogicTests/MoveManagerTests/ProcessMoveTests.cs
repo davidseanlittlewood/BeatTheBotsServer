@@ -87,6 +87,24 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
                         FirstBot.Position = botAPosition;
                         LastBot.Position = botBPosition;
 
+
+                        // if we're making an advancing move for either bot then slide them back a little to create space
+                        if (botAMove == Move.MoveForwards || botAMove == Move.Shunt)
+                        {
+                            FirstBot.Position--;
+                        }
+                        if (botBMove == Move.MoveForwards || botBMove == Move.Shunt)
+                        {
+                            LastBot.Position++;
+                        }
+
+                        // if either bot are off the board then skip this iteration
+                        if(FirstBot.Position < 0 || LastBot.Position + 1 > Arena.NumberOfSquares)
+                        {
+                            continue;
+                        }
+                        
+
                         this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, botAMove), new BotMove(LastBot, botBMove));
 
                         var status = $"BotA: {botAPosition}/{botAMove} and BotB: {botBPosition}/{botBMove}";
