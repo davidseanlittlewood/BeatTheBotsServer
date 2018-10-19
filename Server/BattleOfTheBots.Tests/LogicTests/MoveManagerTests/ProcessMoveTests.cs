@@ -45,7 +45,9 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.AreEqual(botBExpectedHealth, this.LastBot.Health, "Bot B has an incorrect health");
 
             Assert.AreEqual(expectedFlipAStatus, this.FirstBot.IsFlipped, "Bot A is incorrectly flipped");
+            if (expectedFlipAStatus) Assert.AreEqual(4, this.LastBot.NumberOfFlipsRemaining, "Bot B should have consumed a flip when it flipped Bot A");
             Assert.AreEqual(expectedFlipBStatus, this.LastBot.IsFlipped, "Bot B is incorrectly flipped");
+            if (expectedFlipBStatus) Assert.AreEqual(4, this.FirstBot.NumberOfFlipsRemaining, "Bot A should have consumed a flip when it flipped Bot B");
             Assert.IsNull(this.Arena.Winner);
         }
 
