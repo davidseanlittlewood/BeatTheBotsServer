@@ -18,7 +18,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
 
 
         [SetUp]
-        public void RestoreArena()
+        public virtual void RestoreArena()
         {
             this.Arena = new Arena(new Bot[]
             {

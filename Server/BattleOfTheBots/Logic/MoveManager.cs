@@ -238,7 +238,11 @@ namespace BattleOfTheBots.Logic
 
         public bool AreSeperatedByOneSpace(BotMove botA, BotMove botB)
         {
-            return botA.Bot.Position + 2 == botB.Bot.Position;
+            // We want to make sure this works regardless of which order the bots are supplied so check min/max to unscramble the positions
+            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
+            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);
+
+            return leftee + 2 == rightee;
         }
 
         public bool AreSeperatedByMoreThanOneSpace(BotMove botA, BotMove botB)
@@ -252,6 +256,9 @@ namespace BattleOfTheBots.Logic
 
         public void OneBotStealsAnothersSpace(BotMove tortoise, BotMove hare)
         {
+            const string errorMessage = "This method can only be used when two bots are separated by a single square";
+            if (!AreSeperatedByOneSpace(tortoise, hare)) throw new InvalidOperationException(errorMessage);
+
             var direction = hare.Bot.DesiredDirection;
             if (direction == Direction.Left)
             {

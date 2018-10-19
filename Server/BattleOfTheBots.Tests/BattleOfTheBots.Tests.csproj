@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="LogicTests\MoveManagerTests\AreSeperatedByTests.cs" />
     <Compile Include="LogicTests\MoveManagerTests\CommonTestBase.cs" />
+    <Compile Include="LogicTests\MoveManagerTests\OneBotStealsAnothersSpaceTests.cs" />
     <Compile Include="LogicTests\MoveManagerTests\OneBotShuntsAnotherTests.cs" />
     <Compile Include="LogicTests\MoveManagerTests\ProcessMoveTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

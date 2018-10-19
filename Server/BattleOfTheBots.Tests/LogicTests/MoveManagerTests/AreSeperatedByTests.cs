@@ -58,6 +58,18 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             }
         }
 
+        [TestCase(3, 5, true)]
+        [TestCase(5, 3, true)]
+        [TestCase(3, 6, false)]
+        [TestCase(2, 7, false)]
+        public void AreSeperatedByOneSpaceInTheWrongOrder(int positionA, int positionB, bool expectedResult)
+        {
+            FirstBot.Position = positionA;
+            LastBot.Position = positionB;
+
+            Assert.AreEqual(expectedResult, this.MoveManager.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)));
+        }
+
         [TestCase(0, 1, false)]
         [TestCase(0, 2, false)]
         [TestCase(0, 3, true)]

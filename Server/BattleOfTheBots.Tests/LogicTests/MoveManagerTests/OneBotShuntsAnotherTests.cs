@@ -27,10 +27,10 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.AreEqual(lastExpHealth, this.LastBot.Health);
         }
 
-        [TestCase(3, 4, Move.Shunt, Move.Shunt, 4, 5, 95, 100, TestName = "Will error if two shunts")]
-        [TestCase(3, 4, Move.MoveForwards, Move.MoveForwards, 4, 5, 95, 100, TestName = "Will error if no shunts")]
-        [TestCase(3, 7, Move.MoveForwards, Move.Shunt, 2, 3, 100, 95, TestName = "Will error if not in contact")]        
-        public void ErrorShuntCheck(int firstPosition, int lastPosition, Move firstMove, Move lastMove, int firstExpPosition, int lastExpPosition, int firstExpHealth, int lastExpHealth)
+        [TestCase(3, 4, Move.Shunt, Move.Shunt, TestName = "Will error if two shunts")]
+        [TestCase(3, 4, Move.MoveForwards, Move.MoveForwards, TestName = "Will error if no shunts")]
+        [TestCase(3, 7, Move.MoveForwards, Move.Shunt, TestName = "Will error if not in contact")]        
+        public void ErrorShuntCheck(int firstPosition, int lastPosition, Move firstMove, Move lastMove)
         {
             this.FirstBot.Position = firstPosition;
             this.LastBot.Position = lastPosition;
