@@ -24,7 +24,7 @@ namespace BattleOfTheBots.Logic
             bool aWasFlippedThisTurn = false;
             bool bWasFlippedThisTurn = false; // you can't flip yourself back over in the same turn you're flipped
 
-            if (AreSideBySide(botA, botB)) // you can only flip if they're side by side
+            if (PositionHelpers.AreSideBySide(botA, botB)) // you can only flip if they're side by side
             {
                 if (botA.Move == Move.Flip
                     && !botA.Bot.IsFlipped
@@ -85,7 +85,7 @@ namespace BattleOfTheBots.Logic
 
         private void ProcessAxeDamage(Arena arena, BotMove botA, BotMove botB)
         {
-            if (AreSideBySide(botA, botB)) // only deal damage if they're side by side
+            if (PositionHelpers.AreSideBySide(botA, botB)) // only deal damage if they're side by side
             {
                 if (botB.Move == Move.AttackWithAxe && !botB.Bot.IsFlipped)
                 {
@@ -129,7 +129,7 @@ namespace BattleOfTheBots.Logic
 
 
             // If we're seperated by more than one space then there's no issue
-            if (AreSeperatedByMoreThanOneSpace(botA, botB))
+            if (PositionHelpers.AreSeperatedByMoreThanOneSpace(botA, botB))
             {
                 if(IsBotAdvancing(botA))
                 {
@@ -143,7 +143,7 @@ namespace BattleOfTheBots.Logic
 
                 return;
             }
-            else if(AreSeperatedByOneSpace(botA, botB))
+            else if(PositionHelpers.AreSeperatedByOneSpace(botA, botB))
             {
                 if(BothBotsAreShunting(botA, botB)) // both are shunting into an empty space
                 {
@@ -231,33 +231,7 @@ namespace BattleOfTheBots.Logic
         }
 
 
-        public bool AreSideBySide(BotMove botA, BotMove botB)
-        {
-            // We want to make sure this works regardless of which order the bots are supplied so check min/max to unscramble the positions
-            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
-            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);
-
-
-            return leftee + 1 == rightee;
-        }
-
-        public bool AreSeperatedByOneSpace(BotMove botA, BotMove botB)
-        {
-            // We want to make sure this works regardless of which order the bots are supplied so check min/max to unscramble the positions
-            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
-            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);
-
-            return leftee + 2 == rightee;
-        }
-
-        public bool AreSeperatedByMoreThanOneSpace(BotMove botA, BotMove botB)
-        {
-            // We want to make sure this works regardless of which order the bots are supplied so check min/max to unscramble the positions
-            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
-            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);
-
-            return rightee - leftee > 2;
-        }
+     
 
         #endregion
 
@@ -266,7 +240,7 @@ namespace BattleOfTheBots.Logic
         public void OneBotStealsAnothersSpace(BotMove tortoise, BotMove hare)
         {
             const string errorMessage = "This method can only be used when two bots are separated by a single square";
-            if (!AreSeperatedByOneSpace(tortoise, hare)) throw new InvalidOperationException(errorMessage);
+            if (!PositionHelpers.AreSeperatedByOneSpace(tortoise, hare)) throw new InvalidOperationException(errorMessage);
 
             var direction = hare.Bot.DesiredDirection;
             if (direction == Direction.Left)
@@ -283,7 +257,7 @@ namespace BattleOfTheBots.Logic
         {
             const string errorMessage = "This method can only be used when two bots are side by side and one is shunting";
             if (BothBotsAreShunting(botA, botB)) throw new InvalidOperationException(errorMessage);
-            if (!AreSideBySide(botA, botB)) throw new InvalidOperationException(errorMessage);
+            if (!PositionHelpers.AreSideBySide(botA, botB)) throw new InvalidOperationException(errorMessage);
             if (botA.Move != Move.Shunt && botB.Move != Move.Shunt) throw new InvalidOperationException(errorMessage);
 
             BotMove shunter = GetShunter(botA, botB);

@@ -3,7 +3,7 @@ using BattleOfTheBots.State;
 using NUnit.Framework;
 using System.Linq;
 
-namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
+namespace BattleOfTheBots.Tests.LogicTests
 {
     public abstract class CommonTestBase
     {

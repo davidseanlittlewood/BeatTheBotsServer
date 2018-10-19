@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
+namespace BattleOfTheBots.Tests.LogicTests
 {
-    public class AreSeperatedByTests : CommonTestBase
+    public class PositionHelperTests : CommonTestBase
     {
         [Test]
         public void AreSideBySideTests()
@@ -22,14 +22,14 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
                 FirstBot.Position = botAPosition;
                 LastBot.Position = botBPosition;
 
-                Assert.IsTrue(this.MoveManager.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)), $"When BotA is at {botAPosition} and BotB is at {botBPosition} they are not reported as consecutive spaces");
+                Assert.IsTrue(PositionHelpers.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)), $"When BotA is at {botAPosition} and BotB is at {botBPosition} they are not reported as consecutive spaces");
 
                 var botBRange = Enumerable.Range(botBPosition + 1, this.Arena.NumberOfSquares - botBPosition - 1);
                 foreach(var botBNotInContactPosition in botBRange)
                 {                    
                     LastBot.Position = botBNotInContactPosition;
 
-                    Assert.IsFalse(this.MoveManager.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)), $"When BotA is at {botAPosition} and BotB is at {botBNotInContactPosition} they are reported as consecutive spaces");
+                    Assert.IsFalse(PositionHelpers.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)), $"When BotA is at {botAPosition} and BotB is at {botBNotInContactPosition} they are reported as consecutive spaces");
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             FirstBot.Position = positionA;
             LastBot.Position = positionB;
 
-            Assert.AreEqual(expectedResult, this.MoveManager.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)));
+            Assert.AreEqual(expectedResult, PositionHelpers.AreSideBySide(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)));
         }
 
         [Test]
@@ -57,14 +57,14 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
                 FirstBot.Position = botAPosition;
                 LastBot.Position = botBPosition;
 
-                Assert.IsTrue(this.MoveManager.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                Assert.IsTrue(PositionHelpers.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
                     $"When Bot A is at {botAPosition} and Bot B is at {botBPosition} they should show as seperated by a single space");
 
                 var botBRange = Enumerable.Range(botBPosition + 1, this.Arena.NumberOfSquares - botBPosition - 1);
                 foreach (var botBNotInContactPosition in botBRange)
                 {
                     LastBot.Position = botBNotInContactPosition;
-                    Assert.IsFalse(this.MoveManager.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                    Assert.IsFalse(PositionHelpers.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
                     $"When Bot A is at {botAPosition} and Bot B is at {botBPosition} they should not show as seperated by a single space");
                 }
             }
@@ -79,7 +79,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             FirstBot.Position = positionA;
             LastBot.Position = positionB;
 
-            Assert.AreEqual(expectedResult, this.MoveManager.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)));
+            Assert.AreEqual(expectedResult, PositionHelpers.AreSeperatedByOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)));
         }
 
         [TestCase(0, 1, false)]
@@ -94,7 +94,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             LastBot.Position = botB;
 
 
-            Assert.AreEqual(expectedResult, this.MoveManager.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+            Assert.AreEqual(expectedResult, PositionHelpers.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
                     $"When Bot A is at {botA} and Bot B is at {botB} the expected result was {expectedResult}");
 
         }
@@ -120,7 +120,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
                     FirstBot.Position = botAPosition;
                     LastBot.Position = botBNotInContactPosition;
 
-                    Assert.IsTrue(this.MoveManager.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                    Assert.IsTrue(PositionHelpers.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
                     $"When Bot A is at {botAPosition} and Bot B is at {minBotBPosition} they should show as seperated by more than a single space");
                 }
             }
