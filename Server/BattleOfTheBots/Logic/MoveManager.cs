@@ -23,7 +23,7 @@ namespace BattleOfTheBots.Logic
             bool aFlippedThisTurn = false, bFlippedThisTurn = false; // you can't flip yourself back over in the same turn you're flipped
             if (AreSideBySide(botA, botB)) // you can only flip if they're side by side
             {
-                if (botA.Move == Move.Flip)
+                if (botA.Move == Move.Flip && botA.Bot.NumberOfFlipsRemaining > 0)
                 {
                     TheBotIsFlippedOntoItsBack(botA, botB);
                     bFlippedThisTurn = true;
@@ -33,7 +33,7 @@ namespace BattleOfTheBots.Logic
                         TheBotMovesRight(botB);
                     }
                 }
-                if (botB.Move == Move.Flip)
+                if (botB.Move == Move.Flip && botB.Bot.NumberOfFlipsRemaining > 0)
                 {
                     TheBotIsFlippedOntoItsBack(botB, botA);
                     aFlippedThisTurn = true;
@@ -46,11 +46,17 @@ namespace BattleOfTheBots.Logic
             }
 
             // flip yourself back over
-            if (botA.Move == Move.Flip && botA.Bot.IsFlipped && !aFlippedThisTurn)
+            if (botA.Move == Move.Flip
+                && botA.Bot.IsFlipped
+                && !aFlippedThisTurn
+                && botA.Bot.NumberOfFlipsRemaining > 0)
             {
                 TheBotIsFlippedOntoItsWheels(botA);
             }
-            if (botB.Move == Move.Flip && botB.Bot.IsFlipped && !bFlippedThisTurn)
+            if (botB.Move == Move.Flip 
+                && botB.Bot.IsFlipped 
+                && !bFlippedThisTurn 
+                && botB.Bot.NumberOfFlipsRemaining > 0)
             {
                 TheBotIsFlippedOntoItsWheels(botB);
             }

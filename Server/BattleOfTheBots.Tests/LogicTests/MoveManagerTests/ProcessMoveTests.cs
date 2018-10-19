@@ -132,6 +132,24 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.AreEqual(expectedWinner, this.Arena.Winner);
         }
 
+        [TestCase(TestName ="Cannot flip opponent if no flips are left")]
+        public void CheckFlipFailsWithNoFuel()
+        {
+            this.FirstBot.NumberOfFlipsRemaining = 0;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, Move.Flip), new BotMove(this.LastBot, Move.MoveForwards));
+
+            Assert.IsFalse(this.LastBot.IsFlipped, "Bot B shouldn't be flipped if Bot A has no remaining flips");
+        }
+
+        [TestCase(TestName = "Cannot onto wheels if no flips are left")]
+        public void CheckReflipFailsWithNoFuel()
+        {
+            this.FirstBot.IsFlipped = true;
+            this.FirstBot.NumberOfFlipsRemaining = 0;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(this.FirstBot, Move.Flip), new BotMove(this.LastBot, Move.MoveForwards));
+
+            Assert.IsTrue(this.FirstBot.IsFlipped, "Bot A shouldn't be able to right itself if it has no remaining flips");
+        }
 
 
 
