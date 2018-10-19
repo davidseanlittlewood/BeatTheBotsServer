@@ -71,20 +71,22 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             var botARanges = Enumerable.Range(0, this.Arena.NumberOfSquares - 2); // minus the count/space and minus a space for the other bot
             foreach (var botAPosition in botARanges)
             {
-                var botBPosition = botAPosition + 3;
+                var minBotBPosition = botAPosition + 2;
+                var maxBotBPosition = this.Arena.NumberOfSquares - 1;
+                if(minBotBPosition > maxBotBPosition)
+                {
+                    continue;
+                }
+                var numberOfSpacesBehindBotB = maxBotBPosition - minBotBPosition + 1;
 
-                FirstBot.Position = botAPosition;
-                LastBot.Position = botBPosition;
-
-                Assert.IsTrue(this.MoveManager.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
-                    $"When Bot A is at {botAPosition} and Bot B is at {botBPosition} they should show as seperated by more than a single space");
-
-                var botBRange = Enumerable.Range(botBPosition + 1, this.Arena.NumberOfSquares - botBPosition - 1);
+                var botBRange = Enumerable.Range(minBotBPosition, numberOfSpacesBehindBotB);
                 foreach (var botBNotInContactPosition in botBRange)
                 {
+                    FirstBot.Position = botAPosition;
                     LastBot.Position = botBNotInContactPosition;
-                    Assert.IsFalse(this.MoveManager.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
-                    $"When Bot A is at {botAPosition} and Bot B is at {botBPosition} they should not show as seperated by more than a single space");
+
+                    Assert.IsTrue(this.MoveManager.AreSeperatedByMoreThanOneSpace(new BotMove(FirstBot, Move.AttackWithAxe), new BotMove(LastBot, Move.AttackWithAxe)),
+                    $"When Bot A is at {botAPosition} and Bot B is at {minBotBPosition} they should show as seperated by more than a single space");
                 }
             }
         }
