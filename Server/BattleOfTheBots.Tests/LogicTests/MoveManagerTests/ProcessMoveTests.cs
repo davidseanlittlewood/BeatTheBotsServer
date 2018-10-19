@@ -6,12 +6,8 @@ using System.Linq;
 
 namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
 {
-    public class ProcessMoveTests
+    public class ProcessMoveTests : CommonTestBase
     {
-        public ProcessMoveTests()
-        {
-            this.MoveManager = new MoveManager();
-        }
 
         [TestCase(Move.MoveForwards, Move.MoveForwards, 3, 4, TestName = "When both Bots move forward then neither will move")]        
         [TestCase(Move.MoveBackwards, Move.MoveBackwards, 2, 5, TestName = "When both Bots move backwards then both will move back a space")]
@@ -211,10 +207,7 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.AreEqual(100, FirstBot.Health, "Bot A  took damage from a flipped opponent");
             Assert.AreEqual(4, LastBot.Position, "Bot B shouldn't be able to move while it is flipped");
         }
-
-
-
-        public MoveManager MoveManager { get; }
+        
         public Arena Arena { get; set; }
 
         public Bot FirstBot => this.Arena?.Bots?.FirstOrDefault();

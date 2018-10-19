@@ -9,13 +9,8 @@ using System.Threading.Tasks;
 
 namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
 {
-    public class AreSeperatedByTests
+    public class AreSeperatedByTests : CommonTestBase
     {
-        public AreSeperatedByTests()
-        {
-            this.MoveManager = new MoveManager();
-        }
-
         [Test]
         public void AreSideBySideTests()
         {
@@ -104,25 +99,5 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
                 }
             }
         }
-
-
-
-        public MoveManager MoveManager { get; }
-        public Arena Arena { get; set; }
-
-        public Bot FirstBot => this.Arena?.Bots?.FirstOrDefault();
-        public Bot LastBot => this.Arena?.Bots?.LastOrDefault();
-
-
-        [SetUp]
-        public void RestoreArena()
-        {            
-            this.Arena = new Arena(new Bot[]
-            {
-                new Bot(Direction.Right) { Name = Guid.NewGuid().ToString(), Position = 3, Health = 100, NumberOfFlipsRemaining = 5 },
-                new Bot(Direction.Left) { Name = Guid.NewGuid().ToString(), Position = 4, Health = 100, NumberOfFlipsRemaining = 5 }
-            });
-        }
-
     }
 }
