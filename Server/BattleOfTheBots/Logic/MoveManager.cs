@@ -22,7 +22,7 @@ namespace BattleOfTheBots.Logic
         {
             // We need to work out who's flipped BEFORE we actually do the flipping, because you can't flip when you're flipped and both may flip at the same time
             bool aWasFlippedThisTurn = false;
-            bool bWasFlippedThisTurn = false; // you can't flip yourself back over in the same turn you're flipped
+            bool bWasFlippedThisTurn = false;
 
             if (PositionHelpers.AreSideBySide(botA, botB)) // you can only flip if they're side by side
             {
@@ -51,11 +51,11 @@ namespace BattleOfTheBots.Logic
             }
 
             
-            if (bWasFlippedThisTurn)
+            if (bWasFlippedThisTurn) // if the above determined theyneeded to be flipped then flip them
             {
                 TheBotIsFlippedOntoItsBack(botA, botB);
             }
-            else
+            else // if they weren't flipped then we can check if they are flipped and want to self-right
             {
                 if (botB.Move == Move.Flip
                 && botB.Bot.IsFlipped
