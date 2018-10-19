@@ -20,23 +20,28 @@ namespace BattleOfTheBots.Logic
 
         private void ProcessFlips(Arena arena, BotMove botA, BotMove botB)
         {
-            bool aFlippedThisTurn = false, bFlippedThisTurn = false; // you can't flip yourself back over in the same turn you're flipped
+            // We need to work out who's flipped BEFORE we actually do the flipping, because you can't flip when you're flipped and both may flip at the same time
+            bool aWasFlippedThisTurn = false;
+            bool bWasFlippedThisTurn = false; // you can't flip yourself back over in the same turn you're flipped
+
             if (AreSideBySide(botA, botB)) // you can only flip if they're side by side
             {
-                if (botA.Move == Move.Flip && botA.Bot.NumberOfFlipsRemaining > 0)
-                {
-                    TheBotIsFlippedOntoItsBack(botA, botB);
-                    bFlippedThisTurn = true;
+                if (botA.Move == Move.Flip
+                    && !botA.Bot.IsFlipped
+                    && botA.Bot.NumberOfFlipsRemaining > 0)
+                {                    
+                    bWasFlippedThisTurn = true;
                     if(botB.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
                         TheBotMovesRight(botB); // we're moving twice here to counteract the effect of the shunt
                         TheBotMovesRight(botB);
                     }
                 }
-                if (botB.Move == Move.Flip && botB.Bot.NumberOfFlipsRemaining > 0)
-                {
-                    TheBotIsFlippedOntoItsBack(botB, botA);
-                    aFlippedThisTurn = true;
+                if (botB.Move == Move.Flip
+                    && !botB.Bot.IsFlipped
+                    && botB.Bot.NumberOfFlipsRemaining > 0)
+                {                    
+                    aWasFlippedThisTurn = true;
                     if (botA.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
                     {
                         TheBotMovesLeft(botA);
@@ -45,20 +50,36 @@ namespace BattleOfTheBots.Logic
                 }
             }
 
-            // flip yourself back over
-            if (botA.Move == Move.Flip
-                && botA.Bot.IsFlipped
-                && !aFlippedThisTurn
-                && botA.Bot.NumberOfFlipsRemaining > 0)
+            
+            if (bWasFlippedThisTurn)
             {
-                TheBotIsFlippedOntoItsWheels(botA);
+                TheBotIsFlippedOntoItsBack(botA, botB);
             }
-            if (botB.Move == Move.Flip 
-                && botB.Bot.IsFlipped 
-                && !bFlippedThisTurn 
-                && botB.Bot.NumberOfFlipsRemaining > 0)
+            else
             {
-                TheBotIsFlippedOntoItsWheels(botB);
+                if (botB.Move == Move.Flip
+                && botB.Bot.IsFlipped
+                && !bWasFlippedThisTurn
+                && botB.Bot.NumberOfFlipsRemaining > 0)
+                {
+                    TheBotIsFlippedOntoItsWheels(botB);
+                }
+            }
+
+
+            if (aWasFlippedThisTurn)
+            {
+                TheBotIsFlippedOntoItsBack(botB, botA);
+            }
+            else
+            {
+                if (botA.Move == Move.Flip
+                    && botA.Bot.IsFlipped
+                    && !aWasFlippedThisTurn
+                    && botA.Bot.NumberOfFlipsRemaining > 0)
+                {
+                    TheBotIsFlippedOntoItsWheels(botA);
+                }
             }
         }
 
@@ -186,11 +207,6 @@ namespace BattleOfTheBots.Logic
         public bool IsEitherAdvancing(BotMove botA, BotMove botB)
         {
             return IsBotAdvancing(botA) || IsBotAdvancing(botB);
-        }
-
-        public bool AreEitherWithdrawing(BotMove botA, BotMove botB)
-        {
-            return botA.Move == Move.MoveBackwards || botB.Move == Move.MoveBackwards;
         }
 
 

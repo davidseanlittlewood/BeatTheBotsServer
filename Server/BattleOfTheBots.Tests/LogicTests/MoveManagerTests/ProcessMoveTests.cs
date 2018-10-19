@@ -151,6 +151,39 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.IsTrue(this.FirstBot.IsFlipped, "Bot A shouldn't be able to right itself if it has no remaining flips");
         }
 
+        [TestCase(TestName ="When Bot A is upside down it can flip back onto it's wheels")]
+        public void AFlipBackOntoWheels()
+        {            
+            FirstBot.IsFlipped = true;
+            FirstBot.NumberOfFlipsRemaining = 1;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, Move.Flip), new BotMove(LastBot, Move.MoveForwards));
+
+            Assert.IsFalse(FirstBot.IsFlipped, "Bot A should have been able to flip itself back onto it's wheels");
+        }
+        
+        [TestCase(TestName = "Wehn Bot B is upside down it can flip back onto it's wheels")]
+        public void BFlipBackOntoWheels()
+        {
+            LastBot.IsFlipped = true;
+            LastBot.NumberOfFlipsRemaining = 1;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, Move.MoveForwards), new BotMove(LastBot, Move.Flip));
+
+            Assert.IsFalse(LastBot.IsFlipped, "Bot B should have been able to flip itself back onto it's wheels");
+        }
+
+
+
+        [TestCase(TestName = "Two Bots, both flipped and side by side can flip back onto their wheels")]
+        public void BothFlipBackOntoWheels()
+        {
+            FirstBot.IsFlipped = true;
+            LastBot.IsFlipped = true;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, Move.Flip), new BotMove(LastBot, Move.Flip));
+
+            Assert.IsFalse(FirstBot.IsFlipped, "Bot A should have been able to flip itself back onto it's wheels");
+            Assert.IsFalse(LastBot.IsFlipped, "Bot B should have been able to flip itself back onto it's wheels");
+        }
+
 
 
         public MoveManager MoveManager { get; }
