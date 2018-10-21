@@ -264,7 +264,7 @@ namespace BotExample
                                 fuel = int.Parse(paramValue);
                                 break;
                             }
-                        case "arenaSize":
+                        case "arenasize":
                             {
                                 arenaSize = int.Parse(paramValue);
                                 break;
