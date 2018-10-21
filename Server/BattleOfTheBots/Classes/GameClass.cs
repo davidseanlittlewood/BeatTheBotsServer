@@ -11,10 +11,11 @@ namespace BattleOfTheBots.Classes
 {
     public class GameClass
     {
-        private readonly int _maxRounds;
-        private readonly int _pointsToWin;
-        private readonly int _dynamite;
-
+        private readonly int _health;
+        private readonly int _flips;
+        private readonly int _flipOdds;
+        private readonly int _fuel;
+        private readonly int _arenaSize;
         private string _winner = string.Empty;
 
         private readonly BotClass _bot1;
@@ -27,15 +28,17 @@ namespace BattleOfTheBots.Classes
         public string Bot1Name { get { return this._bot1.Name; } }
         public string Bot2Name { get { return this._bot2.Name; } }
 
-        public int Bot1Points { get { return this._bot1.TotalPoints; } }
-        public int Bot2Points { get { return this._bot2.TotalPoints; } }
+        public int Bot1Points { get { return this._bot1.Health; } }
+        public int Bot2Points { get { return this._bot2.Health; } }
 
-        public GameClass(BotClass bot1, BotClass bot2, int maxRounds, int pointToWin, int dynamite)
+        public GameClass(BotClass bot1, BotClass bot2, int health, int flips, int flipOdds, int fuel, int arenaSize)
         {
-            this._maxRounds = maxRounds;
-            this._pointsToWin = pointToWin;
-            this._dynamite = dynamite;
-
+            this._health = health;
+            this._flips = flips;
+            this._flipOdds = flipOdds;
+            this._fuel = fuel;
+            this._arenaSize = arenaSize;
+            
             this._bot1 = bot1;
             this._bot2 = bot2;
 
@@ -46,13 +49,13 @@ namespace BattleOfTheBots.Classes
 
             updateCurrentMatch += this.UpdateCurrentMatch;
 
-            if (HTTPUtility.SendStartInstruction(this._bot1, this._bot2, this._pointsToWin, this._maxRounds, this._dynamite) == "failed")
+            if (HTTPUtility.SendStartInstruction(this._bot1, this._bot2, this._health, this._arenaSize, this._flips, this._flipOdds, this._fuel, 'R') == "failed")
             {
                 AbandonBattle(this._bot2); 
                 return;
             }
 
-            if (HTTPUtility.SendStartInstruction(this._bot2, this._bot1,  this._pointsToWin, this._maxRounds, this._dynamite) == "failed")
+            if (HTTPUtility.SendStartInstruction(this._bot2, this._bot1, this._health, this._arenaSize, this._flips, this._flipOdds, this._fuel, 'L') == "failed")
             {
                 AbandonBattle(this._bot1); 
                 return;
@@ -60,9 +63,9 @@ namespace BattleOfTheBots.Classes
 
 
             int points = 1;
-            bool maxPointsReached = false;
+            bool matchIsOver = false;
 
-            for (int rcount = 1; rcount < this._maxRounds && !maxPointsReached; rcount++)
+            while (!matchIsOver)
             {
                 this._bot1.LastMove = HTTPUtility.GetMove(this._bot1);
                 this._bot2.LastMove = HTTPUtility.GetMove(this._bot2);
@@ -90,44 +93,43 @@ namespace BattleOfTheBots.Classes
                         break;
                     }
                     case 1:
-                    {
-                        this._bot1.AddWin(points);
+                        { 
+                        this._bot2.Health = this._bot2.Health - points;
                         points = 1;
                         break;
-                    }
+                        }
                     case 2:
                     {
-                        this._bot2.AddWin(points);
+                        this._bot1.Health = this._bot2.Health - points;
                         points = 1;
                         break;
                     }
                     default:
                         break;
                 }
-                maxPointsReached = ((this._bot1.TotalPoints >= this._pointsToWin) ||
-                                    (this._bot2.TotalPoints >= this._pointsToWin));
+                matchIsOver = ((this._bot1.Health < 0) ||
+                                    (this._bot2.Health < 0));
 
                 updateCurrentMatch(this, gameCount, totalGames);
             }
-            
+
             RegisterBattleWinner();            
         }
 
         private void AbandonBattle(BotClass winningBot)
         {
-            this._winner = winningBot.Name;
-            winningBot.AddWin(this._pointsToWin);
+            this._winner = winningBot.Name;            
 
             RegisterBattleWinner();
         }
 
         private void RegisterBattleWinner()
         {
-            if (this._bot1.TotalPoints > this._bot2.TotalPoints)
+            if (this._bot1.Health > this._bot2.Health)
             {
                 this._winner = this._bot1.Name;
             }
-            else if (this._bot2.TotalPoints > this._bot1.TotalPoints)
+            else if (this._bot2.Health > this._bot1.Health)
             {
                 this._winner = this._bot2.Name;
             }
@@ -141,51 +143,7 @@ namespace BattleOfTheBots.Classes
 
         private int WinningMove(string move1, string move2)
         {
-            if (move1 == move2)
-                return 0;
-
-            switch (move1)
-            {
-                case "DYNAMITE":
-                    {
-                        if (move2 == "WATERBOMB")
-                            return 2;
-                        else
-                            return 1;
-                    }
-
-                case "ROCK":
-                    {
-                        if (move2 == "DYNAMITE" || move2 == "PAPER")
-                            return 2;
-                        else
-                            return 1;
-                    }
-                case "SCISSORS":
-                    {
-                        if (move2 == "DYNAMITE" || move2 == "ROCK")
-                            return 2;
-                        else
-                            return 1;
-                    }
-                case "PAPER":
-                    {
-                        if (move2 == "DYNAMITE" || move2 == "SCISSORS")
-                            return 2;
-                        else
-                            return 1;
-                    }
-                case "WATERBOMB":
-                    {
-                        if (move2 == "DYNAMITE")
-                            return 1;
-                        else
-                            return 2;
-                    }
-
-            }
-
-            return 0;
+          return 0;
         }
 
     }
