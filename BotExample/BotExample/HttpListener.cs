@@ -213,8 +213,7 @@ namespace BotExample
 
                     }
                     break;
-                }
-                    break;
+                }                  
             }
         }
 
