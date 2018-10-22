@@ -24,6 +24,33 @@ namespace BotExample.Bots
             return GetRandomResponse();
         }
 
+        public override void SetStartValues(string opponentName, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
+        {
+            OpponentName = opponentName;
+            Health = health;
+            ArenaSize = arenaSize;
+            Flips = flips;
+            FlipOdds = flipOdds;
+            Fuel = fuel;
+            Direction = direction;
+
+            base.SetStartValues(opponentName, health, arenaSize, flips, flipOdds, fuel, direction);
+        }
+
+        public override void SetLastOpponentsMove(string lastOpponentsMove)
+        {
+            LastOpponentsMove = lastOpponentsMove;
+
+            base.SetLastOpponentsMove(lastOpponentsMove);
+        }
+
+        public override void SetFlippedStatus(bool flipped)
+        {
+            Flipped = flipped;
+
+            base.SetFlippedStatus(flipped);
+        }
+
         public string GetRandomResponse()
         {
 
