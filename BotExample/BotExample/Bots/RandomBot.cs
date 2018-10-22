@@ -9,7 +9,7 @@ namespace BotExample.Bots
     public class RandomBot : BotBaseClass
     {
         public string OpponentName { get; set; }
-        public string LastOpponentsMove { get; set; }
+        public List<string> PreviousMoves { get; set; }
         public bool Flipped { get; set; }
         public int Health { get; set; }
         public int Flips { get; set; }
@@ -18,6 +18,10 @@ namespace BotExample.Bots
         public int ArenaSize { get; set; }
         public char Direction { get; set; }
 
+        public RandomBot()
+        {
+            this.PreviousMoves = new List<string>();
+        }
 
         public override string GetMove()
         {
@@ -39,7 +43,7 @@ namespace BotExample.Bots
 
         public override void CaptureOpponentsLastMove(string lastOpponentsMove)
         {
-            LastOpponentsMove = lastOpponentsMove;
+            PreviousMoves.Add(lastOpponentsMove);
 
             base.CaptureOpponentsLastMove(lastOpponentsMove);
         }
@@ -81,8 +85,15 @@ namespace BotExample.Bots
                     }
                 default:
                     {
-                        Flips--;
-                        return "FLIP";
+                        if (Flips > 0)
+                        {
+                            Flips--;
+                            return "FLIP";
+                        }
+                        else
+                        {
+                            return "HIT";
+                        }
                     }
             }
         }
