@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BotAIClass.cs" />
+    <Compile Include="BotBaseClass.cs" />
+    <Compile Include="Bots\RandomBot.cs" />
     <Compile Include="HttpListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
