@@ -38,6 +38,11 @@
             this.dcolStatus = new System.Data.DataColumn();
             this.dsGameConfig = new System.Data.DataSet();
             this.dtGameConfig = new System.Data.DataTable();
+            this.dcHealth = new System.Data.DataColumn();
+            this.dcFlips = new System.Data.DataColumn();
+            this.dcFlipOdds = new System.Data.DataColumn();
+            this.dcFuel = new System.Data.DataColumn();
+            this.dcArenaSize = new System.Data.DataColumn();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblBot2Message = new System.Windows.Forms.Label();
@@ -60,6 +65,11 @@
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
             this.gridGameConfig = new System.Windows.Forms.DataGridView();
+            this.healthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Flips = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FlipOdds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArenaSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.gridBotConfig = new System.Windows.Forms.DataGridView();
@@ -70,16 +80,6 @@
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.botRegistryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dcHealth = new System.Data.DataColumn();
-            this.dcFlips = new System.Data.DataColumn();
-            this.dcFlipOdds = new System.Data.DataColumn();
-            this.dcFuel = new System.Data.DataColumn();
-            this.healthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Flips = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FlipOdds = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fuel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dcArenaSize = new System.Data.DataColumn();
-            this.ArenaSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsBotConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBotConfig)).BeginInit();
@@ -101,7 +101,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 421);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1131, 321);
+            this.panel1.Size = new System.Drawing.Size(1192, 321);
             this.panel1.TabIndex = 0;
             // 
             // tbOutput
@@ -114,7 +114,7 @@
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
-            this.tbOutput.Size = new System.Drawing.Size(1131, 321);
+            this.tbOutput.Size = new System.Drawing.Size(1192, 321);
             this.tbOutput.TabIndex = 0;
             this.tbOutput.Text = ">\r\n";
             // 
@@ -170,6 +170,36 @@
             this.dcArenaSize});
             this.dtGameConfig.TableName = "GameConfigTable";
             // 
+            // dcHealth
+            // 
+            this.dcHealth.Caption = "Health";
+            this.dcHealth.ColumnName = "Health";
+            this.dcHealth.DataType = typeof(short);
+            // 
+            // dcFlips
+            // 
+            this.dcFlips.Caption = "Flips";
+            this.dcFlips.ColumnName = "Flips";
+            this.dcFlips.DataType = typeof(short);
+            // 
+            // dcFlipOdds
+            // 
+            this.dcFlipOdds.Caption = "Flip Odds";
+            this.dcFlipOdds.ColumnName = "FlipOdds";
+            this.dcFlipOdds.DataType = typeof(short);
+            // 
+            // dcFuel
+            // 
+            this.dcFuel.Caption = "Fuel";
+            this.dcFuel.ColumnName = "Fuel";
+            this.dcFuel.DataType = typeof(short);
+            // 
+            // dcArenaSize
+            // 
+            this.dcArenaSize.Caption = "Arena Size";
+            this.dcArenaSize.ColumnName = "ArenaSize";
+            this.dcArenaSize.DataType = typeof(short);
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.tableLayoutPanel1);
@@ -177,7 +207,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel4.Location = new System.Drawing.Point(0, 307);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1131, 114);
+            this.panel4.Size = new System.Drawing.Size(1192, 114);
             this.panel4.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -186,7 +216,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 821F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 894F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.lblBot2Message, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblBot2Status, 1, 2);
@@ -204,7 +234,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.0855F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.68774F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.22676F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1131, 90);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1192, 90);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // lblBot2Message
@@ -214,7 +244,7 @@
             this.lblBot2Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBot2Message.Location = new System.Drawing.Point(240, 61);
             this.lblBot2Message.Name = "lblBot2Message";
-            this.lblBot2Message.Size = new System.Drawing.Size(887, 28);
+            this.lblBot2Message.Size = new System.Drawing.Size(948, 28);
             this.lblBot2Message.TabIndex = 10;
             this.lblBot2Message.Text = ".........";
             this.lblBot2Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -250,7 +280,7 @@
             this.lblBot1Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBot1Message.Location = new System.Drawing.Point(240, 30);
             this.lblBot1Message.Name = "lblBot1Message";
-            this.lblBot1Message.Size = new System.Drawing.Size(887, 30);
+            this.lblBot1Message.Size = new System.Drawing.Size(948, 30);
             this.lblBot1Message.TabIndex = 7;
             this.lblBot1Message.Text = ".........";
             this.lblBot1Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -286,7 +316,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(240, 1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(887, 28);
+            this.label5.Size = new System.Drawing.Size(948, 28);
             this.label5.TabIndex = 2;
             this.label5.Text = "Status Message";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -322,7 +352,7 @@
             this.leaderboardToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1131, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1192, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -339,7 +369,7 @@
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -347,7 +377,7 @@
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
@@ -355,7 +385,7 @@
             // 
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -395,7 +425,7 @@
             this.panel3.Controls.Add(this.gridGameConfig);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(620, 0);
+            this.panel3.Location = new System.Drawing.Point(681, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(511, 307);
             this.panel3.TabIndex = 5;
@@ -419,6 +449,37 @@
             this.gridGameConfig.TabIndex = 4;
             this.gridGameConfig.Leave += new System.EventHandler(this.gridGameConfig_Leave);
             // 
+            // healthDataGridViewTextBoxColumn
+            // 
+            this.healthDataGridViewTextBoxColumn.DataPropertyName = "Health";
+            this.healthDataGridViewTextBoxColumn.HeaderText = "Health";
+            this.healthDataGridViewTextBoxColumn.Name = "healthDataGridViewTextBoxColumn";
+            // 
+            // Flips
+            // 
+            this.Flips.DataPropertyName = "Flips";
+            this.Flips.HeaderText = "Flips";
+            this.Flips.Name = "Flips";
+            // 
+            // FlipOdds
+            // 
+            this.FlipOdds.DataPropertyName = "FlipOdds";
+            this.FlipOdds.HeaderText = "FlipOdds";
+            this.FlipOdds.Name = "FlipOdds";
+            // 
+            // Fuel
+            // 
+            this.Fuel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Fuel.DataPropertyName = "Fuel";
+            this.Fuel.HeaderText = "Fuel";
+            this.Fuel.Name = "Fuel";
+            // 
+            // ArenaSize
+            // 
+            this.ArenaSize.DataPropertyName = "ArenaSize";
+            this.ArenaSize.HeaderText = "ArenaSize";
+            this.ArenaSize.Name = "ArenaSize";
+            // 
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -437,7 +498,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(620, 307);
+            this.panel2.Size = new System.Drawing.Size(681, 307);
             this.panel2.TabIndex = 6;
             // 
             // gridBotConfig
@@ -454,7 +515,7 @@
             this.gridBotConfig.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridBotConfig.Location = new System.Drawing.Point(0, 24);
             this.gridBotConfig.Name = "gridBotConfig";
-            this.gridBotConfig.Size = new System.Drawing.Size(620, 283);
+            this.gridBotConfig.Size = new System.Drawing.Size(681, 283);
             this.gridBotConfig.TabIndex = 3;
             // 
             // nameDataGridViewTextBoxColumn
@@ -490,7 +551,7 @@
             this.botRegistryToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(620, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(681, 24);
             this.menuStrip2.TabIndex = 4;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -509,72 +570,11 @@
             this.testToolStripMenuItem.Text = "Test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
-            // dcHealth
-            // 
-            this.dcHealth.Caption = "Health";
-            this.dcHealth.ColumnName = "Health";
-            this.dcHealth.DataType = typeof(short);
-            // 
-            // dcFlips
-            // 
-            this.dcFlips.Caption = "Flips";
-            this.dcFlips.ColumnName = "Flips";
-            this.dcFlips.DataType = typeof(short);
-            // 
-            // dcFlipOdds
-            // 
-            this.dcFlipOdds.Caption = "Flip Odds";
-            this.dcFlipOdds.ColumnName = "FlipOdds";
-            this.dcFlipOdds.DataType = typeof(short);
-            // 
-            // dcFuel
-            // 
-            this.dcFuel.Caption = "Fuel";
-            this.dcFuel.ColumnName = "Fuel";
-            this.dcFuel.DataType = typeof(short);
-            // 
-            // healthDataGridViewTextBoxColumn
-            // 
-            this.healthDataGridViewTextBoxColumn.DataPropertyName = "Health";
-            this.healthDataGridViewTextBoxColumn.HeaderText = "Health";
-            this.healthDataGridViewTextBoxColumn.Name = "healthDataGridViewTextBoxColumn";
-            // 
-            // Flips
-            // 
-            this.Flips.DataPropertyName = "Flips";
-            this.Flips.HeaderText = "Flips";
-            this.Flips.Name = "Flips";
-            // 
-            // FlipOdds
-            // 
-            this.FlipOdds.DataPropertyName = "FlipOdds";
-            this.FlipOdds.HeaderText = "FlipOdds";
-            this.FlipOdds.Name = "FlipOdds";
-            // 
-            // Fuel
-            // 
-            this.Fuel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Fuel.DataPropertyName = "Fuel";
-            this.Fuel.HeaderText = "Fuel";
-            this.Fuel.Name = "Fuel";
-            // 
-            // dcArenaSize
-            // 
-            this.dcArenaSize.Caption = "Arena Size";
-            this.dcArenaSize.ColumnName = "ArenaSize";
-            this.dcArenaSize.DataType = typeof(short);
-            // 
-            // ArenaSize
-            // 
-            this.ArenaSize.DataPropertyName = "ArenaSize";
-            this.ArenaSize.HeaderText = "ArenaSize";
-            this.ArenaSize.Name = "ArenaSize";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1131, 742);
+            this.ClientSize = new System.Drawing.Size(1192, 742);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel4);
