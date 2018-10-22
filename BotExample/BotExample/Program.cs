@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BotExample.Bots;
+using System;
 
 namespace BotExample
 {
@@ -15,7 +16,7 @@ namespace BotExample
             }
 
 
-            HttpListenerClass httpListener = new HttpListenerClass(port);
+            HttpListenerClass httpListener = new HttpListenerClass(port, new RandomBot());
         
         }
     }
