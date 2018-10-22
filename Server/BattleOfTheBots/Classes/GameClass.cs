@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleOfTheBots.HTTP;
 using System.Windows.Forms;
+using BattleOfTheBots.Logic;
+using BattleOfTheBots.State;
 
 
 namespace BattleOfTheBots.Classes
@@ -18,8 +20,8 @@ namespace BattleOfTheBots.Classes
         private readonly int _arenaSize;
         private string _winner = string.Empty;
 
-        private readonly BotClass _bot1;
-        private readonly BotClass _bot2;
+        private readonly Bot _bot1;
+        private readonly Bot _bot2;
 
         public delegate void UpdateMatchProgressDelegate(GameClass currentGame, int gameCount, int totalGames);
         public event UpdateMatchProgressDelegate UpdateCurrentMatch;
@@ -31,7 +33,7 @@ namespace BattleOfTheBots.Classes
         public int Bot1Points { get { return this._bot1.Health; } }
         public int Bot2Points { get { return this._bot2.Health; } }
 
-        public GameClass(BotClass bot1, BotClass bot2, int health, int flips, int flipOdds, int fuel, int arenaSize)
+        public GameClass(Bot bot1, Bot bot2, int health, int flips, int flipOdds, int fuel, int arenaSize)
         {
             this._health = health;
             this._flips = flips;
@@ -49,101 +51,38 @@ namespace BattleOfTheBots.Classes
 
             updateCurrentMatch += this.UpdateCurrentMatch;
 
-            if (HTTPUtility.SendStartInstruction(this._bot1, this._bot2, this._health, this._arenaSize, this._flips, this._flipOdds, this._fuel, 'R') == "failed")
+            if (HTTPUtility.SendStartInstruction(this._bot1, this._bot2, this._health, this._arenaSize, this._flips, this._flipOdds, this._fuel, this._bot1.DesiredDirection.ToString()[0]) == "failed")
             {
                 AbandonBattle(this._bot2); 
                 return;
             }
 
-            if (HTTPUtility.SendStartInstruction(this._bot2, this._bot1, this._health, this._arenaSize, this._flips, this._flipOdds, this._fuel, 'L') == "failed")
+            if (HTTPUtility.SendStartInstruction(this._bot2, this._bot1, this._health, this._arenaSize, this._flips, this._flipOdds, this._fuel, this._bot2.DesiredDirection.ToString()[0]) == "failed")
             {
                 AbandonBattle(this._bot1); 
                 return;
             }
 
-
-            int points = 1;
-            bool matchIsOver = false;
-
-            while (!matchIsOver)
+            IMoveManager moveManager = new MoveManager();
+            var arena = new Arena(new Bot[] { this._bot1, this._bot2 });
+      
+            while (arena.Winner == null)
             {
-                this._bot1.LastMove = HTTPUtility.GetMove(this._bot1);
-                this._bot2.LastMove = HTTPUtility.GetMove(this._bot2);
+                var botMove1 = new BotMove(this._bot1, HTTPUtility.GetMove(_bot1));
+                var botMove2 = new BotMove(this._bot2, HTTPUtility.GetMove(_bot2));
 
-                HTTPUtility.PostMove(this._bot1, this._bot2.LastMove);
-                HTTPUtility.PostMove(this._bot2,this._bot1.LastMove);
-
-                if (this._bot1.LastMove == "failed")
-                {
-                    AbandonBattle(this._bot2);
-                    return;
-                }
-                
-                if (this._bot2.LastMove == "failed")
-                {
-                    AbandonBattle(this._bot1); 
-                    return;
-                }
-
-                switch (WinningMove(this._bot1.LastMove, this._bot2.LastMove))
-                {
-                    case 0:
-                    {
-                        points++;
-                        break;
-                    }
-                    case 1:
-                        { 
-                        this._bot2.Health = this._bot2.Health - points;
-                        points = 1;
-                        break;
-                        }
-                    case 2:
-                    {
-                        this._bot1.Health = this._bot2.Health - points;
-                        points = 1;
-                        break;
-                    }
-                    default:
-                        break;
-                }
-                matchIsOver = ((this._bot1.Health < 0) ||
-                                    (this._bot2.Health < 0));
-
-                updateCurrentMatch(this, gameCount, totalGames);
+                HTTPUtility.PostMove(this._bot1, botMove1.Move.ToString());
+                HTTPUtility.PostMove(this._bot2, botMove2.Move.ToString());                
             }
 
-            RegisterBattleWinner();            
-        }
+            
+            this._winner = arena.Winner.Name;
 
-        private void AbandonBattle(BotClass winningBot)
+            }
+
+        private void AbandonBattle(Bot winningBot)
         {
             this._winner = winningBot.Name;            
-
-            RegisterBattleWinner();
-        }
-
-        private void RegisterBattleWinner()
-        {
-            if (this._bot1.Health > this._bot2.Health)
-            {
-                this._winner = this._bot1.Name;
-            }
-            else if (this._bot2.Health > this._bot1.Health)
-            {
-                this._winner = this._bot2.Name;
-            }
-            else
-            {
-                this._winner = "tie";
-            }
-
-        }
-
-
-        private int WinningMove(string move1, string move2)
-        {
-          return 0;
         }
 
     }

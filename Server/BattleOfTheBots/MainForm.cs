@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using BattleOfTheBots.Classes;
 using BattleOfTheBots.HTTP;
 using System.Threading;
+using BattleOfTheBots.Logic;
+using BattleOfTheBots.State;
 
 namespace BattleOfTheBots
 {
@@ -116,10 +118,10 @@ namespace BattleOfTheBots
         {
             foreach (DataRow datarow in dtBotConfig.Rows)
             {
-                BotClass bot = new BotClass( datarow[0].ToString(), datarow[1].ToString(),0,0,0);
+                Bot bot = new Bot(Direction.Left, datarow["Url"].ToString(), datarow["Name"].ToString());
                 OutputText(String.Format(">Testing {0} .......", bot.Name));
 
-                if (HTTPUtility.GetMove(bot) != "failed")
+                if (HTTPUtility.GetMove(bot) != Logic.Move.Invalid)
                 {
 
                     OutputText("test passed.\n");
@@ -207,8 +209,8 @@ namespace BattleOfTheBots
 
                         gamesList.Add(
                             new GameClass(
-                                new BotClass(vBot1.Name, vBot1.Url, Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["Fuel"])),
-                                new BotClass(vBot2.Name, vBot2.Url, Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["Fuel"])),
+                                new Bot(Direction.Left, vBot1.Url, vBot1.Name),
+                                new Bot(Direction.Right, vBot2.Url, vBot2.Name),
                                 Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["FlipOdds"]), Convert.ToInt16(gameRow["Fuel"]),
                                 Convert.ToInt16(gameRow["ArenaSize"])));
                     }

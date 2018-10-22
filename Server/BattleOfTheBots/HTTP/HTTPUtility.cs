@@ -7,13 +7,15 @@ using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using BattleOfTheBots.Classes;
+using BattleOfTheBots.State;
+using BattleOfTheBots.Logic;
 
 namespace BattleOfTheBots.HTTP
 {
     internal class HTTPUtility
     {
         //
-        internal static string SendStartInstruction(BotClass bot, BotClass opponentBot,  int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
+        internal static string SendStartInstruction(Bot bot, Bot opponentBot,  int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
         {
 
             try
@@ -47,7 +49,7 @@ namespace BattleOfTheBots.HTTP
             }
         }
 
-        internal static string PostMove(BotClass bot, string move)
+        internal static string PostMove(Bot bot, string move)
         {
             try
             {
@@ -77,7 +79,7 @@ namespace BattleOfTheBots.HTTP
             }
         }
 
-        internal static string GetMove(BotClass bot)
+        internal static Move GetMove(Bot bot)
         {
             try
             {
@@ -92,11 +94,11 @@ namespace BattleOfTheBots.HTTP
                 var response = (HttpWebResponse)request.GetResponse();
 
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                return responseString;
+                return (Move)Enum.Parse(typeof(Move), responseString);
             }
             catch
             {
-                return "failed";
+                return Move.Invalid;
             }
         }
     }

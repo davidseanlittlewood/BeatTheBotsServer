@@ -2,8 +2,8 @@
 {
     public enum Direction
     {
-        Invalid,
-        Left,
-        Right
+        Invalid = ' ',
+        Left = 'L',
+        Right = 'R'
     }
 }
