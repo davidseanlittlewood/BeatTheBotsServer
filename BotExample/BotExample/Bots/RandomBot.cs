@@ -37,11 +37,11 @@ namespace BotExample.Bots
             base.SetStartValues(opponentName, health, arenaSize, flips, flipOdds, fuel, direction);
         }
 
-        public override void SetLastOpponentsMove(string lastOpponentsMove)
+        public override void CaptureOpponentsLastMove(string lastOpponentsMove)
         {
             LastOpponentsMove = lastOpponentsMove;
 
-            base.SetLastOpponentsMove(lastOpponentsMove);
+            base.CaptureOpponentsLastMove(lastOpponentsMove);
         }
 
         public override void SetFlippedStatus(bool flipped)

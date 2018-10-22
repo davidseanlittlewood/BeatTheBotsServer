@@ -202,7 +202,7 @@ namespace BotExample
                         }
                         else
                         {
-                            _bot.SetLastOpponentsMove(body);
+                            _bot.CaptureOpponentsLastMove(body);
                             Console.WriteLine(string.Format("Their move {0}", body));
                             context.Response.StatusCode = (int)HttpStatusCode.OK;
                             context.Response.ContentType = "text/plain";
