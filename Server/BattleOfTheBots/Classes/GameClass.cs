@@ -35,11 +35,14 @@ namespace BattleOfTheBots.Classes
 
         public GameClass(Bot bot1, Bot bot2, int health, int flips, int flipOdds, int fuel, int arenaSize)
         {
-            this._health = health;
-            this._flips = flips;
-            this._flipOdds = flipOdds;
-            this._fuel = fuel;
-            this._arenaSize = arenaSize;
+            bot1.Health = health;
+            bot2.Health = health;
+            bot1.NumberOfFlipsRemaining = flips;
+            bot2.NumberOfFlipsRemaining = flips;
+            bot1.FlameThrowerFuelRemaining = fuel;
+            bot2.FlameThrowerFuelRemaining = fuel;
+            bot1.Position = 2;
+            bot1.Position = 2;
             
             this._bot1 = bot1;
             this._bot2 = bot2;
@@ -71,8 +74,11 @@ namespace BattleOfTheBots.Classes
                 var botMove1 = new BotMove(this._bot1, HTTPUtility.GetMove(_bot1));
                 var botMove2 = new BotMove(this._bot2, HTTPUtility.GetMove(_bot2));
 
+                moveManager.ProcessMove(arena, botMove1, botMove2);
+
                 HTTPUtility.PostMove(this._bot1, botMove1.Move.ToString());
-                HTTPUtility.PostMove(this._bot2, botMove2.Move.ToString());                
+                HTTPUtility.PostMove(this._bot2, botMove2.Move.ToString());
+                
             }
 
             
