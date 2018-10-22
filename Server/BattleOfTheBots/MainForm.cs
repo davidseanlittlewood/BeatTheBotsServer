@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using BattleOfTheBots.Classes;
 using BattleOfTheBots.HTTP;
-using System.Linq;
 using System.Threading;
 
 namespace BattleOfTheBots
@@ -56,7 +49,11 @@ namespace BattleOfTheBots
         private void LoadBotConfig()
         {
             dsBotConfig.Clear();
-            dsBotConfig.ReadXml("botConfiguration.xml");
+            try
+            {
+                dsBotConfig.ReadXml("botConfiguration.xml");
+            }
+            catch { }
         }
 
         private void SaveBotConfig()
@@ -67,7 +64,11 @@ namespace BattleOfTheBots
         private void LoadGameConfig()
         {
             dsGameConfig.Clear();
-            dsGameConfig.ReadXml("gameConfiguration.xml");
+            try
+            {
+                dsGameConfig.ReadXml("gameConfiguration.xml");
+            }
+            catch { }
         }
 
         private void SaveGameConfig()
@@ -115,7 +116,7 @@ namespace BattleOfTheBots
         {
             foreach (DataRow datarow in dtBotConfig.Rows)
             {
-                BotClass bot = new BotClass(0, datarow[0].ToString(), datarow[1].ToString());
+                BotClass bot = new BotClass( datarow[0].ToString(), datarow[1].ToString(),0,0,0);
                 OutputText(String.Format(">Testing {0} .......", bot.Name));
 
                 if (HTTPUtility.GetMove(bot) != "failed")
@@ -206,12 +207,11 @@ namespace BattleOfTheBots
 
                         gamesList.Add(
                             new GameClass(
-                                new BotClass((int)gameRow["Dynamite"], vBot1.Name, vBot1.Url),
-                                new BotClass((int)gameRow["Dynamite"], vBot2.Name, vBot2.Url),
-                                (int)gameRow["MaxRounds"], (int)gameRow["TotalPoints"], (int)gameRow["Dynamite"]));
+                                new BotClass(vBot1.Name, vBot1.Url, Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["Fuel"])),
+                                new BotClass(vBot2.Name, vBot2.Url, Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["Fuel"])),
+                                Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["FlipOdds"]), Convert.ToInt16(gameRow["Fuel"]),
+                                Convert.ToInt16(gameRow["ArenaSize"])));
                     }
-
-
                 }
             }
             return gamesList;

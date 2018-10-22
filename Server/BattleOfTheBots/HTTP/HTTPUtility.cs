@@ -13,7 +13,7 @@ namespace BattleOfTheBots.HTTP
     internal class HTTPUtility
     {
         //
-        internal static string SendStartInstruction(BotClass bot, BotClass opponentBot, int pointsToWin, int maxRounds, int dynamiteCount)
+        internal static string SendStartInstruction(BotClass bot, BotClass opponentBot,  int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
         {
 
             try
@@ -21,7 +21,7 @@ namespace BattleOfTheBots.HTTP
 
                 var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/start", bot.Url));
 
-                var postData = string.Format("opponentName={0}&pointsToWin={1}&maxRounds={2}&dynamiteCount={3}", opponentBot.Name, pointsToWin, maxRounds, dynamiteCount);
+                var postData = string.Format("opponentName={0}&health={1}&arenaSize={2}&flips={3}&flipOdds={4}&fuel={5}&direction={6}", opponentBot.Name, health, arenaSize, flips, flipOdds, fuel, direction);
 
                 var data = Encoding.ASCII.GetBytes(postData);
 

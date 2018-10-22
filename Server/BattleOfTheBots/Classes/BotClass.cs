@@ -10,18 +10,23 @@ namespace BattleOfTheBots.Classes
 
     public class BotClass
     {
-        private string _lastmove;
-        private int _dynamiteRemaining;
         private string _name;
-        private int _totalPoints = 0;
-        private string _url;
+        private int _health;
+        private int _flips;
+        private bool _flipped;
+        private int _fuel;
+        private string _lastMove;
+        private string _url;        
 
-        public BotClass(int dynamite, string name, string url)
+        public BotClass(string name, string url, int health, int flips, int fuel )
         {
-            this._dynamiteRemaining = dynamite;
             this._name = name;
             this._url = url;
+            this._health = health;
+            this._flips = flips;
+            this._fuel = fuel;
         }
+
 
         public string Name
         {
@@ -37,39 +42,33 @@ namespace BattleOfTheBots.Classes
         {
             get
             {
-                return this._lastmove;
+                return this._lastMove  ;
             } 
-
             set
             {
-                _lastmove = value;
-
-                if (_lastmove == "DYNAMITE")
-                {
-                    if (_dynamiteRemaining < 1)
-                    {
-                        this._lastmove = "WATERBOMB";
-                    }
-                    else
-                    {
-                        _dynamiteRemaining--;
-                    }
-                }
-
+                this._lastMove = value;             
             }
         }
 
-        public int DynamiteRemaining
+        public int Health
         {
-            get { return _dynamiteRemaining; }
+            get { return _health; }
+            set { this._health = value ; }
+        }
+        public bool Flipped
+        {
+            get { return _flipped; }
+            set { this._flipped = value; }
+        }
+        public void UsedFlip()
+        {
+            this._flips--;
+        }
+        public void UsedFuel()
+        {
+            this._fuel--;
         }
 
-        public int TotalPoints { get { return this._totalPoints; }}
-
-        public void AddWin(int points)
-        {
-            this._totalPoints = this._totalPoints + points;
-        }
     }
 
 }
