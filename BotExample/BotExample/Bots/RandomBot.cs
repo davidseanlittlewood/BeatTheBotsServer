@@ -87,7 +87,7 @@ namespace BotExample.Bots
                 case 4:
                     {
                         Fuel--;
-                        return Move.Invalid; // flame throwers are not implemented on the server
+                        return Move.FlameThrower;
                     }
                 default:
                     {

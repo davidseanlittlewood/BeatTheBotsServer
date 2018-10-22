@@ -13,6 +13,7 @@ namespace BattleOfTheBots.Logic
         Shunt,
         AttackWithAxe,
         MoveForwards,
-        MoveBackwards
+        MoveBackwards,
+        FlameThrower
     }
 }

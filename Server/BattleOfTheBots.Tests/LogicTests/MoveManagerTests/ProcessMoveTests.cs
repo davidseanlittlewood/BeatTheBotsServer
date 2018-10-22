@@ -86,12 +86,12 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
                         LastBot.Position = botBPosition;
 
 
-                        // if we're making an advancing move for either bot then slide them back a little to create space
-                        if (botAMove == Move.MoveForwards || botAMove == Move.Shunt)
+                        // if we're making an advancing move (or a ranged weapon) for either bot then slide them back a little to create space
+                        if (botAMove == Move.MoveForwards || botAMove == Move.Shunt || botAMove == Move.FlameThrower)
                         {
                             FirstBot.Position--;
                         }
-                        if (botBMove == Move.MoveForwards || botBMove == Move.Shunt)
+                        if (botBMove == Move.MoveForwards || botBMove == Move.Shunt || botBMove == Move.FlameThrower)
                         {
                             LastBot.Position++;
                         }
@@ -216,7 +216,55 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.AreEqual(100, FirstBot.Health, "Bot A  took damage from a flipped opponent");
             Assert.AreEqual(4, LastBot.Position, "Bot B shouldn't be able to move while it is flipped");
         }
-        
+
+        [TestCase(5, false, 4, Move.AttackWithAxe, 80,  4, 90, TestName = "A Flamethrowers B who is in the next space using an Axe")]
+        [TestCase(5, false, 5, Move.AttackWithAxe, 90,  4, 100, TestName = "A Flamethrowers B who is one space away using an Axe")]
+        [TestCase(5, false, 5, Move.MoveForwards, 80,   4, 100, TestName = "A Flamethrowers B who is one space away and moving forwards")]
+        [TestCase(5, false, 5, Move.AttackWithAxe, 90,  4, 100, TestName = "A Flamethrowers B who is one space away and using an Axe")]
+        [TestCase(5, false, 5, Move.MoveBackwards, 100, 4, 100, TestName = "A Flamethrowers B who is one space away and moving backwards")]
+        [TestCase(0, false, 4, Move.AttackWithAxe, 100, 0, 90, TestName = "A Flamethrowers B but has no fuel")]
+        [TestCase(5, true,  4, Move.AttackWithAxe, 100, 4, 80, TestName = "A Flamethrowers but is upside down while B axes")]
+        public void ATestFlameThrower(int aFuel, bool aFlipped, int bPosition, Move bMove, int expectedBHealth, int expectedAFuel, int expectedAHealth)
+        {
+            LastBot.Position = bPosition;
+            FirstBot.FlameThrowerFuelRemaining = aFuel;
+            FirstBot.IsFlipped = aFlipped;
+
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, Move.FlameThrower), new BotMove(LastBot, bMove));
+
+            Assert.AreEqual(expectedBHealth, LastBot.Health, "Bot B didn't take the correct amount of damage");
+            Assert.AreEqual(expectedAHealth, FirstBot.Health, "Bot A didn't take the correct amount of damage");
+
+            Assert.AreEqual(expectedAFuel, FirstBot.FlameThrowerFuelRemaining, "Bot A didn't have the correct amount of flame thrower fuel");
+
+            Assert.AreEqual(aFlipped, FirstBot.IsFlipped, "Bot A shouldn't have changed flipped state");
+            Assert.IsFalse(LastBot.IsFlipped, "Bot B shouldn't be flipped");
+        }
+
+        [TestCase(5, false, 3, Move.AttackWithAxe, 80, 4, 90, TestName = "B Flamethrowers A who is in the next space using an Axe")]
+        [TestCase(5, false, 2, Move.AttackWithAxe, 90, 4, 100, TestName = "B Flamethrowers A who is one space away using an Axe")]
+        [TestCase(5, false, 2, Move.MoveForwards, 80, 4, 100, TestName = "B Flamethrowers A who is one space away and moving forwards")]
+        [TestCase(5, false, 2, Move.AttackWithAxe, 90, 4, 100, TestName = "B Flamethrowers A who is one space away and using an Axe")]
+        [TestCase(5, false, 2, Move.MoveBackwards, 100, 4, 100, TestName = "B Flamethrowers A who is one space away and moving backwards")]
+        [TestCase(0, false, 3, Move.AttackWithAxe, 100, 0, 90, TestName = "B Flamethrowers A but has no fuel")]
+        [TestCase(5, true, 3, Move.AttackWithAxe, 100, 4, 80, TestName = "B Flamethrowers but is upside down while A axes")]
+        public void BTestFlameThrower(int bFuel, bool bFlipped, int aPosition, Move aMove, int expectedAHealth, int expectedAFuel, int expectedBHealth)
+        {
+            FirstBot.Position = aPosition;
+            LastBot.FlameThrowerFuelRemaining = bFuel;
+            LastBot.IsFlipped = bFlipped;
+
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(LastBot, Move.FlameThrower), new BotMove(FirstBot, aMove));
+
+            Assert.AreEqual(expectedAHealth, FirstBot.Health, "Bot A didn't take the correct amount of damage");
+            Assert.AreEqual(expectedBHealth, LastBot.Health, "Bot B didn't take the correct amount of damage");
+
+            Assert.AreEqual(expectedAFuel, LastBot.FlameThrowerFuelRemaining, "Bot B didn't have the correct amount of flame thrower fuel");
+
+            Assert.AreEqual(bFlipped, LastBot.IsFlipped, "Bot B shouldn't have changed flipped state");
+            Assert.IsFalse(FirstBot.IsFlipped, "Bot A shouldn't be flipped");
+        }
+
         public Arena Arena { get; set; }
 
         public Bot FirstBot => this.Arena?.Bots?.FirstOrDefault();
@@ -228,8 +276,8 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
         {
             this.Arena = new Arena(new Bot[] 
             {
-                new Bot(Direction.Right) { Name = "Left Bot", Position = 3, Health = 100, NumberOfFlipsRemaining = 5 },
-                new Bot(Direction.Left) { Name = "Right Bot", Position = 4, Health = 100, NumberOfFlipsRemaining = 5 }
+                new Bot(Direction.Right) { Name = "Left Bot", Position = 3, Health = 100, NumberOfFlipsRemaining = 5, FlameThrowerFuelRemaining = 5 },
+                new Bot(Direction.Left) { Name = "Right Bot", Position = 4, Health = 100, NumberOfFlipsRemaining = 5, FlameThrowerFuelRemaining = 5 }
             });            
         }
     }

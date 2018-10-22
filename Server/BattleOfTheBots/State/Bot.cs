@@ -11,6 +11,7 @@
         public bool IsFlipped { get; set; }
 
         public Direction DesiredDirection { get; protected set; }
+        public int FlameThrowerFuelRemaining { get; set; }
 
         public Bot(Direction direction)
         {

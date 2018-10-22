@@ -16,12 +16,18 @@ namespace BattleOfTheBots.State
         public int AxeDamage { get; }
         public int ShuntDamage { get; }
 
-        public Arena(IEnumerable<Bot> bots, int numberOfSquares = 9, int axeDamage = 10, int shuntDamage = 5)
+        public int ShortRangeFlameThrowerDamage { get; }
+
+        public int LongRangeFlameThrowerDamage { get; }
+
+        public Arena(IEnumerable<Bot> bots, int numberOfSquares = 9, int axeDamage = 10, int shuntDamage = 5, int shortRangeFlameThrowerDamage = 20, int longRangeFlameThrowerDamage = 10)
         {
             this.Bots = bots;
             this.NumberOfSquares = numberOfSquares;
             this.AxeDamage = axeDamage;
-            this.ShuntDamage = shuntDamage;            
+            this.ShuntDamage = shuntDamage;
+            this.ShortRangeFlameThrowerDamage = shortRangeFlameThrowerDamage;
+            this.LongRangeFlameThrowerDamage = longRangeFlameThrowerDamage;
         }
     }
 }

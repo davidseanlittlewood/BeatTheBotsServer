@@ -36,6 +36,11 @@ namespace BotExample
         /// <summary>
         /// Move backwards cautiously
         /// </summary>
-        MoveBackwards
+        MoveBackwards,
+
+        /// <summary>
+        /// Unleash a powerful flamethrower at your opponent
+        /// </summary>
+        FlameThrower
     }
 }

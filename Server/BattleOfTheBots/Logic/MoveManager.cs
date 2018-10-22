@@ -13,7 +13,7 @@ namespace BattleOfTheBots.Logic
         {            
             ProcessMovements(arena, botA, botB);            
             ProcessFlips(arena, botA, botB);
-            ProcessAxeDamage(arena, botA, botB);
+            ProcessWeaponDamage(arena, botA, botB);
             CheckForVictory(arena, botA, botB);
         }
        
@@ -83,7 +83,7 @@ namespace BattleOfTheBots.Logic
             }
         }
 
-        private void ProcessAxeDamage(Arena arena, BotMove botA, BotMove botB)
+        private void ProcessWeaponDamage(Arena arena, BotMove botA, BotMove botB)
         {
             if (PositionHelpers.AreSideBySide(botA, botB)) // only deal damage if they're side by side
             {
@@ -101,6 +101,33 @@ namespace BattleOfTheBots.Logic
                         ? (2 * arena.AxeDamage)
                         : arena.AxeDamage;
                     TheBotTakesDamage(botB, damage);
+                }                                    
+            }
+
+
+            if (botA.Move == Move.FlameThrower && botA.Bot.FlameThrowerFuelRemaining > 0)
+            {
+                botA.Bot.FlameThrowerFuelRemaining--;
+                if (!botA.Bot.IsFlipped)
+                {                    
+                    var damage = 0;
+                    if (PositionHelpers.AreSeperatedByOneSpace(botA, botB)) damage = arena.LongRangeFlameThrowerDamage;
+                    else if (PositionHelpers.AreSideBySide(botA, botB)) damage = arena.ShortRangeFlameThrowerDamage;
+
+                    TheBotTakesDamage(botB, damage);
+                }
+            }
+
+            if (botB.Move == Move.FlameThrower && botB.Bot.FlameThrowerFuelRemaining > 0)
+            {
+                botB.Bot.FlameThrowerFuelRemaining--;
+                if (!botB.Bot.IsFlipped)
+                {
+                    var damage = 0;
+                    if (PositionHelpers.AreSeperatedByOneSpace(botA, botB)) damage = arena.LongRangeFlameThrowerDamage;
+                    else if (PositionHelpers.AreSideBySide(botA, botB)) damage = arena.ShortRangeFlameThrowerDamage;
+
+                    TheBotTakesDamage(botA, damage);
                 }
             }
         }
