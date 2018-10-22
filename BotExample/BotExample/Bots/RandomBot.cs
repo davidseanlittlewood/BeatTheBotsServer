@@ -23,9 +23,12 @@ namespace BotExample.Bots
             this.PreviousMoves = new List<Move>();
         }
 
+        /// <summary>
+        /// Tell the server what we'd like to do in our move
+        /// </summary>
         public override Move GetMove()
         {
-            return GetRandomResponse();
+            return GetRandomResponse(); // This bot isn't very smart - it'll pick a random move and carry it out
         }
 
         public override void SetStartValues(string opponentName, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
@@ -55,9 +58,12 @@ namespace BotExample.Bots
             base.SetFlippedStatus(flipped);
         }
 
+        /// <summary>
+        /// Select a random response
+        /// </summary>
+        /// <returns></returns>
         public Move GetRandomResponse()
         {
-
             Random random = new System.Random(Environment.TickCount);
             int rnd = random.Next(6);
             switch (rnd)
@@ -81,16 +87,16 @@ namespace BotExample.Bots
                 case 4:
                     {
                         Fuel--;
-                        return Move.Invalid;
+                        return Move.Invalid; // flame throwers are not implemented on the server
                     }
                 default:
                     {
-                        if (Flips > 0)
+                        if (Flips > 0) // if we have remaining flips
                         {
-                            Flips--;
-                            return Move.Flip;
+                            Flips--; // record that we're using a flip
+                            return Move.Flip; // and try to turn them over
                         }
-                        else
+                        else // otherwise just hit them with an axe
                         {
                             return Move.AttackWithAxe;
                         }
