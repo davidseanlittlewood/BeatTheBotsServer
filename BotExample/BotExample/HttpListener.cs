@@ -202,7 +202,12 @@ namespace BotExample
                         }
                         else
                         {
-                            _bot.CaptureOpponentsLastMove(body);
+                            Move lastMoveVal;
+                            if(!Enum.TryParse(body, out lastMoveVal))
+                            {
+                                lastMoveVal = Move.Invalid;
+                            }
+                            _bot.CaptureOpponentsLastMove(lastMoveVal);
                             Console.WriteLine(string.Format("Their move {0}", body));
                             context.Response.StatusCode = (int)HttpStatusCode.OK;
                             context.Response.ContentType = "text/plain";

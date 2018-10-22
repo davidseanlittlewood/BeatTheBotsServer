@@ -44,6 +44,7 @@
     <Compile Include="BotBaseClass.cs" />
     <Compile Include="Bots\RandomBot.cs" />
     <Compile Include="HttpListener.cs" />
+    <Compile Include="Move.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -45,7 +45,7 @@ namespace BotExample
         /// POST http://<your_bot_url>/move
         /// </summary>
         /// <param name="lastOpponentsMove">The last move your opponent made</param>        
-        public virtual void CaptureOpponentsLastMove(string lastOpponentsMove)
+        public virtual void CaptureOpponentsLastMove(Move lastOpponentsMove)
         {
         }
 
