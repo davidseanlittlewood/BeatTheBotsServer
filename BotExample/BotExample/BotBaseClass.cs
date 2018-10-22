@@ -69,9 +69,9 @@ namespace BotExample
         /// 
         /// GET http://<your_bot_url>/move
         /// </summary>
-        public virtual string GetMove()
+        public virtual Move GetMove()
         {
-            return "HIT";            
+            return Move.AttackWithAxe;
         }   
     }
 }

@@ -23,7 +23,7 @@ namespace BotExample.Bots
             this.PreviousMoves = new List<Move>();
         }
 
-        public override string GetMove()
+        public override Move GetMove()
         {
             return GetRandomResponse();
         }
@@ -55,7 +55,7 @@ namespace BotExample.Bots
             base.SetFlippedStatus(flipped);
         }
 
-        public string GetRandomResponse()
+        public Move GetRandomResponse()
         {
 
             Random random = new System.Random(Environment.TickCount);
@@ -64,35 +64,35 @@ namespace BotExample.Bots
             {
                 case 0:
                     {
-                        return "FORWARD";
+                        return Move.MoveForwards;
                     }
                 case 1:
                     {
-                        return "BACK";
+                        return Move.MoveBackwards;
                     }
                 case 2:
                     {
-                        return "HIT";
+                        return Move.AttackWithAxe;
                     }
                 case 3:
                     {
-                        return "SHUNT";
+                        return Move.Shunt;
                     }
                 case 4:
                     {
                         Fuel--;
-                        return "FLAME";
+                        return Move.Invalid;
                     }
                 default:
                     {
                         if (Flips > 0)
                         {
                             Flips--;
-                            return "FLIP";
+                            return Move.Flip;
                         }
                         else
                         {
-                            return "HIT";
+                            return Move.AttackWithAxe;
                         }
                     }
             }

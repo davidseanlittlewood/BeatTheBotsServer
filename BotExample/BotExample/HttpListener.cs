@@ -186,7 +186,8 @@ namespace BotExample
                         {
 
                             StreamWriter sww = new StreamWriter(context.Response.OutputStream);
-                            string responsestr = _bot.GetMove();
+                            var move = _bot.GetMove();
+                            string responsestr = Enum.GetName(typeof(Move), move);
                             Console.WriteLine(string.Format("My move {0}", responsestr));
 
 
