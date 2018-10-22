@@ -98,17 +98,17 @@ namespace BattleOfTheBots
             }
             else
             {
-                leaderboard.UpdateCurrentMatch(string.Format("Game {4}/{5}:  {0} {2} vs {3} {1}", game.Bot1Name, game.Bot2Name, game.Bot1Points, game.Bot2Points, gameCount, totalGames));
+                leaderboard.UpdateCurrentMatch(string.Format("Game {4}/{5}:  {0} {2} vs {3} {1}", game.Bot1.Name, game.Bot2.Name, game.Bot1.Health, game.Bot2.Health, gameCount, totalGames));
 
-                lblBot1Name.Text = game.Bot1Name;
-                lblBot2Name.Text = game.Bot2Name;
+                lblBot1Name.Text = game.Bot1.Name;
+                lblBot2Name.Text = game.Bot2.Name;
 
                 lblBot1Status.Text = string.Format("Game {0} in progress.", gameCount);
                 lblBot2Status.Text = string.Format("Game {0} in progress.", gameCount);
 
 
-                lblBot1Message.Text = game.Bot1Points.ToString();
-                lblBot2Message.Text = game.Bot2Points.ToString();
+                lblBot1Message.Text = string.Format("Health {0} Flips remaining {1} Flame thrower fuel {2}", game.Bot1.Health, game.Bot1.NumberOfFlipsRemaining, game.Bot1.FlameThrowerFuelRemaining);
+                lblBot2Message.Text = string.Format("Health {0} Flips remaining {1} Flame thrower fuel {2}", game.Bot2.Health, game.Bot2.NumberOfFlipsRemaining, game.Bot2.FlameThrowerFuelRemaining);
             }
         }
 
@@ -171,7 +171,7 @@ namespace BattleOfTheBots
             foreach (GameClass game in gamesList)
             {
 
-                game.CommenceBattle(new GameClass.UpdateMatchProgressDelegate(UpdateCurrentMatch), gameCount, gamesList.Count);
+                game.CommenceBattle(new GameClass.UpdateMatchProgressDelegate(UpdateCurrentMatch), gameCount, gamesList.Count());
 
 
                 OutputText(string.Format(">Game {0}:  Winner {1}  \n", gameCount, game.Winner));
