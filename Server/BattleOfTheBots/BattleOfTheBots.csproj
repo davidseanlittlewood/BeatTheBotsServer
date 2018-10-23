@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIBot\RandomBot.cs" />
     <Compile Include="Logic\IMoveManager.cs" />
     <Compile Include="Logic\PositionHelpers.cs" />
+    <Compile Include="State\RemoteBot.cs" />
     <Compile Include="UI\UIManager.cs" />
     <Compile Include="Logic\BotMove.cs" />
     <Compile Include="State\Direction.cs" />

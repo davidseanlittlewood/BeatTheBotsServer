@@ -14,24 +14,22 @@ namespace BattleOfTheBots.HTTP
 {
     internal class HTTPUtility
     {
-        //
-        internal static string SendStartInstruction(Bot bot, Bot opponentBot,  int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
+        public static string SendStartInstruction(string url, string opponentBotName, int startPosition, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
         {
 
             try
             {
-
-                var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/start", bot.Url));
+                var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/start", url));
 
                 var postData = string.Format("opponentName={0}&health={1}&arenaSize={2}&flips={3}&flipOdds={4}&fuel={5}&direction={6}&startPosition={7}",
-                    opponentBot.Name,
+                    opponentBotName,
                     health,
                     arenaSize,
                     flips,
                     flipOdds,
                     fuel,
                     direction,
-                    bot.Position);
+                    startPosition);
 
                 var data = Encoding.ASCII.GetBytes(postData);
 
@@ -57,11 +55,11 @@ namespace BattleOfTheBots.HTTP
             }
         }
 
-        internal static string PostMove(Bot bot, string move)
+        internal static string PostMove(string url, string move)
         {
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/move", bot.Url));
+                var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/move", url));
 
 
                 var data = Encoding.ASCII.GetBytes(move);
@@ -87,11 +85,11 @@ namespace BattleOfTheBots.HTTP
             }
         }
 
-        internal static Move GetMove(Bot bot)
+        internal static Move GetMove(string url)
         {
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/move", bot.Url));
+                var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/move", url));
 
                 //request.Timeout = 5000;
                 request.Method = "GET";

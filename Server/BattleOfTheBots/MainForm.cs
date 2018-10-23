@@ -118,10 +118,10 @@ namespace BattleOfTheBots
         {
             foreach (DataRow datarow in dtBotConfig.Rows)
             {
-                Bot bot = new Bot(Direction.Left, datarow["Url"].ToString(), datarow["Name"].ToString());
+                Bot bot = new RemoteBot(Direction.Left, datarow["Url"].ToString(), datarow["Name"].ToString());
                 OutputText(String.Format(">Testing {0} .......", bot.Name));
 
-                if (HTTPUtility.GetMove(bot) != Logic.Move.Invalid)
+                if (bot.GetMove().Move != Logic.Move.Invalid)
                 {
 
                     OutputText("test passed.\n");
@@ -209,8 +209,8 @@ namespace BattleOfTheBots
 
                         gamesList.Add(
                             new GameClass(
-                                new Bot(Direction.Left, vBot1.Url, vBot1.Name),
-                                new Bot(Direction.Right, vBot2.Url, vBot2.Name),
+                                new RemoteBot(Direction.Left, vBot1.Url, vBot1.Name),
+                                new RemoteBot(Direction.Right, vBot2.Url, vBot2.Name),
                                 Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["FlipOdds"]), Convert.ToInt16(gameRow["Fuel"]),
                                 Convert.ToInt16(gameRow["ArenaSize"])));
                     }

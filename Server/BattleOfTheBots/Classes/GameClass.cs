@@ -62,13 +62,13 @@ namespace BattleOfTheBots.Classes
 
             updateCurrentMatch += this.UpdateCurrentMatch;
 
-            if (HTTPUtility.SendStartInstruction(this._bot1, this._bot2, this._bot1.Health, this._arenaSize, this._bot1.NumberOfFlipsRemaining, this._flipOdds, this._bot1.FlameThrowerFuelRemaining, this._bot1.DesiredDirection.ToString()[0]) == "failed")
+            if (this._bot1.SendStartInstruction(this._bot2.Name, this._arenaSize, this._flipOdds) == "failed")
             {
                 AbandonBattle(this._bot2); 
                 return;
             }
 
-            if (HTTPUtility.SendStartInstruction(this._bot2, this._bot1, this._bot2.Health, this._arenaSize, this.Bot2.NumberOfFlipsRemaining, this._flipOdds, this.Bot2.FlameThrowerFuelRemaining, this._bot2.DesiredDirection.ToString()[0]) == "failed")
+            if (this._bot1.SendStartInstruction(this._bot1.Name, this._arenaSize, this._flipOdds) == "failed")
             {
                 AbandonBattle(this._bot1); 
                 return;
@@ -79,17 +79,15 @@ namespace BattleOfTheBots.Classes
       
             while (arena.Winner == null)
             {
-                var botMove1 = new BotMove(this._bot1, HTTPUtility.GetMove(_bot1));
-                var botMove2 = new BotMove(this._bot2, HTTPUtility.GetMove(_bot2));
+                var botMove1 = this._bot1.GetMove();
+                var botMove2 = this._bot2.GetMove();
 
                 moveManager.ProcessMove(arena, botMove1, botMove2);
 
-                HTTPUtility.PostMove(this._bot1, botMove1.Move.ToString());
-                HTTPUtility.PostMove(this._bot2, botMove2.Move.ToString());
+                this._bot1.PostOpponentsMove(botMove2.Move);
+                this._bot2.PostOpponentsMove(botMove2.Move);
 
                 updateCurrentMatch(this, gameCount, totalGames);
-
-
             }
 
             
