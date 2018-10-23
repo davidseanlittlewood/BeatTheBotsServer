@@ -35,19 +35,26 @@ namespace BattleOfTheBots.Classes
             bot1.Health = health;
             bot1.NumberOfFlipsRemaining = flips;
             bot1.FlameThrowerFuelRemaining = fuel;
-            bot1.Position = 2;
+            bot1.Position = CalculateStartPositionForBot(arenaSize, bot1.DesiredDirection);
 
             bot2.Health = health;
             bot2.NumberOfFlipsRemaining = flips;
             bot2.FlameThrowerFuelRemaining = fuel;
-            bot2.Position = 2;
-       
+            bot2.Position = CalculateStartPositionForBot(arenaSize, bot2.DesiredDirection);
+
             this._arenaSize = arenaSize;
             this._flipOdds = flipOdds;
 
             this._bot1 = bot1;
             this._bot2 = bot2;
 
+        }
+
+        public static int CalculateStartPositionForBot(int arenaSize, Direction direction)
+        {
+            return direction == Direction.Right
+                ? (int)Math.Floor(arenaSize / 2D) - 1
+                : (int)Math.Ceiling(arenaSize / 2D);
         }
 
         public void CommenceBattle(UpdateMatchProgressDelegate updateCurrentMatch, int gameCount, int totalGames)
