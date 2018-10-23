@@ -31,7 +31,7 @@ namespace BotExample.Bots
             return GetRandomResponse(); // This bot isn't very smart - it'll pick a random move and carry it out
         }
 
-        public override void SetStartValues(string opponentName, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
+        public override void SetStartValues(string opponentName, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction, int startIndex)
         {
             OpponentName = opponentName;
             Health = health;
@@ -41,7 +41,7 @@ namespace BotExample.Bots
             Fuel = fuel;
             Direction = direction;
 
-            base.SetStartValues(opponentName, health, arenaSize, flips, flipOdds, fuel, direction);
+            base.SetStartValues(opponentName, health, arenaSize, flips, flipOdds, fuel, direction, startIndex);
         }
 
         public override void CaptureOpponentsLastMove(Move lastOpponentsMove)

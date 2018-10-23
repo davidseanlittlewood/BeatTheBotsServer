@@ -23,7 +23,15 @@ namespace BattleOfTheBots.HTTP
 
                 var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/start", bot.Url));
 
-                var postData = string.Format("opponentName={0}&health={1}&arenaSize={2}&flips={3}&flipOdds={4}&fuel={5}&direction={6}", opponentBot.Name, health, arenaSize, flips, flipOdds, fuel, direction);
+                var postData = string.Format("opponentName={0}&health={1}&arenaSize={2}&flips={3}&flipOdds={4}&fuel={5}&direction={6}&startPosition={7}",
+                    opponentBot.Name,
+                    health,
+                    arenaSize,
+                    flips,
+                    flipOdds,
+                    fuel,
+                    direction,
+                    bot.Position);
 
                 var data = Encoding.ASCII.GetBytes(postData);
 

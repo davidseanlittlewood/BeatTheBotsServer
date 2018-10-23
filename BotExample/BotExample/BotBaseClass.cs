@@ -34,7 +34,8 @@ namespace BotExample
         /// <param name="flipOdds">The probability of making a successful flip</param>
         /// <param name="fuel">How much fuel you have for your flame thrower</param>
         /// <param name="direction">The direction in which you are facing</param>
-        public virtual void SetStartValues(string opponentName, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction)
+        /// <paramref name="startPosition">The location index where your bot is starting</param>
+        public virtual void SetStartValues(string opponentName, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction, int startPosition)
         {
         }
 

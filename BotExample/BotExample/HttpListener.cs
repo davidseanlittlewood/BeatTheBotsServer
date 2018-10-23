@@ -232,6 +232,7 @@ namespace BotExample
             int fuel = 0;
             int arenaSize = 0;
             char direction = 'R';
+            int startPosition = 0;
 
             string opponentName = string.Empty;
 
@@ -282,14 +283,24 @@ namespace BotExample
                             }
 
                             break;
+                        case "startposition":
+                            startPosition = int.Parse(paramValue);
+                            break;
                     }
                 }
             }
 
-            Console.WriteLine(string.Format("START Opponentname={0} Health={1} ArenaSize= {2} Flips={3} FlipOdds={4} Direction={5} Fuel={6}",
-                opponentName, health, arenaSize, flips, flipOdds, direction, fuel));
+            Console.WriteLine(string.Format("START Opponentname={0} Health={1} ArenaSize= {2} Flips={3} FlipOdds={4} Direction={5} Fuel={6} StartPosition={7}",
+                opponentName,
+                health,
+                arenaSize,
+                flips,
+                flipOdds,
+                direction,
+                fuel,
+                startPosition));
 
-            _bot.SetStartValues(opponentName, health, arenaSize, flips, flipOdds, fuel, direction);
+            _bot.SetStartValues(opponentName, health, arenaSize, flips, flipOdds, fuel, direction, startPosition);
         }
 
         private void ProcessStatusResponse(string responseBody)
