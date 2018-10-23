@@ -80,6 +80,8 @@
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.botRegistryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.houseBotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.randomBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsBotConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBotConfig)).BeginInit();
@@ -216,7 +218,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 894F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 955F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.lblBot2Message, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblBot2Status, 1, 2);
@@ -244,7 +246,7 @@
             this.lblBot2Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBot2Message.Location = new System.Drawing.Point(240, 61);
             this.lblBot2Message.Name = "lblBot2Message";
-            this.lblBot2Message.Size = new System.Drawing.Size(948, 28);
+            this.lblBot2Message.Size = new System.Drawing.Size(949, 28);
             this.lblBot2Message.TabIndex = 10;
             this.lblBot2Message.Text = ".........";
             this.lblBot2Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -280,7 +282,7 @@
             this.lblBot1Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBot1Message.Location = new System.Drawing.Point(240, 30);
             this.lblBot1Message.Name = "lblBot1Message";
-            this.lblBot1Message.Size = new System.Drawing.Size(948, 30);
+            this.lblBot1Message.Size = new System.Drawing.Size(949, 30);
             this.lblBot1Message.TabIndex = 7;
             this.lblBot1Message.Text = ".........";
             this.lblBot1Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -316,7 +318,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(240, 1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(948, 28);
+            this.label5.Size = new System.Drawing.Size(949, 28);
             this.label5.TabIndex = 2;
             this.label5.Text = "Status Message";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -558,7 +560,8 @@
             // botRegistryToolStripMenuItem
             // 
             this.botRegistryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.testToolStripMenuItem});
+            this.testToolStripMenuItem,
+            this.houseBotsToolStripMenuItem});
             this.botRegistryToolStripMenuItem.Name = "botRegistryToolStripMenuItem";
             this.botRegistryToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
             this.botRegistryToolStripMenuItem.Text = "Bot Registry";
@@ -566,9 +569,24 @@
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(95, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.testToolStripMenuItem.Text = "Test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
+            // houseBotsToolStripMenuItem
+            // 
+            this.houseBotsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.randomBotToolStripMenuItem});
+            this.houseBotsToolStripMenuItem.Name = "houseBotsToolStripMenuItem";
+            this.houseBotsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.houseBotsToolStripMenuItem.Text = "House Bots";
+            // 
+            // randomBotToolStripMenuItem
+            // 
+            this.randomBotToolStripMenuItem.Name = "randomBotToolStripMenuItem";
+            this.randomBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.randomBotToolStripMenuItem.Text = "Random Bot";
+            this.randomBotToolStripMenuItem.Click += new System.EventHandler(this.randomBotToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -661,6 +679,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Fuel;
         private System.Data.DataColumn dcArenaSize;
         private System.Windows.Forms.DataGridViewTextBoxColumn ArenaSize;
+        private System.Windows.Forms.ToolStripMenuItem houseBotsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem randomBotToolStripMenuItem;
     }
 }
 

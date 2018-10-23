@@ -118,7 +118,7 @@ namespace BattleOfTheBots
         {
             foreach (DataRow datarow in dtBotConfig.Rows)
             {
-                Bot bot = new RemoteBot(Direction.Left, datarow["Url"].ToString(), datarow["Name"].ToString());
+                Bot bot = GetClassForBot(Direction.Left, datarow["Url"].ToString(), datarow["Name"].ToString());
                 OutputText(String.Format(">Testing {0} .......", bot.Name));
 
                 if (bot.GetMove().Move != Logic.Move.Invalid)
@@ -207,16 +207,31 @@ namespace BattleOfTheBots
                         var vBot1 = enabledBots.ElementAt(x);
                         var vBot2 = enabledBots.ElementAt(y);
 
+                        var bot1Class = GetClassForBot(Direction.Left, vBot1.Url, vBot1.Name);
+                        var bot2Class = GetClassForBot(Direction.Right, vBot2.Url, vBot2.Name);
+
                         gamesList.Add(
                             new GameClass(
-                                new RemoteBot(Direction.Left, vBot1.Url, vBot1.Name),
-                                new RemoteBot(Direction.Right, vBot2.Url, vBot2.Name),
+                                bot1Class,
+                                bot2Class,
                                 Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["FlipOdds"]), Convert.ToInt16(gameRow["Fuel"]),
                                 Convert.ToInt16(gameRow["ArenaSize"])));
                     }
                 }
             }
             return gamesList;
+        }
+
+        private Bot GetClassForBot(Direction direction, string url, string name)
+        {
+            switch (url)
+            {
+                case "AI.Random":
+                    return new AI.RandomBot(direction);
+
+                default:
+                    return new RemoteBot(direction, url, name);
+            }
         }
 
         private void showToolStripMenuItem_Click(object sender, EventArgs e)
@@ -263,5 +278,10 @@ namespace BattleOfTheBots
 
             startToolStripMenuItem.Enabled = true;
         }
-}
+
+        private void randomBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtBotConfig.Rows.Add("Random Bot", "AI.Random", true, "OK");
+        }
+    }
 }
