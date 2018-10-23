@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\LemmingBot.cs" />
     <Compile Include="AI\RandomBot.cs" />
     <Compile Include="Logic\IMoveManager.cs" />
     <Compile Include="Logic\PositionHelpers.cs" />

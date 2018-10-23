@@ -82,6 +82,7 @@
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.houseBotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lemmingBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsBotConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBotConfig)).BeginInit();
@@ -576,7 +577,8 @@
             // houseBotsToolStripMenuItem
             // 
             this.houseBotsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.randomBotToolStripMenuItem});
+            this.randomBotToolStripMenuItem,
+            this.lemmingBotToolStripMenuItem});
             this.houseBotsToolStripMenuItem.Name = "houseBotsToolStripMenuItem";
             this.houseBotsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.houseBotsToolStripMenuItem.Text = "House Bots";
@@ -587,6 +589,13 @@
             this.randomBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.randomBotToolStripMenuItem.Text = "Random Bot";
             this.randomBotToolStripMenuItem.Click += new System.EventHandler(this.randomBotToolStripMenuItem_Click);
+            // 
+            // lemmingBotToolStripMenuItem
+            // 
+            this.lemmingBotToolStripMenuItem.Name = "lemmingBotToolStripMenuItem";
+            this.lemmingBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lemmingBotToolStripMenuItem.Text = "Lemming Bot";
+            this.lemmingBotToolStripMenuItem.Click += new System.EventHandler(this.lemmingBotToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -681,6 +690,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ArenaSize;
         private System.Windows.Forms.ToolStripMenuItem houseBotsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem randomBotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lemmingBotToolStripMenuItem;
     }
 }
 

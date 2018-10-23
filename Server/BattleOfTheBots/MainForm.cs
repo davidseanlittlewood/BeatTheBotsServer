@@ -229,6 +229,9 @@ namespace BattleOfTheBots
                 case "AI.Random":
                     return new AI.RandomBot(direction);
 
+                case "AI.Lemming":
+                    return new AI.LemmingBot(direction);
+
                 default:
                     return new RemoteBot(direction, url, name);
             }
@@ -282,6 +285,11 @@ namespace BattleOfTheBots
         private void randomBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dtBotConfig.Rows.Add("Random Bot", "AI.Random", true, "OK");
+        }
+
+        private void lemmingBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtBotConfig.Rows.Add("Lemming Bot", "AI.Lemming", true, "OK");
         }
     }
 }
