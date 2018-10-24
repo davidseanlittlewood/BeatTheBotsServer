@@ -45,5 +45,9 @@ namespace BattleOfTheBots.State
         {
             return "failed";
         }
+        public override string ToString()
+        {
+            return $"{this.Name} at position {this.Position}";
+        }
     }    
 }
