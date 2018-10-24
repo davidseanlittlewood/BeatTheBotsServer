@@ -18,7 +18,39 @@ namespace BattleOfTheBots.Logic
             if (botA.Health <= 0) winner = botB;
             if (botB.Health <= 0) winner = botA;
 
+            if(botA.IsFlipped && botB.IsFlipped)
+            {
+                if(botA.Health != botB.Health)
+                {
+                    winner = GetBothWithMostHealth(botA, botB);
+                }
+                else
+                {
+                    winner = GetBotWhoMadeMostProgress(arena, botA, botB);
+                }
+            }
+
             return winner;
+        }
+
+        public static Bot GetBotWhoMadeMostProgress(Arena arena, params Bot[] bots)
+        {
+            var leftBot = bots.Single(b => b.DesiredDirection == Direction.Left);
+            var leftProgress = leftBot.Position;
+
+            var rightBot = bots.Single(b => b.DesiredDirection == Direction.Right);
+            var rightProgress = (arena.NumberOfSquares - 1 - rightBot.Position);
+
+            var maxProgressBot = leftProgress > rightProgress // in even width arenas this will favour one bot (assuming they're both flipped and have equal amounts of damage)
+                ? leftBot
+                : rightBot;
+
+            return maxProgressBot;
+        }
+
+        public static Bot GetBothWithMostHealth(params Bot[] bots)
+        {
+            return bots.OrderByDescending(b => b.Health).First();
         }
 
         public static bool IsBotOutOfBounds(Arena arena, Bot bot)

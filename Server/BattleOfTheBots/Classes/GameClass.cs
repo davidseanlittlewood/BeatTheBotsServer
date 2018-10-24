@@ -70,7 +70,7 @@ namespace BattleOfTheBots.Classes
 
             if (this._bot1.SendStartInstruction(this._bot1.Name, this._arenaSize, this._flipOdds) == "failed")
             {
-                AbandonBattle(this._bot1); 
+                AbandonBattle(this._bot1);
                 return;
             }
 
@@ -81,6 +81,8 @@ namespace BattleOfTheBots.Classes
             {
                 var botMove1 = this._bot1.GetMove();
                 var botMove2 = this._bot2.GetMove();
+
+                Console.WriteLine($"{botMove1}/{botMove2}");
 
                 moveManager.ProcessMove(arena, botMove1, botMove2);
 

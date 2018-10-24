@@ -177,7 +177,7 @@ namespace BattleOfTheBots
                 OutputText(string.Format(">Game {0}:  Winner {1}  \n", gameCount, game.Winner));
                 leaderboard.RegisterBotWin(game.Winner);
 
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
 
                 gameCount++;
                 

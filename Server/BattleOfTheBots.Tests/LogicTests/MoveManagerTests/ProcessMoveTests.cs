@@ -48,7 +48,11 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             if (expectedFlipAStatus) Assert.AreEqual(4, this.LastBot.NumberOfFlipsRemaining, "Bot B should have consumed a flip when it flipped Bot A");
             Assert.AreEqual(expectedFlipBStatus, this.LastBot.IsFlipped, "Bot B is incorrectly flipped");
             if (expectedFlipBStatus) Assert.AreEqual(4, this.FirstBot.NumberOfFlipsRemaining, "Bot A should have consumed a flip when it flipped Bot B");
-            Assert.IsNull(this.Arena.Winner);
+
+            if (!expectedFlipAStatus && !expectedFlipBStatus) // in this case we'll work out a winner so skip this check
+            {
+                Assert.IsNull(this.Arena.Winner);
+            }
         }
 
         [TestCase(Move.MoveForwards, 100, TestName = "When both Bots move forward with a space between them then neither will move")]
