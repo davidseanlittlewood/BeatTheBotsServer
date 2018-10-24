@@ -264,21 +264,5 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.AreEqual(bFlipped, LastBot.IsFlipped, "Bot B shouldn't have changed flipped state");
             Assert.IsFalse(FirstBot.IsFlipped, "Bot A shouldn't be flipped");
         }
-
-        public Arena Arena { get; set; }
-
-        public Bot FirstBot => this.Arena?.Bots?.FirstOrDefault();
-        public Bot LastBot => this.Arena?.Bots?.LastOrDefault();
-
-
-        [SetUp]
-        public void RestoreArena()
-        {
-            this.Arena = new Arena(new Bot[] 
-            {
-                new Bot(Direction.Right) { Name = "Left Bot", Position = 3, Health = 100, NumberOfFlipsRemaining = 5, FlameThrowerFuelRemaining = 5 },
-                new Bot(Direction.Left) { Name = "Right Bot", Position = 4, Health = 100, NumberOfFlipsRemaining = 5, FlameThrowerFuelRemaining = 5 }
-            });            
-        }
     }
 }
