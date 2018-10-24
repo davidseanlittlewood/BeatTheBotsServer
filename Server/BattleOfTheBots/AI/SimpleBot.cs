@@ -43,7 +43,7 @@ namespace BattleOfTheBots.AI
                         }
                         else if (this.FlameThrowerFuelRemaining > 0 && (rand.Next(100) > 30))
                         {
-                            move = Move.Shunt;
+                            move = Move.FlameThrower;
                         }
                         else if (this.Health > (this.Opponent?.Health ?? 30) && (rand.Next(100) > 80))
                         {
