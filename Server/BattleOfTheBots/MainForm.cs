@@ -240,6 +240,12 @@ namespace BattleOfTheBots
                 case "AI.Bash":
                     return new AI.BashBot(direction);
 
+                case "AI.Cogs":
+                    return new AI.Cogs(direction);
+
+                case "AI.Cassandra":
+                    return new AI.LadyCassandra(direction);
+
                 default:
                     return new RemoteBot(direction, url, name);
             }
@@ -308,6 +314,16 @@ namespace BattleOfTheBots
         private void bashBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dtBotConfig.Rows.Add("Mr Bash", "AI.Bash", true, "OK");
+        }
+
+        private void cogsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtBotConfig.Rows.Add("Cogs", "AI.Cogs", true, "OK");
+        }
+
+        private void ladyCassandraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtBotConfig.Rows.Add("Lady Cassandra", "AI.Cassandra", true, "OK");
         }
     }
 }

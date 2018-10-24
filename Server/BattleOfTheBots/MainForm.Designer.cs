@@ -85,6 +85,8 @@
             this.lemmingBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bashBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ladyCassandraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsBotConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBotConfig)).BeginInit();
@@ -582,7 +584,9 @@
             this.randomBotToolStripMenuItem,
             this.lemmingBotToolStripMenuItem,
             this.simpleBotToolStripMenuItem,
-            this.bashBotToolStripMenuItem});
+            this.bashBotToolStripMenuItem,
+            this.cogsToolStripMenuItem,
+            this.ladyCassandraToolStripMenuItem});
             this.houseBotsToolStripMenuItem.Name = "houseBotsToolStripMenuItem";
             this.houseBotsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.houseBotsToolStripMenuItem.Text = "House Bots";
@@ -614,6 +618,20 @@
             this.bashBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.bashBotToolStripMenuItem.Text = "Mr Bash";
             this.bashBotToolStripMenuItem.Click += new System.EventHandler(this.bashBotToolStripMenuItem_Click);
+            // 
+            // cogsToolStripMenuItem
+            // 
+            this.cogsToolStripMenuItem.Name = "cogsToolStripMenuItem";
+            this.cogsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.cogsToolStripMenuItem.Text = "Cogs";
+            this.cogsToolStripMenuItem.Click += new System.EventHandler(this.cogsToolStripMenuItem_Click);
+            // 
+            // ladyCassandraToolStripMenuItem
+            // 
+            this.ladyCassandraToolStripMenuItem.Name = "ladyCassandraToolStripMenuItem";
+            this.ladyCassandraToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.ladyCassandraToolStripMenuItem.Text = "Lady Cassandra";
+            this.ladyCassandraToolStripMenuItem.Click += new System.EventHandler(this.ladyCassandraToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -711,6 +729,8 @@
         private System.Windows.Forms.ToolStripMenuItem lemmingBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simpleBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bashBotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cogsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ladyCassandraToolStripMenuItem;
     }
 }
 
