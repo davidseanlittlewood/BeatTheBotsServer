@@ -10,13 +10,39 @@ namespace BattleOfTheBots.Logic
     public class MoveManager : IMoveManager
     {        
         public void ProcessMove(Arena arena, BotMove botA, BotMove botB)
-        {            
+        {
+            CheckBotConditions(arena, botA, botB);
             ProcessMovements(arena, botA, botB);            
             ProcessFlips(arena, botA, botB);
             ProcessWeaponDamage(arena, botA, botB);
             CheckForVictory(arena, botA, botB);
         }
-       
+
+        private void CheckBotConditions(Arena arena, BotMove botA, BotMove botB)
+        {
+            if (botA.Bot.DesiredDirection == botB.Bot.DesiredDirection)
+            {
+                throw new InvalidOperationException("Both bots want to go in the same direction!");
+            }
+
+            if(botA.Bot.Position == botB.Bot.Position)
+            {
+                throw new InvalidOperationException("Both bots are on the same square");
+            }
+
+            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
+            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);            
+
+            if(leftee != arena.Bots.Single(b => b.DesiredDirection == Direction.Right).Position)
+            {
+                throw new InvalidOperationException("The left most bot should face right");
+            }
+
+            if (rightee != arena.Bots.Single(b => b.DesiredDirection == Direction.Left).Position)
+            {
+                throw new InvalidOperationException("The right most bot should face left");
+            }
+        }
 
         private void ProcessFlips(Arena arena, BotMove botA, BotMove botB)
         {
@@ -140,6 +166,11 @@ namespace BattleOfTheBots.Logic
 
         private void ProcessMovements(Arena arena, BotMove botA, BotMove botB)
         {
+            var aStartPosition = botA.Bot.Position;
+            var bStartPosition = botB.Bot.Position;
+            var aMove = botA.Move;
+            var bMove = botB.Move;
+
             // You can't obstruct a withdrawl so do those first
             if(IsBotWithdrawing(botA))
             {
@@ -210,7 +241,12 @@ namespace BattleOfTheBots.Logic
                     NothingHappens();
                 }
             }
+
             
+            if(botA.Bot.Position == botB.Bot.Position) // Something has gone very very wrong!
+            {                
+                throw new InvalidOperationException($"An error has occoured, both Bots occupy the same space at the start the data was A({aStartPosition}/{aMove}) and B({bStartPosition}/{bMove}) the positions now are {botA.Bot.Position} and {botB.Bot.Position}");
+            }
         }
 
         #region Helpers

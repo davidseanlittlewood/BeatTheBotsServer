@@ -265,6 +265,17 @@ namespace BattleOfTheBots.Tests.LogicTests.MoveManagerTests
             Assert.IsFalse(FirstBot.IsFlipped, "Bot A shouldn't be flipped");
         }
 
+        [Test]
+        public void QuickTest()
+        {
+            FirstBot.Position = 3;
+            LastBot.Position = 4;
+            this.MoveManager.ProcessMove(this.Arena, new BotMove(FirstBot, Move.MoveBackwards), new BotMove(LastBot, Move.AttackWithAxe));
+
+            Assert.AreEqual(2, FirstBot.Position);
+            Assert.AreEqual(4, LastBot.Position);
+        }
+
         public Arena Arena { get; set; }
 
         public Bot FirstBot => this.Arena?.Bots?.FirstOrDefault();

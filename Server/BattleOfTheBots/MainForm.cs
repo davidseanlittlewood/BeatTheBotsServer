@@ -177,7 +177,7 @@ namespace BattleOfTheBots
                 OutputText(string.Format(">Game {0}:  Winner {1}  \n", gameCount, game.Winner));
                 leaderboard.RegisterBotWin(game.Winner);
 
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
 
                 gameCount++;
                 
@@ -207,8 +207,8 @@ namespace BattleOfTheBots
                         var vBot1 = enabledBots.ElementAt(x);
                         var vBot2 = enabledBots.ElementAt(y);
 
-                        var bot1Class = GetClassForBot(Direction.Left, vBot1.Url, vBot1.Name);
-                        var bot2Class = GetClassForBot(Direction.Right, vBot2.Url, vBot2.Name);
+                        var bot1Class = GetClassForBot(Direction.Right, vBot1.Url, vBot1.Name);
+                        var bot2Class = GetClassForBot(Direction.Left, vBot2.Url, vBot2.Name);
                         bot1Class.AddCompetitor(bot2Class);
                         bot2Class.AddCompetitor(bot1Class);
 
