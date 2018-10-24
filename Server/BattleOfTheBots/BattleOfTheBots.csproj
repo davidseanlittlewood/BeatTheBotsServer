@@ -48,6 +48,7 @@
     <Compile Include="AI\RandomBot.cs" />
     <Compile Include="Logic\IMoveManager.cs" />
     <Compile Include="Logic\PositionHelpers.cs" />
+    <Compile Include="Logic\VictoryHelper.cs" />
     <Compile Include="State\RemoteBot.cs" />
     <Compile Include="UI\UIManager.cs" />
     <Compile Include="Logic\BotMove.cs" />

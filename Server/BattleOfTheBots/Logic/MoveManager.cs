@@ -135,11 +135,7 @@ namespace BattleOfTheBots.Logic
 
         private void CheckForVictory(Arena arena, BotMove botA, BotMove botB)
         {
-            if (botA.Bot.Position < 0) arena.Winner = botB.Bot;
-            if (botB.Bot.Position >= arena.NumberOfSquares) arena.Winner = botA.Bot;
-
-            if (botA.Bot.Health <= 0) arena.Winner = botB.Bot;
-            if (botB.Bot.Health <= 0) arena.Winner = botA.Bot;
+            arena.Winner = VictoryHelper.CheckForWinner(arena, botA, botB);
         }
 
         private void ProcessMovements(Arena arena, BotMove botA, BotMove botB)
