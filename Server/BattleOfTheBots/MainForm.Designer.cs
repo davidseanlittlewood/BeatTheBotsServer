@@ -84,6 +84,7 @@
             this.randomBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lemmingBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simpleBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bashBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsBotConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBotConfig)).BeginInit();
@@ -580,7 +581,8 @@
             this.houseBotsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.randomBotToolStripMenuItem,
             this.lemmingBotToolStripMenuItem,
-            this.simpleBotToolStripMenuItem});
+            this.simpleBotToolStripMenuItem,
+            this.bashBotToolStripMenuItem});
             this.houseBotsToolStripMenuItem.Name = "houseBotsToolStripMenuItem";
             this.houseBotsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.houseBotsToolStripMenuItem.Text = "House Bots";
@@ -605,6 +607,13 @@
             this.simpleBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.simpleBotToolStripMenuItem.Text = "Simple Bot";
             this.simpleBotToolStripMenuItem.Click += new System.EventHandler(this.simpleBotToolStripMenuItem_Click);
+            // 
+            // bashBotToolStripMenuItem
+            // 
+            this.bashBotToolStripMenuItem.Name = "bashBotToolStripMenuItem";
+            this.bashBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bashBotToolStripMenuItem.Text = "BashBot";
+            this.bashBotToolStripMenuItem.Click += new System.EventHandler(this.bashBotToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -701,6 +710,7 @@
         private System.Windows.Forms.ToolStripMenuItem randomBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lemmingBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simpleBotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bashBotToolStripMenuItem;
     }
 }
 

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\LemmingBot.cs" />
+    <Compile Include="AI\BashBot.cs" />
     <Compile Include="AI\SimpleBot.cs" />
     <Compile Include="AI\RandomBot.cs" />
     <Compile Include="Logic\IMoveManager.cs" />

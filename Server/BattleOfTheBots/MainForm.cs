@@ -237,6 +237,9 @@ namespace BattleOfTheBots
                 case "AI.Simple":
                     return new AI.SimpleBot(direction);
 
+                case "AI.Bash":
+                    return new AI.BashBot(direction);
+
                 default:
                     return new RemoteBot(direction, url, name);
             }
@@ -300,6 +303,11 @@ namespace BattleOfTheBots
         private void simpleBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dtBotConfig.Rows.Add("Simple Bot", "AI.Simple", true, "OK");
+        }
+
+        private void bashBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtBotConfig.Rows.Add("Mr Bash", "AI.Bash", true, "OK");
         }
     }
 }
