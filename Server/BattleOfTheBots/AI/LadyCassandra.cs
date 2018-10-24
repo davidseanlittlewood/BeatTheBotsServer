@@ -40,59 +40,63 @@ namespace BattleOfTheBots.AI
             if (this.IsFlipped && NumberOfFlipsRemaining > 0)
             {
                 move = Move.Flip;
-            }
 
-            if (this.Opponent != null)
+            }
+            else
             {
-                if (PositionHelpers.AreSideBySide(this, this.Opponent))
+
+                if (this.Opponent != null)
                 {
-                    if (this.Opponent.IsFlipped)
+                    if (PositionHelpers.AreSideBySide(this, this.Opponent))
                     {
-                        move = Move.AttackWithAxe;
+                        if (this.Opponent.IsFlipped)
+                        {
+                            move = Move.AttackWithAxe;
+                        }
+                        else
+                        {
+                            if (IsOpponentLikelyToFlip() && !PositionHelpers.IsWithinXOfEdge(this.Position, this.ArenaSize, 2))
+                            {
+                                move = Move.MoveBackwards;
+                            }
+                            else if (IsOpponentLikelyToShunt() && this.NumberOfFlipsRemaining > 1)
+                            {
+                                move = Move.Flip;
+                            }
+                            else if (this.FlameThrowerFuelRemaining > 0)
+                            {
+                                move = Move.FlameThrower;
+                            }
+                            else
+                            {
+                                move = Move.AttackWithAxe;
+                            }
+                        }
                     }
-                    else
+                    else if (PositionHelpers.AreSeperatedByOneSpace(this, this.Opponent))
                     {
-                        if (IsOpponentLikelyToFlip() && !PositionHelpers.IsWithinXOfEdge(this.Position, this.ArenaSize, 2))
-                        {
-                            move = Move.MoveBackwards;
-                        }
-                        else if (IsOpponentLikelyToShunt() && this.NumberOfFlipsRemaining > 1)
-                        {
-                            move = Move.Flip;
-                        }
-                        else if (this.FlameThrowerFuelRemaining > 0)
+                        if (this.FlameThrowerFuelRemaining > 0)
                         {
                             move = Move.FlameThrower;
                         }
                         else
                         {
-                            move = Move.AttackWithAxe;
+                            move = Move.MoveForwards;
                         }
                     }
-                }
-                else if (PositionHelpers.AreSeperatedByOneSpace(this, this.Opponent))
-                {
-                    if (this.FlameThrowerFuelRemaining > 0)
-                    {
-                        move = Move.FlameThrower;
-                    }
-                    else
+                    else if (PositionHelpers.AreSeperatedByMoreThanOneSpace(this, this.Opponent))
                     {
                         move = Move.MoveForwards;
                     }
+                    else // no idea what's happening! Maybe we've won.. let's just wave the axe around
+                    {
+                        move = Move.AttackWithAxe;
+                    }
                 }
-                else if (PositionHelpers.AreSeperatedByMoreThanOneSpace(this, this.Opponent))
-                {
-                    move = Move.MoveForwards;
-                }
-                else // no idea what's happening! Maybe we've won.. let's just wave the axe around
+                else // if for whatever reason the axe hasn't been set
                 {
                     move = Move.AttackWithAxe;
                 }
-            }
-            else // if for whatever reason the axe hasn't been set
-            {
-                move = Move.AttackWithAxe;
             }
 
             return new BotMove(this, move);
