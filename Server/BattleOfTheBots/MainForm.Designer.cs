@@ -612,7 +612,7 @@
             // 
             this.bashBotToolStripMenuItem.Name = "bashBotToolStripMenuItem";
             this.bashBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.bashBotToolStripMenuItem.Text = "BashBot";
+            this.bashBotToolStripMenuItem.Text = "Mr Bash";
             this.bashBotToolStripMenuItem.Click += new System.EventHandler(this.bashBotToolStripMenuItem_Click);
             // 
             // MainForm
