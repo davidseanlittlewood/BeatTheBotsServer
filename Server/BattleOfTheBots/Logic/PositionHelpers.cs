@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BattleOfTheBots.State;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,30 +9,30 @@ namespace BattleOfTheBots.Logic
 {
     public class PositionHelpers
     {
-        public static bool AreSideBySide(BotMove botA, BotMove botB)
+        public static bool AreSideBySide(Bot botA, Bot botB)
         {
             // We want to make sure this works regardless of which order the bots are supplied so check min/max to unscramble the positions
-            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
-            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);
+            var leftee = Math.Min(botA.Position, botB.Position);
+            var rightee = Math.Max(botA.Position, botB.Position);
 
 
             return leftee + 1 == rightee;
         }
 
-        public static bool AreSeperatedByOneSpace(BotMove botA, BotMove botB)
+        public static bool AreSeperatedByOneSpace(Bot botA, Bot botB)
         {
             // We want to make sure this works regardless of which order the bots are supplied so check min/max to unscramble the positions
-            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
-            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);
+            var leftee = Math.Min(botA.Position, botB.Position);
+            var rightee = Math.Max(botA.Position, botB.Position);
 
             return leftee + 2 == rightee;
         }
 
-        public static bool AreSeperatedByMoreThanOneSpace(BotMove botA, BotMove botB)
+        public static bool AreSeperatedByMoreThanOneSpace(Bot botA, Bot botB)
         {
             // We want to make sure this works regardless of which order the bots are supplied so check min/max to unscramble the positions
-            var leftee = Math.Min(botA.Bot.Position, botB.Bot.Position);
-            var rightee = Math.Max(botA.Bot.Position, botB.Bot.Position);
+            var leftee = Math.Min(botA.Position, botB.Position);
+            var rightee = Math.Max(botA.Position, botB.Position);
 
             return rightee - leftee > 2;
         }

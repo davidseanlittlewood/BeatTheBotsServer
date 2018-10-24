@@ -24,7 +24,7 @@ namespace BattleOfTheBots.Logic
             bool aWasFlippedThisTurn = false;
             bool bWasFlippedThisTurn = false;
 
-            if (PositionHelpers.AreSideBySide(botA, botB)) // you can only flip if they're side by side
+            if (PositionHelpers.AreSideBySide(botA.Bot, botB.Bot)) // you can only flip if they're side by side
             {
                 if (botA.Move == Move.Flip
                     && !botA.Bot.IsFlipped
@@ -85,7 +85,7 @@ namespace BattleOfTheBots.Logic
 
         private void ProcessWeaponDamage(Arena arena, BotMove botA, BotMove botB)
         {
-            if (PositionHelpers.AreSideBySide(botA, botB)) // only deal damage if they're side by side
+            if (PositionHelpers.AreSideBySide(botA.Bot, botB.Bot)) // only deal damage if they're side by side
             {
                 if (botB.Move == Move.AttackWithAxe && !botB.Bot.IsFlipped)
                 {
@@ -111,8 +111,8 @@ namespace BattleOfTheBots.Logic
                 if (!botA.Bot.IsFlipped)
                 {                    
                     var damage = 0;
-                    if (PositionHelpers.AreSeperatedByOneSpace(botA, botB)) damage = arena.LongRangeFlameThrowerDamage;
-                    else if (PositionHelpers.AreSideBySide(botA, botB)) damage = arena.ShortRangeFlameThrowerDamage;
+                    if (PositionHelpers.AreSeperatedByOneSpace(botA.Bot, botB.Bot)) damage = arena.LongRangeFlameThrowerDamage;
+                    else if (PositionHelpers.AreSideBySide(botA.Bot, botB.Bot)) damage = arena.ShortRangeFlameThrowerDamage;
 
                     TheBotTakesDamage(botB, damage);
                 }
@@ -124,8 +124,8 @@ namespace BattleOfTheBots.Logic
                 if (!botB.Bot.IsFlipped)
                 {
                     var damage = 0;
-                    if (PositionHelpers.AreSeperatedByOneSpace(botA, botB)) damage = arena.LongRangeFlameThrowerDamage;
-                    else if (PositionHelpers.AreSideBySide(botA, botB)) damage = arena.ShortRangeFlameThrowerDamage;
+                    if (PositionHelpers.AreSeperatedByOneSpace(botA.Bot, botB.Bot)) damage = arena.LongRangeFlameThrowerDamage;
+                    else if (PositionHelpers.AreSideBySide(botA.Bot, botB.Bot)) damage = arena.ShortRangeFlameThrowerDamage;
 
                     TheBotTakesDamage(botA, damage);
                 }
@@ -152,7 +152,7 @@ namespace BattleOfTheBots.Logic
 
 
             // If we're seperated by more than one space then there's no issue
-            if (PositionHelpers.AreSeperatedByMoreThanOneSpace(botA, botB))
+            if (PositionHelpers.AreSeperatedByMoreThanOneSpace(botA.Bot, botB.Bot))
             {
                 if(IsBotAdvancing(botA))
                 {
@@ -166,7 +166,7 @@ namespace BattleOfTheBots.Logic
 
                 return;
             }
-            else if(PositionHelpers.AreSeperatedByOneSpace(botA, botB))
+            else if(PositionHelpers.AreSeperatedByOneSpace(botA.Bot, botB.Bot))
             {
                 if(BothBotsAreShunting(botA, botB)) // both are shunting into an empty space
                 {
@@ -263,7 +263,7 @@ namespace BattleOfTheBots.Logic
         public void OneBotStealsAnothersSpace(BotMove tortoise, BotMove hare)
         {
             const string errorMessage = "This method can only be used when two bots are separated by a single square";
-            if (!PositionHelpers.AreSeperatedByOneSpace(tortoise, hare)) throw new InvalidOperationException(errorMessage);
+            if (!PositionHelpers.AreSeperatedByOneSpace(tortoise.Bot, hare.Bot)) throw new InvalidOperationException(errorMessage);
 
             var direction = hare.Bot.DesiredDirection;
             if (direction == Direction.Left)
@@ -280,7 +280,7 @@ namespace BattleOfTheBots.Logic
         {
             const string errorMessage = "This method can only be used when two bots are side by side and one is shunting";
             if (BothBotsAreShunting(botA, botB)) throw new InvalidOperationException(errorMessage);
-            if (!PositionHelpers.AreSideBySide(botA, botB)) throw new InvalidOperationException(errorMessage);
+            if (!PositionHelpers.AreSideBySide(botA.Bot, botB.Bot)) throw new InvalidOperationException(errorMessage);
             if (botA.Move != Move.Shunt && botB.Move != Move.Shunt) throw new InvalidOperationException(errorMessage);
 
             BotMove shunter = GetShunter(botA, botB);
