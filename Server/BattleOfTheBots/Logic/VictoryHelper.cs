@@ -18,7 +18,7 @@ namespace BattleOfTheBots.Logic
             if (botA.Health <= 0) winner = botB;
             if (botB.Health <= 0) winner = botA;
 
-            if(botA.IsFlipped && botB.IsFlipped)
+            if(botA.IsFlipped && botB.IsFlipped && botA.NumberOfFlipsRemaining == 0 && botB.NumberOfFlipsRemaining == 0)
             {
                 if(botA.Health != botB.Health)
                 {
