@@ -18,6 +18,8 @@ namespace BattleOfTheBots.State
 
         public int FlameThrowerFuelRemaining { get; set; }
 
+        public Bot Opponent { get; set; }
+
         public Bot(Direction direction, string name)
         {
             this.Name = name;
@@ -48,6 +50,11 @@ namespace BattleOfTheBots.State
         public override string ToString()
         {
             return $"{this.Name} at position {this.Position}";
+        }
+
+        public void AddCompetitor(Bot opponent)
+        {
+            this.Opponent = opponent;
         }
     }    
 }

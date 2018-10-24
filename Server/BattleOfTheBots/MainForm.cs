@@ -209,6 +209,8 @@ namespace BattleOfTheBots
 
                         var bot1Class = GetClassForBot(Direction.Left, vBot1.Url, vBot1.Name);
                         var bot2Class = GetClassForBot(Direction.Right, vBot2.Url, vBot2.Name);
+                        bot1Class.AddCompetitor(bot2Class);
+                        bot2Class.AddCompetitor(bot1Class);
 
                         gamesList.Add(
                             new GameClass(
@@ -231,6 +233,9 @@ namespace BattleOfTheBots
 
                 case "AI.Lemming":
                     return new AI.LemmingBot(direction);
+
+                case "AI.Simple":
+                    return new AI.SimpleBot(direction);
 
                 default:
                     return new RemoteBot(direction, url, name);
@@ -290,6 +295,11 @@ namespace BattleOfTheBots
         private void lemmingBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dtBotConfig.Rows.Add("Lemming Bot", "AI.Lemming", true, "OK");
+        }
+
+        private void simpleBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtBotConfig.Rows.Add("Simple Bot", "AI.Simple", true, "OK");
         }
     }
 }
