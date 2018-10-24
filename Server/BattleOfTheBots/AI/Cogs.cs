@@ -37,15 +37,15 @@ namespace BattleOfTheBots.AI
                     }
                     else
                     {
-                        if (this.NumberOfFlipsRemaining > 1 && (rand.Next(100) > 80))
+                        if (this.NumberOfFlipsRemaining > 1 && (rand.Next(100) > 90))
                         {
                             move = Move.Flip;
                         }
-                        else if (this.FlameThrowerFuelRemaining > 0 && (rand.Next(100) > 30))
+                        else if (this.FlameThrowerFuelRemaining > 0 && (rand.Next(100) > 80))
                         {
                             move = Move.Shunt;
                         }
-                        else if (this.Health > (this.Opponent?.Health ?? 30) && (rand.Next(100) > 80))
+                        else if (this.Health > (this.Opponent?.Health ?? 30) && (rand.Next(100) > 5))
                         {
                             move = Move.Shunt;
                         }
@@ -57,7 +57,7 @@ namespace BattleOfTheBots.AI
                 }
                 else if (PositionHelpers.AreSeperatedByOneSpace(this, this.Opponent))
                 {
-                    if (this.FlameThrowerFuelRemaining > 0)
+                    if (this.FlameThrowerFuelRemaining > 0 && (rand.Next(100) > 50))
                     {
                         move = Move.FlameThrower;
                     }
