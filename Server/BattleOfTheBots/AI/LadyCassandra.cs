@@ -10,7 +10,18 @@ namespace BattleOfTheBots.AI
 {
     public class LadyCassandra : Bot
     {
-        public List<Move> PreviousMoves { get; set; }        
+        public List<Move> PreviousMoves { get; set; }      
+        
+        public int? StartingFlips { get; set; }
+
+        public IEnumerable<Move> OpponentsLastFiveMoves
+        {
+            get
+            {
+                var skip = Math.Max(this.PreviousMoves.Count - 5, 0);
+                return this.PreviousMoves.Skip(skip);
+            }
+        }
 
         public LadyCassandra(Direction direction)
             : base(direction, "Lady Cassandra")
@@ -20,6 +31,7 @@ namespace BattleOfTheBots.AI
 
         public override BotMove GetMove()
         {
+            if (!this.StartingFlips.HasValue) this.StartingFlips = this.NumberOfFlipsRemaining;
             var rand = new Random();
             Move move;
             if (this.Opponent != null)
@@ -81,6 +93,46 @@ namespace BattleOfTheBots.AI
             }
 
             return new BotMove(this, move);
+        }
+
+        public bool IsOpponentLikelyToFlip()
+        {
+            if(this.Opponent.NumberOfFlipsRemaining == 0)
+            {
+                return false;
+            }            
+
+            var trend = IsOpponentTrendingTowards(Move.Flip);
+            var pattern = DoesOpponentFavour(Move.Flip);
+            var percentageOfFlipsRemainingScore = (int)(this.Opponent.NumberOfFlipsRemaining / this.StartingFlips) * 10;
+
+            var score = 0;
+            if (trend) score += 7;
+            if (pattern) score += 5;
+
+            score += percentageOfFlipsRemainingScore;
+            return percentageOfFlipsRemainingScore > 10;
+        }
+
+
+
+        public bool IsOpponentTrendingTowards(Move move)
+        {
+            var proportionOfMoveAllTime = this.PreviousMoves.Count(m => m == move) / (double)this.PreviousMoves.Count;
+            var proportionOfRecentMoves = this.OpponentsLastFiveMoves.Count(m => m == move) / (double)this.OpponentsLastFiveMoves.Count();
+            var availableMoves = Enum.GetValues(typeof(Move));
+            var expectedProportion = 1D / availableMoves.Length;
+
+            return proportionOfMoveAllTime > proportionOfRecentMoves;
+        }
+
+        public bool DoesOpponentFavour(Move move)
+        {
+            var proportionOfMoveAllTime = this.PreviousMoves.Count(m => m == move) / (double)this.PreviousMoves.Count;
+            var availableMoves = Enum.GetValues(typeof(Move));
+            var expectedProportion = 1D / availableMoves.Length;
+
+            return proportionOfMoveAllTime * 1.3 > expectedProportion;
         }
 
         public override void PostOpponentsMove(Move move)
