@@ -135,7 +135,7 @@ namespace BattleOfTheBots.Logic
 
         private void CheckForVictory(Arena arena, BotMove botA, BotMove botB)
         {
-            arena.Winner = VictoryHelper.CheckForWinner(arena, botA, botB);
+            arena.Winner = VictoryHelper.CheckForWinner(arena, botA.Bot, botB.Bot);
         }
 
         private void ProcessMovements(Arena arena, BotMove botA, BotMove botB)

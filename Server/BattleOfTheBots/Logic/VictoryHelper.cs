@@ -9,16 +9,23 @@ namespace BattleOfTheBots.Logic
 {
     public class VictoryHelper
     {
-        public static Bot CheckForWinner(Arena arena, BotMove botA, BotMove botB)
+        public static Bot CheckForWinner(Arena arena, Bot botA, Bot botB)
         {
             Bot winner = null;
-            if (botA.Bot.Position < 0) winner = botB.Bot;
-            if (botB.Bot.Position >= arena.NumberOfSquares) winner = botA.Bot;
+            if (IsBotOutOfBounds(arena, botA)) winner = botB;
+            if (IsBotOutOfBounds(arena, botB)) winner = botA;
 
-            if (botA.Bot.Health <= 0) winner = botB.Bot;
-            if (botB.Bot.Health <= 0) winner = botA.Bot;
+            if (botA.Health <= 0) winner = botB;
+            if (botB.Health <= 0) winner = botA;
 
             return winner;
+        }
+
+        public static bool IsBotOutOfBounds(Arena arena, Bot bot)
+        {
+            if (bot.Position < 0) return true;
+            if (bot.Position > arena.NumberOfSquares - 1) return true;
+            return false;
         }
     }
 }
