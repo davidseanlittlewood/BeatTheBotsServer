@@ -14,7 +14,7 @@ namespace BattleOfTheBots.AI
         
         public int? StartingFlips { get; set; }
 
-        public IEnumerable<Move> OpponentsLastFiveMoves
+        public IEnumerable<Move> OpponentsRecentMoves
         {
             get
             {
@@ -139,7 +139,7 @@ namespace BattleOfTheBots.AI
         public bool IsOpponentTrendingTowards(Move move)
         {
             var proportionOfMoveAllTime = this.PreviousMoves.Count(m => m == move) / (double)this.PreviousMoves.Count;
-            var proportionOfRecentMoves = this.OpponentsLastFiveMoves.Count(m => m == move) / (double)this.OpponentsLastFiveMoves.Count();
+            var proportionOfRecentMoves = this.OpponentsRecentMoves.Count(m => m == move) / (double)this.OpponentsRecentMoves.Count();
             var availableMoves = Enum.GetValues(typeof(Move));
             var expectedProportion = 1D / availableMoves.Length;
 
@@ -162,6 +162,7 @@ namespace BattleOfTheBots.AI
 
         public override string SendStartInstruction(string opponentBotName, int arenaSize, int flipOdds)
         {
+            this.PreviousMoves = new List<Move>();
             this.ArenaSize = arenaSize;
             return "OK";
         }
