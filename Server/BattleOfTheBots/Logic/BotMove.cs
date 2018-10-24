@@ -17,5 +17,10 @@ namespace BattleOfTheBots.Logic
 
         public Bot Bot { get; }
         public Move Move { get; }
+
+        public override string ToString()
+        {
+            return $"{this.Bot} moving {Enum.GetName(typeof(Move), this.Move)}";
+        }
     }
 }
