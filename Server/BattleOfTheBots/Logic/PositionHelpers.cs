@@ -36,5 +36,12 @@ namespace BattleOfTheBots.Logic
 
             return rightee - leftee > 2;
         }
+
+        public static bool IsWithinXOfEdge(int position, int arenaSize, int x)
+        {
+            if (position < x) return true;
+            if (arenaSize - position - 1 < x) return true;
+            return false;
+        }
     }
 }

@@ -23,6 +23,8 @@ namespace BattleOfTheBots.AI
             }
         }
 
+        public int ArenaSize { get; private set; }
+
         public LadyCassandra(Direction direction)
             : base(direction, "Lady Cassandra")
         {
@@ -34,13 +36,14 @@ namespace BattleOfTheBots.AI
             if (!this.StartingFlips.HasValue) this.StartingFlips = this.NumberOfFlipsRemaining;
             var rand = new Random();
             Move move;
-            if (this.Opponent != null)
-            {                
-                if (this.IsFlipped && NumberOfFlipsRemaining > 0)
-                {
-                    move = Move.Flip;
-                }
 
+            if (this.IsFlipped && NumberOfFlipsRemaining > 0)
+            {
+                move = Move.Flip;
+            }
+
+            if (this.Opponent != null)
+            {
                 if (PositionHelpers.AreSideBySide(this, this.Opponent))
                 {
                     if (this.Opponent.IsFlipped)
@@ -49,17 +52,17 @@ namespace BattleOfTheBots.AI
                     }
                     else
                     {
-                        if (this.NumberOfFlipsRemaining > 1 && (rand.Next(100) > 80))
+                        if (IsOpponentLikelyToFlip() && !PositionHelpers.IsWithinXOfEdge(this.Position, this.ArenaSize, 2))
+                        {
+                            move = Move.MoveBackwards;
+                        }
+                        else if (IsOpponentLikelyToShunt() && this.NumberOfFlipsRemaining > 1)
                         {
                             move = Move.Flip;
                         }
-                        else if (this.FlameThrowerFuelRemaining > 0 && (rand.Next(100) > 30))
+                        else if (this.FlameThrowerFuelRemaining > 0)
                         {
-                            move = Move.Shunt;
-                        }
-                        else if (this.Health > (this.Opponent?.Health ?? 30) && (rand.Next(100) > 80))
-                        {
-                            move = Move.Shunt;
+                            move = Move.FlameThrower;
                         }
                         else
                         {
@@ -111,7 +114,24 @@ namespace BattleOfTheBots.AI
             if (pattern) score += 5;
 
             score += percentageOfFlipsRemainingScore;
-            return percentageOfFlipsRemainingScore > 10;
+            return score > 10;
+        }
+
+        public bool IsOpponentLikelyToShunt()
+        {
+            if (this.Opponent.NumberOfFlipsRemaining == 0)
+            {
+                return false;
+            }
+
+            var trend = IsOpponentTrendingTowards(Move.Shunt);
+            var pattern = DoesOpponentFavour(Move.Shunt);
+
+            var score = 0;
+            if (trend) score += 7;
+            if (pattern) score += 5;
+
+            return score >= 5;
         }
 
 
@@ -142,6 +162,7 @@ namespace BattleOfTheBots.AI
 
         public override string SendStartInstruction(string opponentBotName, int arenaSize, int flipOdds)
         {
+            this.ArenaSize = arenaSize;
             return "OK";
         }
     }

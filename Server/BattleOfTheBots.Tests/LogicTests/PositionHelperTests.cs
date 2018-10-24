@@ -125,5 +125,20 @@ namespace BattleOfTheBots.Tests.LogicTests
                 }
             }
         }
+
+        [TestCase(0, 9, 2, true)]
+        [TestCase(1, 9, 2, true)]
+        [TestCase(2, 9, 2, false)]
+        [TestCase(3, 9, 2, false)]
+        [TestCase(4, 9, 2, false)]
+        [TestCase(5, 9, 2, false)]
+        [TestCase(6, 9, 2, false)]
+        [TestCase(7, 9, 2, true)]
+        [TestCase(8, 9, 2, true)]
+        public void VerifyIsWithinXOfEdge(int position, int arenaSize, int x, bool expected)
+        {
+            var result = PositionHelpers.IsWithinXOfEdge(position, arenaSize, x);
+            Assert.AreEqual(expected, result, $"Incorrect result position:{position}/arena:{arenaSize}/x:{x}");
+        }
     }
 }
