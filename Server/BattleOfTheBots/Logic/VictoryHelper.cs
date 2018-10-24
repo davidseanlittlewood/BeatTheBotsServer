@@ -35,10 +35,10 @@ namespace BattleOfTheBots.Logic
 
         public static Bot GetBotWhoMadeMostProgress(Arena arena, params Bot[] bots)
         {
-            var leftBot = bots.Single(b => b.DesiredDirection == Direction.Left);
+            var leftBot = bots.Single(b => b.DesiredDirection == Direction.Right); // the left bot is the one which wants to go right
             var leftProgress = leftBot.Position;
 
-            var rightBot = bots.Single(b => b.DesiredDirection == Direction.Right);
+            var rightBot = bots.Single(b => b.DesiredDirection == Direction.Left); // the right bot is the one which wants to go left
             var rightProgress = (arena.NumberOfSquares - 1 - rightBot.Position);
 
             var maxProgressBot = leftProgress > rightProgress // in even width arenas this will favour one bot (assuming they're both flipped and have equal amounts of damage)
