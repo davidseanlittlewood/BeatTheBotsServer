@@ -223,7 +223,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 955F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 956F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.lblBot2Message, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblBot2Status, 1, 2);
@@ -251,7 +251,7 @@
             this.lblBot2Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBot2Message.Location = new System.Drawing.Point(240, 61);
             this.lblBot2Message.Name = "lblBot2Message";
-            this.lblBot2Message.Size = new System.Drawing.Size(949, 28);
+            this.lblBot2Message.Size = new System.Drawing.Size(950, 28);
             this.lblBot2Message.TabIndex = 10;
             this.lblBot2Message.Text = ".........";
             this.lblBot2Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -287,7 +287,7 @@
             this.lblBot1Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBot1Message.Location = new System.Drawing.Point(240, 30);
             this.lblBot1Message.Name = "lblBot1Message";
-            this.lblBot1Message.Size = new System.Drawing.Size(949, 30);
+            this.lblBot1Message.Size = new System.Drawing.Size(950, 30);
             this.lblBot1Message.TabIndex = 7;
             this.lblBot1Message.Text = ".........";
             this.lblBot1Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -323,7 +323,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(240, 1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(949, 28);
+            this.label5.Size = new System.Drawing.Size(950, 28);
             this.label5.TabIndex = 2;
             this.label5.Text = "Status Message";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -594,28 +594,28 @@
             // randomBotToolStripMenuItem
             // 
             this.randomBotToolStripMenuItem.Name = "randomBotToolStripMenuItem";
-            this.randomBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.randomBotToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.randomBotToolStripMenuItem.Text = "Random Bot";
             this.randomBotToolStripMenuItem.Click += new System.EventHandler(this.randomBotToolStripMenuItem_Click);
             // 
             // lemmingBotToolStripMenuItem
             // 
             this.lemmingBotToolStripMenuItem.Name = "lemmingBotToolStripMenuItem";
-            this.lemmingBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lemmingBotToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.lemmingBotToolStripMenuItem.Text = "Lemming Bot";
             this.lemmingBotToolStripMenuItem.Click += new System.EventHandler(this.lemmingBotToolStripMenuItem_Click);
             // 
             // simpleBotToolStripMenuItem
             // 
             this.simpleBotToolStripMenuItem.Name = "simpleBotToolStripMenuItem";
-            this.simpleBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.simpleBotToolStripMenuItem.Text = "Simple Bot";
+            this.simpleBotToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.simpleBotToolStripMenuItem.Text = "Sir Spock";
             this.simpleBotToolStripMenuItem.Click += new System.EventHandler(this.simpleBotToolStripMenuItem_Click);
             // 
             // bashBotToolStripMenuItem
             // 
             this.bashBotToolStripMenuItem.Name = "bashBotToolStripMenuItem";
-            this.bashBotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bashBotToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.bashBotToolStripMenuItem.Text = "Mr Bash";
             this.bashBotToolStripMenuItem.Click += new System.EventHandler(this.bashBotToolStripMenuItem_Click);
             // 

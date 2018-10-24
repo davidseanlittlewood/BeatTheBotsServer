@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace BattleOfTheBots.AI
 {
-    public class SimpleBot : Bot
+    public class SpockBot : Bot
     {
         public List<Move> PreviousMoves { get; set; }        
 
-        public SimpleBot(Direction direction)
-            : base(direction, "Simple Bot")
+        public SpockBot(Direction direction)
+            : base(direction, "Sir Spock")
         {
             this.PreviousMoves = new List<Move>();
         }

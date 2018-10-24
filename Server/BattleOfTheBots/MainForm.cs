@@ -234,8 +234,8 @@ namespace BattleOfTheBots
                 case "AI.Lemming":
                     return new AI.LemmingBot(direction);
 
-                case "AI.Simple":
-                    return new AI.SimpleBot(direction);
+                case "AI.Spock":
+                    return new AI.SpockBot(direction);
 
                 case "AI.Bash":
                     return new AI.BashBot(direction);
@@ -308,7 +308,7 @@ namespace BattleOfTheBots
 
         private void simpleBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dtBotConfig.Rows.Add("Simple Bot", "AI.Simple", true, "OK");
+            dtBotConfig.Rows.Add("Sir Spock", "AI.Spock", true, "OK");
         }
 
         private void bashBotToolStripMenuItem_Click(object sender, EventArgs e)

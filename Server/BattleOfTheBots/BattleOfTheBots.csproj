@@ -48,7 +48,7 @@
     <Compile Include="AI\BashBot.cs" />
     <Compile Include="AI\Cogs.cs" />
     <Compile Include="AI\LadyCassandra.cs" />
-    <Compile Include="AI\SimpleBot.cs" />
+    <Compile Include="AI\SpockBot.cs" />
     <Compile Include="AI\RandomBot.cs" />
     <Compile Include="Logic\IMoveManager.cs" />
     <Compile Include="Logic\PositionHelpers.cs" />
