@@ -185,7 +185,7 @@ namespace BattleOfTheBots.Logic
                 else if(IsEitherAdvancing(botA, botB))
                 {
                     var both = new BotMove[] { botA, botB };
-                    var mover = both.Single(b => b.Move == Move.MoveForwards);
+                    var mover = both.Single(b => b.Move == Move.MoveForwards && !b.Bot.IsFlipped);
                     var shaker = both.Single(b => !b.Equals(mover));
                     OneBotStealsAnothersSpace(shaker, mover);
                 }
