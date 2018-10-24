@@ -10,11 +10,7 @@ namespace BattleOfTheBots.AI
 {
     public class SimpleBot : Bot
     {
-        public string OpponentName { get; set; }
-        public List<Move> PreviousMoves { get; set; }
-        public int Fuel { get; set; }
-        public int FlipOdds { get; set; }
-        public int ArenaSize { get; set; }
+        public List<Move> PreviousMoves { get; set; }        
 
         public SimpleBot(Direction direction)
             : base(direction, "Simple Bot")
@@ -24,7 +20,66 @@ namespace BattleOfTheBots.AI
 
         public override BotMove GetMove()
         {
-            var move = GetRandomResponse(); // This bot isn't very smart - it'll pick a random move and carry it out
+            var rand = new Random();
+            Move move;
+            if (this.Opponent != null)
+            {                
+                if (this.IsFlipped && NumberOfFlipsRemaining > 0)
+                {
+                    move = Move.Flip;
+                }
+
+                if (PositionHelpers.AreSideBySide(this, this.Opponent))
+                {
+                    if (this.Opponent.IsFlipped)
+                    {
+                        move = Move.AttackWithAxe;
+                    }
+                    else
+                    {
+                        if (this.NumberOfFlipsRemaining > 1 && (rand.Next(100) > 80))
+                        {
+                            move = Move.Flip;
+                        }
+                        else if (this.FlameThrowerFuelRemaining > 0 && (rand.Next(100) > 30))
+                        {
+                            move = Move.Shunt;
+                        }
+                        else if (this.Health > (this.Opponent?.Health ?? 30) && (rand.Next(100) > 80))
+                        {
+                            move = Move.Shunt;
+                        }
+                        else
+                        {
+                            move = Move.AttackWithAxe;
+                        }
+                    }
+                }
+                else if (PositionHelpers.AreSeperatedByOneSpace(this, this.Opponent))
+                {
+                    if (this.FlameThrowerFuelRemaining > 0)
+                    {
+                        move = Move.FlameThrower;
+                    }
+                    else
+                    {
+                        move = Move.MoveForwards;
+                    }
+                }
+                else if (PositionHelpers.AreSeperatedByMoreThanOneSpace(this, this.Opponent))
+                {
+                    move = Move.MoveForwards;
+                }
+                else // no idea what's happening! Maybe we've won.. let's just wave the axe around
+                {
+                    move = Move.AttackWithAxe;
+                }
+            }
+            else // if for whatever reason the axe hasn't been set
+            {
+                move = Move.AttackWithAxe;
+            }
+
             return new BotMove(this, move);
         }
 
@@ -35,57 +90,7 @@ namespace BattleOfTheBots.AI
 
         public override string SendStartInstruction(string opponentBotName, int arenaSize, int flipOdds)
         {
-            OpponentName = opponentBotName;
-            ArenaSize = arenaSize;
-            FlipOdds = flipOdds;
-
             return "OK";
-        }
-
-
-        /// <summary>
-        /// Select a random response
-        /// </summary>
-        /// <returns></returns>
-        public Move GetRandomResponse()
-        {
-            Random random = new System.Random(Environment.TickCount);
-            int rnd = random.Next(6);
-            switch (rnd)
-            {
-                case 0:
-                    {
-                        return Move.MoveForwards;
-                    }
-                case 1:
-                    {
-                        return Move.MoveBackwards;
-                    }
-                case 2:
-                    {
-                        return Move.AttackWithAxe;
-                    }
-                case 3:
-                    {
-                        return Move.Shunt;
-                    }
-                case 4:
-                    {
-                        Fuel--;
-                        return Move.FlameThrower;
-                    }
-                default:
-                    {
-                        if (this.NumberOfFlipsRemaining > 0) // if we have remaining flips
-                        {
-                            return Move.Flip; // and try to turn them over
-                        }
-                        else // otherwise just hit them with an axe
-                        {
-                            return Move.AttackWithAxe;
-                        }
-                    }
-            }
         }
     }
 }
