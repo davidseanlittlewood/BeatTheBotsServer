@@ -13,7 +13,7 @@ namespace BattleOfTheBots.AI
         public List<Move> PreviousMoves { get; set; }        
 
         public BashBot(Direction direction)
-            : base(direction, "Bash Bot")
+            : base(direction, "Mr Bash")
         {
             this.PreviousMoves = new List<Move>();
         }
