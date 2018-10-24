@@ -85,7 +85,7 @@ namespace BattleOfTheBots.Classes
                 moveManager.ProcessMove(arena, botMove1, botMove2);
 
                 this._bot1.PostOpponentsMove(botMove2.Move);
-                this._bot2.PostOpponentsMove(botMove2.Move);
+                this._bot2.PostOpponentsMove(botMove1.Move);
 
                 updateCurrentMatch(this, gameCount, totalGames);
             }
