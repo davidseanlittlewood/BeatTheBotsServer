@@ -77,7 +77,7 @@ namespace BattleOfTheBots.Classes
             IMoveManager moveManager = new MoveManager();
             var arena = new Arena(new Bot[] { this._bot1, this._bot2 });
 
-            Console.WriteLine($"Starting game between {_bot1.Name} and {_bot2.Name} in an arena with {arena.NumberOfSquares} spaces");
+            Console.WriteLine($"Starting game between {_bot1.Name} (starting at position {_bot1.Position}) and {_bot2.Name} (at position {_bot2.Position}) in an arena with {arena.NumberOfSquares} spaces");
 
             while (arena.Winner == null)
             {
