@@ -127,6 +127,8 @@ namespace BattleOfTheBots.Classes
             if (arena.Winner != null)
             {
                 Console.WriteLine($"The winner was {arena.Winner.Name}!");
+                var loser = new Bot[] { _bot1, _bot2 }.Except(new Bot[] { arena.Winner }).Single();
+                Console.WriteLine($"The loser was {loser.Name}");
                 this._winner = arena.Winner.Name;
             }
             else
