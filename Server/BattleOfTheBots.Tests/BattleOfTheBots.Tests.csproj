@@ -58,6 +58,7 @@
     <Compile Include="LogicTests\MoveManagerTests\ProcessMoveTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VictoryHelperTests\CheckForWinnerTests.cs" />
+    <Compile Include="VictoryHelperTests\IsBotOutOfBoundsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BattleOfTheBots\BattleOfTheBots.csproj">

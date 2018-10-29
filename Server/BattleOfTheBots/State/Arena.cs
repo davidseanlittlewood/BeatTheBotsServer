@@ -12,7 +12,7 @@ namespace BattleOfTheBots.State
 
         public IEnumerable<Bot> Bots { get; set; }
 
-        public int NumberOfSquares { get; }
+        public int NumberOfSquares { get; set; }
         public int AxeDamage { get; }
         public int ShuntDamage { get; }
 
