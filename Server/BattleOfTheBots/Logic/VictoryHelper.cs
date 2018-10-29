@@ -20,19 +20,27 @@ namespace BattleOfTheBots.Logic
 
             if(botA.IsFlipped && botB.IsFlipped && botA.NumberOfFlipsRemaining == 0 && botB.NumberOfFlipsRemaining == 0)
             {
-                if(botA.Health != botB.Health)
-                {
-                    winner = GetBothWithMostHealth(botA, botB);
-                }
-                else
-                {
-                    winner = GetBotWhoMadeMostProgress(arena, botA, botB);
-                }
+                winner = GetBotWhoIsAhead(arena, botA, botB);
+            }
 
-                if(winner == null) // if they've both made the same amount of progress then just give it to the guy on the left, how's that for fair? ;-)
-                {
-                    winner = botA;
-                }
+            return winner;
+        }
+
+        public static Bot GetBotWhoIsAhead(Arena arena, Bot botA, Bot botB)
+        {
+            Bot winner = null;
+            if (botA.Health != botB.Health)
+            {
+                winner = GetBothWithMostHealth(botA, botB);
+            }
+            else
+            {
+                winner = GetBotWhoMadeMostProgress(arena, botA, botB);
+            }
+
+            if (winner == null) // if they've both made the same amount of progress then just give it to the guy on the left, how's that for fair? ;-)
+            {
+                winner = botA;
             }
 
             return winner;
