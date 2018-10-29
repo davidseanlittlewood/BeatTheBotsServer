@@ -79,14 +79,30 @@ namespace BattleOfTheBots.Classes
 
             Console.WriteLine($"Starting game between {_bot1.Name} (starting at position {_bot1.Position}) and {_bot2.Name} (at position {_bot2.Position}) in an arena with {arena.NumberOfSquares} spaces");
 
+            int totalHealth;
+            int? lastTotalHealth;
+            int unchangedHealthSpins = 0;
+            totalHealth = _bot1.Health + _bot2.Health;
+
             while (arena.Winner == null)
-            {
+            {                                
                 var botMove1 = this._bot1.GetMove();
                 var botMove2 = this._bot2.GetMove();
 
                 Console.WriteLine($"{botMove1.Bot.Name} move is {botMove1.Move}/{botMove2.Bot.Name} move is {botMove2.Move}");
 
                 moveManager.ProcessMove(arena, botMove1, botMove2);
+
+                lastTotalHealth = totalHealth;
+                totalHealth = _bot1.Health + _bot2.Health;
+                if(totalHealth == lastTotalHealth)
+                {
+                    unchangedHealthSpins++;
+                }
+                else
+                {
+                    unchangedHealthSpins = 0;
+                }
 
                 LogBotStatus(botMove1);
                 LogBotStatus(botMove2);
@@ -95,12 +111,26 @@ namespace BattleOfTheBots.Classes
                 this._bot2.PostOpponentsMove(botMove1.Move);
 
                 updateCurrentMatch(this, gameCount, totalGames);
+
+
+                // This match is getting boring, let's abort
+                if(unchangedHealthSpins > arena.NumberOfTurnsWithNoDamageToTolerate)
+                {
+                    break;
+                }
             }
 
 
-            Console.WriteLine($"The winner was {arena.Winner.Name}!");
-            this._winner = arena.Winner.Name;
 
+            if (arena.Winner != null)
+            {
+                Console.WriteLine($"The winner was {arena.Winner.Name}!");
+                this._winner = arena.Winner.Name;
+            }
+            else
+            {
+                Console.WriteLine($"There was no winner...");
+            }
             }
 
         private void LogBotStatus(BotMove botMove)

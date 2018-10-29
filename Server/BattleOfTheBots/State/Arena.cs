@@ -20,7 +20,9 @@ namespace BattleOfTheBots.State
 
         public int LongRangeFlameThrowerDamage { get; }
 
-        public Arena(IEnumerable<Bot> bots, int numberOfSquares = 9, int axeDamage = 10, int shuntDamage = 5, int shortRangeFlameThrowerDamage = 20, int longRangeFlameThrowerDamage = 10)
+        public int NumberOfTurnsWithNoDamageToTolerate { get; }
+
+        public Arena(IEnumerable<Bot> bots, int numberOfSquares = 9, int axeDamage = 10, int shuntDamage = 5, int shortRangeFlameThrowerDamage = 20, int longRangeFlameThrowerDamage = 10, int numberOfTurnsWithNoDamageToTolerate = 50)
         {
             this.Bots = bots;
             this.NumberOfSquares = numberOfSquares;
@@ -28,6 +30,7 @@ namespace BattleOfTheBots.State
             this.ShuntDamage = shuntDamage;
             this.ShortRangeFlameThrowerDamage = shortRangeFlameThrowerDamage;
             this.LongRangeFlameThrowerDamage = longRangeFlameThrowerDamage;
+            this.NumberOfTurnsWithNoDamageToTolerate = numberOfTurnsWithNoDamageToTolerate;
         }
     }
 }

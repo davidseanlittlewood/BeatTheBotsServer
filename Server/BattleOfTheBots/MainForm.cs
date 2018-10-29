@@ -173,9 +173,15 @@ namespace BattleOfTheBots
 
                 game.CommenceBattle(new GameClass.UpdateMatchProgressDelegate(UpdateCurrentMatch), gameCount, gamesList.Count());
 
-
-                OutputText(string.Format(">Game {0}:  Winner {1}  \n", gameCount, game.Winner));
-                leaderboard.RegisterBotWin(game.Winner);
+                if (!string.IsNullOrWhiteSpace(game.Winner))
+                {
+                    OutputText(string.Format(">Game {0}:  Winner {1}  \n", gameCount, game.Winner));
+                    leaderboard.RegisterBotWin(game.Winner);
+                }
+                else
+                {
+                    OutputText(string.Format(">Game {0}:  Draw\n", gameCount));
+                }                
 
                 Thread.Sleep(1000);
 
