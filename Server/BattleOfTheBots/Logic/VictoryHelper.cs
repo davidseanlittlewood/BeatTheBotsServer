@@ -38,11 +38,6 @@ namespace BattleOfTheBots.Logic
                 winner = GetBotWhoMadeMostProgress(arena, botA, botB);
             }
 
-            if (winner == null) // if they've both made the same amount of progress then just give it to the guy on the left, how's that for fair? ;-)
-            {
-                winner = botA;
-            }
-
             return winner;
         }
 
