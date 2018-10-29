@@ -76,15 +76,20 @@ namespace BattleOfTheBots.Classes
 
             IMoveManager moveManager = new MoveManager();
             var arena = new Arena(new Bot[] { this._bot1, this._bot2 });
-      
+
+            Console.WriteLine($"Starting game between {_bot1.Name} and {_bot2.Name} in an arena with {arena.NumberOfSquares} spaces");
+
             while (arena.Winner == null)
             {
                 var botMove1 = this._bot1.GetMove();
                 var botMove2 = this._bot2.GetMove();
 
-                Console.WriteLine($"{botMove1}/{botMove2}");
+                Console.WriteLine($"{botMove1.Bot.Name} move is {botMove1.Move}/{botMove2.Bot.Name} move is {botMove2.Move}");
 
                 moveManager.ProcessMove(arena, botMove1, botMove2);
+
+                LogBotStatus(botMove1);
+                LogBotStatus(botMove2);                
 
                 this._bot1.PostOpponentsMove(botMove2.Move);
                 this._bot2.PostOpponentsMove(botMove1.Move);
@@ -92,10 +97,16 @@ namespace BattleOfTheBots.Classes
                 updateCurrentMatch(this, gameCount, totalGames);
             }
 
-            
+
+            Console.WriteLine($"The winner was {arena.Winner.Name}!");
             this._winner = arena.Winner.Name;
 
             }
+
+        private void LogBotStatus(BotMove botMove)
+        {
+            Console.WriteLine($"{botMove.Bot.Name} - Health: {botMove.Bot.Health} Position: {botMove.Bot.Position} Fuel: {botMove.Bot.FlameThrowerFuelRemaining} Flips: {botMove.Bot.NumberOfFlipsRemaining} IsFlipped: {botMove.Bot.IsFlipped}");
+        }
 
         private void AbandonBattle(Bot winningBot)
         {
