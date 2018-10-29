@@ -23,41 +23,44 @@ namespace BattleOfTheBots.AI
             var rand = new Random();
             Move move;
             if (this.Opponent != null)
-            {                
+            {
                 if (this.IsFlipped && NumberOfFlipsRemaining > 0)
                 {
                     move = Move.Flip;
                 }
-
-                if (PositionHelpers.AreSideBySide(this, this.Opponent))
+                else
                 {
-                    if (this.Opponent.IsFlipped)
+
+                    if (PositionHelpers.AreSideBySide(this, this.Opponent))
                     {
-                        move = Move.AttackWithAxe;
-                    }
-                    else
-                    {
-                        if (this.Health > (this.Opponent?.Health ?? 30) && (rand.Next(100) > 50))
-                        {
-                            move = Move.Shunt;
-                        }
-                        else
+                        if (this.Opponent.IsFlipped)
                         {
                             move = Move.AttackWithAxe;
                         }
+                        else
+                        {
+                            if (this.Health > (this.Opponent?.Health ?? 30) && (rand.Next(100) > 50))
+                            {
+                                move = Move.Shunt;
+                            }
+                            else
+                            {
+                                move = Move.AttackWithAxe;
+                            }
+                        }
                     }
-                }
-                else if (PositionHelpers.AreSeperatedByOneSpace(this, this.Opponent))
-                {
-                    move = Move.MoveForwards;
-                }
-                else if (PositionHelpers.AreSeperatedByMoreThanOneSpace(this, this.Opponent))
-                {
-                    move = Move.MoveForwards;
-                }
-                else // no idea what's happening! Maybe we've won.. let's just wave the axe around
-                {
-                    move = Move.AttackWithAxe;
+                    else if (PositionHelpers.AreSeperatedByOneSpace(this, this.Opponent))
+                    {
+                        move = Move.MoveForwards;
+                    }
+                    else if (PositionHelpers.AreSeperatedByMoreThanOneSpace(this, this.Opponent))
+                    {
+                        move = Move.MoveForwards;
+                    }
+                    else // no idea what's happening! Maybe we've won.. let's just wave the axe around
+                    {
+                        move = Move.AttackWithAxe;
+                    }
                 }
             }
             else // if for whatever reason the axe hasn't been set

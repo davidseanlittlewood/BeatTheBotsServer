@@ -63,6 +63,10 @@ namespace BattleOfTheBots.AI
                         {
                             move = Move.FlameThrower;
                         }
+                        if (this.Health > 30 && (rand.Next(100) > 20)) // adding in little randomness to avoid ongoing loops
+                        {
+                            move = Move.Shunt;
+                        }
                         else
                         {
                             move = Move.MoveForwards;

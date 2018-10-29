@@ -28,6 +28,11 @@ namespace BattleOfTheBots.Logic
                 {
                     winner = GetBotWhoMadeMostProgress(arena, botA, botB);
                 }
+
+                if(winner == null) // if they've both made the same amount of progress then just give it to the guy on the left, how's that for fair? ;-)
+                {
+                    winner = botA;
+                }
             }
 
             return winner;
@@ -40,6 +45,11 @@ namespace BattleOfTheBots.Logic
 
             var rightBot = bots.Single(b => b.DesiredDirection == Direction.Left); // the right bot is the one which wants to go left
             var rightProgress = (arena.NumberOfSquares - 1 - rightBot.Position);
+
+            if(leftProgress == rightProgress)
+            {
+                return null;
+            }
 
             var maxProgressBot = leftProgress > rightProgress // in even width arenas this will favour one bot (assuming they're both flipped and have equal amounts of damage)
                 ? leftBot
