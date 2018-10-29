@@ -59,7 +59,7 @@ namespace BattleOfTheBots.AI
                             {
                                 move = Move.MoveBackwards;
                             }
-                            else if (IsOpponentLikelyToShunt() && this.NumberOfFlipsRemaining > 1)
+                            else if (IsOpponentLikelyToShunt() && this.NumberOfFlipsRemaining > 1 && rand.Next(100) > 20)
                             {
                                 move = Move.Flip;
                             }
