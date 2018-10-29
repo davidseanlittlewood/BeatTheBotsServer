@@ -60,6 +60,7 @@ namespace BattleOfTheBots.Tests.VictoryHelperTests
         [TestCase(6, 8, 85, 100, false, true, TestName = "Bot A has made more progress but Bot B has more health so B should win")]
         [TestCase(2, 3, 85, 100, false, true, TestName = "Bot B has made more progress and has more health so B should win")]
         [TestCase(6, 8, 100, 85, true, false, TestName = "Bot A has made more progress and has more health so A should win")]
+        [TestCase(3, 5, 85, 85, true, false, TestName = "Both bots have the same progress and health so Bot A wins by default")]
         public void CheckWhenBothFlipped(int aPosition, int bPosition, int aHealth, int bHealth, bool aWinner, bool bWinner)
         {
             FirstBot.Position = aPosition;
