@@ -64,7 +64,7 @@ namespace BattleOfTheBots.Classes
 
             if (this._bot1.SendStartInstruction(this._bot2.Name, this._arenaSize, this._flipOdds) == "failed")
             {
-                AbandonBattle(this._bot2); 
+                AbandonBattle(this._bot2);
                 return;
             }
 
@@ -85,7 +85,7 @@ namespace BattleOfTheBots.Classes
             totalHealth = _bot1.Health + _bot2.Health;
 
             while (arena.Winner == null)
-            {                                
+            {
                 var botMove1 = this._bot1.GetMove();
                 var botMove2 = this._bot2.GetMove();
 
@@ -95,7 +95,7 @@ namespace BattleOfTheBots.Classes
 
                 lastTotalHealth = totalHealth;
                 totalHealth = _bot1.Health + _bot2.Health;
-                if(totalHealth == lastTotalHealth)
+                if (totalHealth == lastTotalHealth)
                 {
                     unchangedHealthSpins++;
                 }
@@ -113,9 +113,11 @@ namespace BattleOfTheBots.Classes
                 updateCurrentMatch(this, gameCount, totalGames);
 
 
-                // This match is getting boring, let's abort
-                if(unchangedHealthSpins > arena.NumberOfTurnsWithNoDamageToTolerate)
-                {
+                // This match is getting boring, let's find the bot who is ahead and declare them as the winner
+                if (unchangedHealthSpins > arena.NumberOfTurnsWithNoDamageToTolerate)
+                {                                        
+                    arena.Winner = VictoryHelper.GetBotWhoIsAhead(arena, _bot1, _bot2);
+                    Console.WriteLine($"The game aborted after {unchangedHealthSpins} with no damage, {arena.Winner.Name} was given the victory because they were ahead");
                     break;
                 }
             }
@@ -131,7 +133,7 @@ namespace BattleOfTheBots.Classes
             {
                 Console.WriteLine($"There was no winner...");
             }
-            }
+        }
 
         private void LogBotStatus(BotMove botMove)
         {
