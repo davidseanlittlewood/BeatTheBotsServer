@@ -35,9 +35,11 @@ namespace BattleOfTheBots.AI
             else
             {
 
-                move = this.PreviousMoves.LastOrDefault();
-                if (move == null
-                    || (move == Move.Flip && NumberOfFlipsRemaining == 0)
+                move = this.PreviousMoves.Any()
+                    ? this.PreviousMoves.LastOrDefault()
+                    : Move.Shunt;
+
+                if ((move == Move.Flip && NumberOfFlipsRemaining == 0)
                     || (move == Move.FlameThrower && FlameThrowerFuelRemaining == 0))
                 {
                     move = Move.Shunt;
