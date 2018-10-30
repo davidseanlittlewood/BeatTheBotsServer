@@ -16,6 +16,7 @@ namespace BattleOfTheBots.Tests.VictoryHelperTests
         [TestCase(3, 4, 9, false, true)]
         [TestCase(1, 2, 5, false, true)]
         [TestCase(3, 4, 5, true, false)]
+        [TestCase(1, 3, 5, false, false)]
         public void GetBotWhoMadeMostProgress(int aPosition, int bPosition, int arenaSize, bool aWinner, bool bWinner)
         {
             FirstBot.Position = aPosition;
