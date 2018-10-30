@@ -87,6 +87,7 @@
             this.bashBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ladyCassandraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dollyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsBotConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBotConfig)).BeginInit();
@@ -223,7 +224,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 956F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 957F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.lblBot2Message, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblBot2Status, 1, 2);
@@ -251,7 +252,7 @@
             this.lblBot2Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBot2Message.Location = new System.Drawing.Point(240, 61);
             this.lblBot2Message.Name = "lblBot2Message";
-            this.lblBot2Message.Size = new System.Drawing.Size(950, 28);
+            this.lblBot2Message.Size = new System.Drawing.Size(951, 28);
             this.lblBot2Message.TabIndex = 10;
             this.lblBot2Message.Text = ".........";
             this.lblBot2Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -287,7 +288,7 @@
             this.lblBot1Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBot1Message.Location = new System.Drawing.Point(240, 30);
             this.lblBot1Message.Name = "lblBot1Message";
-            this.lblBot1Message.Size = new System.Drawing.Size(950, 30);
+            this.lblBot1Message.Size = new System.Drawing.Size(951, 30);
             this.lblBot1Message.TabIndex = 7;
             this.lblBot1Message.Text = ".........";
             this.lblBot1Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -323,7 +324,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(240, 1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(950, 28);
+            this.label5.Size = new System.Drawing.Size(951, 28);
             this.label5.TabIndex = 2;
             this.label5.Text = "Status Message";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -581,8 +582,9 @@
             // houseBotsToolStripMenuItem
             // 
             this.houseBotsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.randomBotToolStripMenuItem,
             this.lemmingBotToolStripMenuItem,
+            this.randomBotToolStripMenuItem,
+            this.dollyToolStripMenuItem,
             this.simpleBotToolStripMenuItem,
             this.bashBotToolStripMenuItem,
             this.cogsToolStripMenuItem,
@@ -632,6 +634,13 @@
             this.ladyCassandraToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.ladyCassandraToolStripMenuItem.Text = "Lady Cassandra";
             this.ladyCassandraToolStripMenuItem.Click += new System.EventHandler(this.ladyCassandraToolStripMenuItem_Click);
+            // 
+            // dollyToolStripMenuItem
+            // 
+            this.dollyToolStripMenuItem.Name = "dollyToolStripMenuItem";
+            this.dollyToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.dollyToolStripMenuItem.Text = "Dolly";
+            this.dollyToolStripMenuItem.Click += new System.EventHandler(this.dollyToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -731,6 +740,7 @@
         private System.Windows.Forms.ToolStripMenuItem bashBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cogsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ladyCassandraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dollyToolStripMenuItem;
     }
 }
 

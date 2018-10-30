@@ -240,6 +240,9 @@ namespace BattleOfTheBots
                 case "AI.Lemming":
                     return new AI.LemmingBot(direction);
 
+                case "AI.Dolly":
+                    return new AI.Dolly(direction);
+
                 case "AI.Spock":
                     return new AI.SpockBot(direction);
 
@@ -330,6 +333,11 @@ namespace BattleOfTheBots
         private void ladyCassandraToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dtBotConfig.Rows.Add("Lady Cassandra", "AI.Cassandra", true, "OK");
+        }
+
+        private void dollyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtBotConfig.Rows.Add("Dolly", "AI.Dolly", true, "OK");
         }
     }
 }
