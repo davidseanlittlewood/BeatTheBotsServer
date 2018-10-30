@@ -119,7 +119,7 @@ namespace BattleOfTheBots.Classes
                     arena.Winner = VictoryHelper.GetBotWhoIsAhead(arena, _bot1, _bot2);
                     if (arena.Winner != null)
                     {
-                        Console.WriteLine($"The game aborted after {unchangedHealthSpins} with no damage, {arena.Winner.Name} was given the victory because they were ahead");
+                        Console.WriteLine($"The game aborted after {unchangedHealthSpins} moves with no damage, {arena.Winner.Name} was given the victory because they were ahead");
                     }
                     else
                     {
