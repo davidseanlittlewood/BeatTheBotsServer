@@ -59,6 +59,14 @@ namespace BattleOfTheBots.AI
                             {
                                 move = Move.Flip;
                             }
+                            else if(PositionHelpers.IsWithinXOfEdge(this.Position, this.ArenaSize, 2) && this.Health > 30 && rand.Next(100) > 50) // don't get knocked off the edge
+                            {
+                                move = Move.Shunt;
+                            }
+                            else if (PositionHelpers.IsWithinXOfEdge(this.Position, this.ArenaSize, 1) && this.Health > 20 && rand.Next(100) > 10)
+                            {
+                                move = Move.Shunt;
+                            }
                             else if (IsOpponentLikelyToFlip() && !PositionHelpers.IsWithinXOfEdge(this.Position, this.ArenaSize, 2)) // if we think they're going to flip then get out of the way
                             {
                                 move = Move.MoveBackwards;
