@@ -18,6 +18,9 @@ namespace BattleOfTheBots.Tests.VictoryHelperTests
         [TestCase(2, 3, 100, 100, false, false, TestName = "No Winner")]
         [TestCase(2, 3, 0, 100, false, true, TestName = "Bot A has critical damage")]
         [TestCase(2, 3, 100, 0, true, false, TestName = "Bot B has critical damage")]
+        [TestCase(4, 5, 0, 0, true, false, TestName = "Both bots run out of health with bot A position advantage")]
+        [TestCase(3, 4, 0, 0, false, true, TestName = "Both bots run out of health with bot B position advantage")]
+        [TestCase(3, 5, 0, 0, false, false, TestName = "Both bots run out of health with no position advantage")]
         public void CheckVictory(int aPosition, int bPosition, int aHealth, int bHealth, bool aWinner, bool bWinner)
         {
             FirstBot.Position = aPosition;

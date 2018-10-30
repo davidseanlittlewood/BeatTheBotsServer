@@ -15,8 +15,18 @@ namespace BattleOfTheBots.Logic
             if (IsBotOutOfBounds(arena, botA)) winner = botB;
             if (IsBotOutOfBounds(arena, botB)) winner = botA;
 
-            if (botA.Health <= 0) winner = botB;
-            if (botB.Health <= 0) winner = botA;
+            if (botA.Health == 0 && botB.Health == 0) // did we both run out of health at the same time?
+            {
+                winner = GetBotWhoMadeMostProgress(arena, botA, botB);
+            }
+            else if (botA.Health <= 0)
+            {
+                winner = botB;
+            }
+            else if (botB.Health <= 0)
+            {
+                winner = botA;
+            }
 
             if(botA.IsFlipped && botB.IsFlipped && botA.NumberOfFlipsRemaining == 0 && botB.NumberOfFlipsRemaining == 0)
             {
