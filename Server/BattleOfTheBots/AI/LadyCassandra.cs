@@ -49,25 +49,33 @@ namespace BattleOfTheBots.AI
                 {
                     if (PositionHelpers.AreSideBySide(this, this.Opponent))
                     {
-                        if (this.Opponent.IsFlipped)
+                        if (this.Opponent.IsFlipped) // if they're flipped then hit them (double damage)
                         {
                             move = Move.AttackWithAxe;
                         }
                         else
                         {
-                            if (IsOpponentLikelyToFlip() && !PositionHelpers.IsWithinXOfEdge(this.Position, this.ArenaSize, 2))
-                            {
-                                move = Move.MoveBackwards;
-                            }
-                            else if (IsOpponentLikelyToShunt() && this.NumberOfFlipsRemaining > 1 && rand.Next(100) > 20)
+                            if(Opponent.NumberOfFlipsRemaining == 0 && this.NumberOfFlipsRemaining > 0) // if they haven't got any flips and we have try to flip them
                             {
                                 move = Move.Flip;
                             }
-                            else if (this.FlameThrowerFuelRemaining > 0)
+                            else if (IsOpponentLikelyToFlip() && !PositionHelpers.IsWithinXOfEdge(this.Position, this.ArenaSize, 2)) // if we think they're going to flip then get out of the way
+                            {
+                                move = Move.MoveBackwards;
+                            }
+                            else if (IsOpponentLikelyToShunt() && this.NumberOfFlipsRemaining > 1 && rand.Next(100) > 20) // if we think they're going to shunt then flip
+                            {
+                                move = Move.Flip;
+                            }
+                            else if (this.FlameThrowerFuelRemaining > 0) // try to use a close up flamethrower
                             {
                                 move = Move.FlameThrower;
                             }
-                            else
+                            else if (this.NumberOfFlipsRemaining > 1 && rand.Next(100) > 50) // otherwise think about flipping
+                            {
+                                move = Move.Flip;
+                            }
+                            else // and if we decide not to then attack with axe
                             {
                                 move = Move.AttackWithAxe;
                             }

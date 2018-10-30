@@ -183,7 +183,7 @@ namespace BattleOfTheBots
                     OutputText(string.Format(">Game {0}:  Draw\n", gameCount));
                 }                
 
-                Thread.Sleep(1000);
+                Thread.Sleep(300);
 
                 gameCount++;
                 
