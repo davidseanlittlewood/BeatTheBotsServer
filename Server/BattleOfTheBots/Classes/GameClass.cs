@@ -123,7 +123,7 @@ namespace BattleOfTheBots.Classes
                     }
                     else
                     {
-                        Console.WriteLine($"The game aborted after {unchangedHealthSpins} with no damage, no bot could be identified as the clear winner");
+                        Console.WriteLine($"The game aborted after {unchangedHealthSpins} moves with no damage, no bot could be identified as the clear winner");
                     }
                     break;
                 }
