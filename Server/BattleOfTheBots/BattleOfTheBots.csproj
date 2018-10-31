@@ -51,6 +51,12 @@
     <Compile Include="AI\Dolly.cs" />
     <Compile Include="AI\SpockBot.cs" />
     <Compile Include="AI\RandomBot.cs" />
+    <Compile Include="BotsUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BotsUI.Designer.cs">
+      <DependentUpon>BotsUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logic\IMoveManager.cs" />
     <Compile Include="Logic\PositionHelpers.cs" />
     <Compile Include="Logic\VictoryHelper.cs" />
@@ -78,6 +84,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BotsUI.resx">
+      <DependentUpon>BotsUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LeaderboardForm.resx">
       <DependentUpon>LeaderboardForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +101,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,6 +115,81 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Axe left - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Axe left - 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Axe left - 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Axe right - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Axe right - 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Axe right - 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flame left - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flame right - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flip left - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flip left - 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flip left - 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flip right - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flip right - 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flip right - 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Neutral flip - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Neutral left -1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Neutral left -2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shunt left - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shunt left - 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shunt left - 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shunt right - 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shunt right - 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shunt right - 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArenaFloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Neutral left -11.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -37,6 +37,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblCurrentMatch = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelBotUIDock = new System.Windows.Forms.Panel();
             this.gridLeaderboard = new System.Windows.Forms.DataGridView();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.winsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,12 +94,21 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panelBotUIDock);
             this.panel1.Controls.Add(this.gridLeaderboard);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 70);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1112, 758);
             this.panel1.TabIndex = 2;
+            // 
+            // panelBotUIDock
+            // 
+            this.panelBotUIDock.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBotUIDock.Location = new System.Drawing.Point(0, 524);
+            this.panelBotUIDock.Name = "panelBotUIDock";
+            this.panelBotUIDock.Size = new System.Drawing.Size(1112, 234);
+            this.panelBotUIDock.TabIndex = 2;
             // 
             // gridLeaderboard
             // 
@@ -112,7 +122,7 @@
             this.winsDataGridViewTextBoxColumn});
             this.gridLeaderboard.DataMember = "LeaderBoard";
             this.gridLeaderboard.DataSource = this.dsLeaderboard;
-            this.gridLeaderboard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridLeaderboard.Dock = System.Windows.Forms.DockStyle.Top;
             this.gridLeaderboard.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gridLeaderboard.Enabled = false;
             this.gridLeaderboard.EnableHeadersVisualStyles = false;
@@ -136,7 +146,7 @@
             this.gridLeaderboard.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridLeaderboard.ShowEditingIcon = false;
             this.gridLeaderboard.ShowRowErrors = false;
-            this.gridLeaderboard.Size = new System.Drawing.Size(1112, 758);
+            this.gridLeaderboard.Size = new System.Drawing.Size(1112, 524);
             this.gridLeaderboard.TabIndex = 1;
             // 
             // nameDataGridViewTextBoxColumn
@@ -187,5 +197,6 @@
         private System.Windows.Forms.DataGridView gridLeaderboard;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn winsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Panel panelBotUIDock;
     }
 }

@@ -3,20 +3,22 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
-
+using BattleOfTheBots.UIControl;
 
 namespace BattleOfTheBots
-{
-
+{    
 
     public partial class LeaderboardForm : Form
     {
+        BotsUI botUI = new BotsUI();
         private string leaderboardConfigFile = "leaderboard.xml";
 
         public LeaderboardForm()
         {
             InitializeComponent();
-           
+            panelBotUIDock.Controls.Add(botUI);
+            botUI.Dock = DockStyle.Fill;
+
         }
 
         public void Clear()
@@ -38,8 +40,10 @@ namespace BattleOfTheBots
             {
                 lblCurrentMatch.Text = matchDetails;
                 lblCurrentMatch.Refresh();
+                botUI.DrawArenaFloor(9);
+                botUI.DrawLeftBot(4);
+                botUI.DrawRightBot(6);
             }
-
         }
 
 
@@ -112,6 +116,7 @@ namespace BattleOfTheBots
                 dtLeaderBoard.ReadXml(leaderboardConfigFile);
                 gridLeaderboard.Refresh();
             }
+            
         }
 
     }

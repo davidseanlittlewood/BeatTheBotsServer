@@ -3,14 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BattleOfTheBots.UI
 {
-    public class UIManager
+    public static class UIManager
     {
-        public Bitmap DrawBot(Bot bot)
+        public static Bitmap DrawBot(Bot bot)
         {
             var bitmap = new Bitmap(100, 100);
             using (var gfx = Graphics.FromImage(bitmap))
@@ -30,7 +32,18 @@ namespace BattleOfTheBots.UI
             return bitmap;
         }
 
-        public Bitmap DrawArena(Arena arena)
+
+        public static Bitmap GetBitmapResource(string name)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string strBaseName = assembly.GetName().Name + ".Properties.Resources";
+            ResourceManager rm = new ResourceManager(strBaseName, assembly);
+
+            return (Bitmap)rm.GetObject(name);
+        }
+
+
+        public static Bitmap DrawArena(Arena arena)
         {
             var bitmap = new Bitmap(200 + (100 * arena.NumberOfSquares), 500);
             using (var gfx = Graphics.FromImage(bitmap))
