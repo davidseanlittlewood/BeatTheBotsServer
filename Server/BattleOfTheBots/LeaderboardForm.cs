@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using BattleOfTheBots.UIControl;
+using BattleOfTheBots.Logic;
+using System.Threading;
 
 namespace BattleOfTheBots
 {    
@@ -28,21 +30,27 @@ namespace BattleOfTheBots
             gridLeaderboard.Refresh();
         }
 
-        public delegate void UpdateCurrentMatchdelegate(string matchDetails);
+        public delegate void UpdateCurrentMatchdelegate(string matchDetails, BotMove botA, BotMove botB);
 
-        public void UpdateCurrentMatch(string matchDetails)
+        public void UpdateCurrentMatch(string matchDetails, BotMove leftBot, BotMove rightBot)
         {
             if (InvokeRequired)
             {
-                Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), (object) matchDetails);
+                Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), matchDetails, leftBot, rightBot);
             }
             else
             {
                 lblCurrentMatch.Text = matchDetails;
                 lblCurrentMatch.Refresh();
+                botUI.Clear();
                 botUI.DrawArenaFloor(9);
-                botUI.DrawLeftBot(4);
-                botUI.DrawRightBot(6);
+
+                for (int i = 1; i <= 3; i++)
+                {
+                    botUI.DrawLeftBot(leftBot.Bot.Position, leftBot.Move, i);
+                    botUI.DrawRightBot(rightBot.Bot.Position, rightBot.Move, i);
+                    Thread.Sleep(100); // this isn't good - it blocks the UI thread making it unresponsive
+                }
             }
         }
 

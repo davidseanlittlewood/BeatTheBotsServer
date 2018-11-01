@@ -21,9 +21,6 @@ namespace BattleOfTheBots.Classes
 
         private readonly Bot _bot1;
         private readonly Bot _bot2;
-
-        public delegate void UpdateMatchProgressDelegate(GameClass currentGame, int gameCount, int totalGames);
-        public event UpdateMatchProgressDelegate UpdateCurrentMatch;
           
         public string Winner { get { return _winner; }}
 
@@ -57,11 +54,8 @@ namespace BattleOfTheBots.Classes
                 : (int)Math.Ceiling(arenaSize / 2D);
         }
 
-        public void CommenceBattle(UpdateMatchProgressDelegate updateCurrentMatch, int gameCount, int totalGames)
+        public void CommenceBattle(Action<GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames)
         {
-
-            updateCurrentMatch += this.UpdateCurrentMatch;
-
             if (this._bot1.SendStartInstruction(this._bot2.Name, this._arenaSize, this._flipOdds) == "failed")
             {
                 AbandonBattle(this._bot2);
@@ -110,7 +104,7 @@ namespace BattleOfTheBots.Classes
                 this._bot1.PostOpponentsMove(botMove2.Move);
                 this._bot2.PostOpponentsMove(botMove1.Move);
 
-                updateCurrentMatch(this, gameCount, totalGames);
+                updateAction(this, gameCount, totalGames, botMove1, botMove2);
 
 
                 // This match is getting boring, let's find the bot who is ahead and declare them as the winner

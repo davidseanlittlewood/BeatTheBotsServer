@@ -38,6 +38,7 @@ namespace BattleOfTheBots.UI
             Assembly assembly = Assembly.GetExecutingAssembly();
             string strBaseName = assembly.GetName().Name + ".Properties.Resources";
             ResourceManager rm = new ResourceManager(strBaseName, assembly);
+            rm.IgnoreCase = true;
 
             return (Bitmap)rm.GetObject(name);
         }

@@ -89,16 +89,19 @@ namespace BattleOfTheBots
                 tbOutput.AppendText(text);
         }
 
-        private delegate void UpdateCurrentMatchDelegate(GameClass game, int gameCount, int totalGames);
-        private void UpdateCurrentMatch(GameClass game, int gameCount, int totalGames)
+        private delegate void UpdateCurrentMatchDelegate(GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB);
+        private void UpdateCurrentMatch(GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB)
         {
             if (InvokeRequired)
             {
-                Invoke(new UpdateCurrentMatchDelegate(UpdateCurrentMatch), (object)game, (object)gameCount, (object)totalGames);
+                Invoke(new UpdateCurrentMatchDelegate(UpdateCurrentMatch), game, gameCount, totalGames, botA, botB);
             }
             else
             {
-                leaderboard.UpdateCurrentMatch(string.Format("Game {4}/{5}:  {0} {2} vs {3} {1}", game.Bot1.Name, game.Bot2.Name, game.Bot1.Health, game.Bot2.Health, gameCount, totalGames));
+                var text = string.Format("Game {4}/{5}:  {0} {2} vs {3} {1}", game.Bot1.Name, game.Bot2.Name, game.Bot1.Health, game.Bot2.Health, gameCount, totalGames);
+                leaderboard.UpdateCurrentMatch(text,
+                    botA,
+                    botB);
 
                 lblBot1Name.Text = game.Bot1.Name;
                 lblBot2Name.Text = game.Bot2.Name;
@@ -171,7 +174,7 @@ namespace BattleOfTheBots
             foreach (GameClass game in gamesList)
             {
 
-                game.CommenceBattle(new GameClass.UpdateMatchProgressDelegate(UpdateCurrentMatch), gameCount, gamesList.Count());
+                game.CommenceBattle(UpdateCurrentMatch, gameCount, gamesList.Count());
 
                 if (!string.IsNullOrWhiteSpace(game.Winner))
                 {
@@ -183,7 +186,7 @@ namespace BattleOfTheBots
                     OutputText(string.Format(">Game {0}:  Draw\n", gameCount));
                 }                
 
-                Thread.Sleep(300);
+                Thread.Sleep(2000);
 
                 gameCount++;
                 
