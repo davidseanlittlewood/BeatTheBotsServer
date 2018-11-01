@@ -39,16 +39,15 @@ namespace BattleOfTheBots
                 Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), matchDetails, leftBot, rightBot);
             }
             else
-            {
-                lblCurrentMatch.Text = matchDetails;
-                lblCurrentMatch.Refresh();
-                botUI.Clear();
-                botUI.DrawArenaFloor(9);
-
+            {                            
                 for (int i = 1; i <= 3; i++)
                 {
-                    botUI.DrawLeftBot(leftBot.Bot.Position, leftBot.Move, i);
-                    botUI.DrawRightBot(rightBot.Bot.Position, rightBot.Move, i);
+
+                    lblCurrentMatch.Text = matchDetails;
+                    lblCurrentMatch.Refresh();
+
+                    botUI.Update(9, leftBot, rightBot, i);
+                    
                     Thread.Sleep(100); // this isn't good - it blocks the UI thread making it unresponsive
                 }
             }

@@ -24,7 +24,7 @@ namespace BattleOfTheBots.UIControl
 
         int[] _arenaPositions;
 
-        public void DrawArenaFloor(int ArenaSize)
+        public void DrawArenaFloor(Graphics gfx, int ArenaSize)
         {
             _arenaPositions = new int[ArenaSize];
             Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");            
@@ -35,11 +35,25 @@ namespace BattleOfTheBots.UIControl
             {
                 _arenaPositions[arraypos] = x;
                 arraypos++;
-                DrawImageOnUIPanel(arenaFloorTile, new Point(x, panelDrawArea.Height - arenaFloorTile.Height));
+                gfx.DrawImage(arenaFloorTile, new Point(x, panelDrawArea.Height - arenaFloorTile.Height));
             }
         }
 
-        public void DrawLeftBot(int position, Move move, int frame)
+        public void Update(int arenaWidth, BotMove leftBot, BotMove rightBot, int frame)
+        {
+            var bitmap = new Bitmap(panelDrawArea.Width, panelDrawArea.Height);
+            using (var gfx = Graphics.FromImage(bitmap))
+            {
+                gfx.FillRectangle(Brushes.White, 0, 0, panelDrawArea.Width, panelDrawArea.Height);
+                this.DrawArenaFloor(gfx, arenaWidth);
+                this.DrawLeftBot(gfx, leftBot.Bot.Position, leftBot.Move, frame);
+                this.DrawRightBot(gfx, rightBot.Bot.Position, rightBot.Move, frame);                
+            }
+            this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
+        }
+
+
+        public void DrawLeftBot(Graphics gfx, int position, Move move, int frame)
         {
             if (position >= 0 && position < 9)
             {
@@ -47,11 +61,12 @@ namespace BattleOfTheBots.UIControl
                 Bitmap leftBot1 = UIManager.GetBitmapResource(image);
                 if (leftBot1 != null)
                 {
-                    DrawImageOnUIPanel(leftBot1, new Point(_arenaPositions[position] - 68, panelDrawArea.Height - leftBot1.Height - 17));
+                    gfx.DrawImage(leftBot1, new Point(_arenaPositions[position] - 68, panelDrawArea.Height - leftBot1.Height - 17));
                 }
             }
         }
-        public void DrawRightBot(int position, Move move, int frame)
+
+        public void DrawRightBot(Graphics gfx, int position, Move move, int frame)
         {
             if (position >= 0 && position < 9)
             {
@@ -59,20 +74,9 @@ namespace BattleOfTheBots.UIControl
                 Bitmap rightBot1 = UIManager.GetBitmapResource(image);
                 if (rightBot1 != null)
                 {
-                    DrawImageOnUIPanel(rightBot1, new Point(_arenaPositions[position] - rightBot1.Width, panelDrawArea.Height - rightBot1.Height - 17));
+                    gfx.DrawImage(rightBot1, new Point(_arenaPositions[position] - rightBot1.Width, panelDrawArea.Height - rightBot1.Height - 17));
                 }
             }
-        }
-
-        public void Clear()
-        {
-            var bitmap = new Bitmap(panelDrawArea.Width, panelDrawArea.Height);
-            using (var gfx = Graphics.FromImage(bitmap))
-            {
-
-                gfx.FillRectangle(Brushes.White, 0, 0, panelDrawArea.Width, panelDrawArea.Height);
-            }
-            this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
         }
 
 
