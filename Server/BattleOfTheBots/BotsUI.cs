@@ -112,6 +112,7 @@ namespace BattleOfTheBots.UIControl
                 case Logic.Move.Shunt:
                     return "Shunt";
                 case Logic.Move.Flip:
+                    return "Flip";
                 default:
                     return "Neutral";
             }
