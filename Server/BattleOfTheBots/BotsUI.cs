@@ -71,7 +71,20 @@ namespace BattleOfTheBots.UIControl
                 Bitmap botImage = UIManager.GetBitmapResource(image);
                 if (bot != null)
                 {
-                    gfx.DrawImage(botImage, new Point(_arenaPositions[bot.Bot.Position] - botImage.Width, panelDrawArea.Height - botImage.Height - 17));
+                    if (bot.Bot.IsFlipped)
+                    {
+                        var roFlip = direction == Direction.Right
+                            ? RotateFlipType.Rotate90FlipNone
+                            : RotateFlipType.Rotate270FlipNone;
+
+                        botImage.RotateFlip(roFlip);
+                        gfx.DrawImage(botImage,
+                            new Point(_arenaPositions[bot.Bot.Position] - botImage.Width, panelDrawArea.Height - botImage.Height - 17));
+                    }
+                    else
+                    {
+                        gfx.DrawImage(botImage, new Point(_arenaPositions[bot.Bot.Position] - botImage.Width, panelDrawArea.Height - botImage.Height - 17));
+                    }
                 }
 
                 var bubbleName = GetBubbleName(bot.Move);
