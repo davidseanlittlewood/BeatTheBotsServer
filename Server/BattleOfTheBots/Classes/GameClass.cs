@@ -29,11 +29,13 @@ namespace BattleOfTheBots.Classes
 
         public GameClass(Bot bot1, Bot bot2, int health, int flips, int flipOdds, int fuel, int arenaSize)
         {
+            bot1.StartingHealth = health;
             bot1.Health = health;
             bot1.NumberOfFlipsRemaining = flips;
             bot1.FlameThrowerFuelRemaining = fuel;
             bot1.Position = CalculateStartPositionForBot(arenaSize, bot1.DesiredDirection);
 
+            bot2.StartingHealth = health;
             bot2.Health = health;
             bot2.NumberOfFlipsRemaining = flips;
             bot2.FlameThrowerFuelRemaining = fuel;
