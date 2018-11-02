@@ -230,7 +230,7 @@ namespace BattleOfTheBots
                     }
                 }
             }
-            return gamesList;
+            return gamesList.OrderBy(g => Guid.NewGuid()).ToList(); // randomise the game order
         }
 
         private Bot GetClassForBot(Direction direction, string url, string name)
