@@ -65,6 +65,8 @@ namespace BattleOfTheBots.UIControl
 
         public void DrawBot(Graphics gfx, BotMove bot, int frame, Direction direction, int bubbleXOffset)
         {
+            DrawHealthbar(gfx, bot, direction);
+
             if (bot.Bot.Position >= 0 && bot.Bot.Position < 9)
             {
                 var image = GetImageName(direction, bot.Move, frame);
@@ -86,6 +88,17 @@ namespace BattleOfTheBots.UIControl
             }
         }
 
+        private void DrawHealthbar(Graphics gfx, BotMove bot, Direction direction)
+        {
+            var xOffset = direction == Direction.Left
+                ? 10
+                : panelDrawArea.Width - 400;
+
+            gfx.DrawString(bot.Bot.Name,
+                new Font(Font.FontFamily, 24, FontStyle.Bold),
+                Brushes.Black,
+                new PointF(xOffset, 10));
+        }
 
         public string GetImageName(Direction direction, Move move, int frame)
         {
