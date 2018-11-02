@@ -48,7 +48,7 @@ namespace BattleOfTheBots
 
                     botUI.Update(9, leftBot, rightBot, i);
                     
-                    Thread.Sleep(100); // this isn't good - it blocks the UI thread making it unresponsive
+                    Thread.Sleep(150); // this isn't good - it blocks the UI thread making it unresponsive
                 }
             }
         }
