@@ -112,10 +112,17 @@ namespace BattleOfTheBots.UIControl
                 Brushes.Black,
                 new PointF(xOffset, 10));
 
-            var percentHealthRemaining = (100d * bot.Bot.Health) / bot.Bot.StartingHealth;
+            DrawBar(gfx, xOffset, 50, Brushes.Green, Brushes.Red, bot.Bot.StartingHealth, bot.Bot.Health);
+            DrawBar(gfx, xOffset, 70, Brushes.LightBlue, Brushes.Black, bot.Bot.StartingNumberOfFlips, bot.Bot.NumberOfFlipsRemaining);
+            DrawBar(gfx, xOffset, 90, Brushes.Yellow, Brushes.Black, bot.Bot.StartingFlameThrowerFuel, bot.Bot.FlameThrowerFuelRemaining);
+        }
 
-            gfx.FillRectangle(Brushes.Red, new RectangleF(xOffset, 50, 400, 20));
-            gfx.FillRectangle(Brushes.Green, new RectangleF(xOffset, 50, (float)(4 * percentHealthRemaining), 20));
+        private void DrawBar(Graphics gfx, int xOffset, int yOffset, Brush fullColour, Brush usedColour, int full, int remaining)
+        {
+            var percentRemaining = (100d * remaining) / full;
+
+            gfx.FillRectangle(usedColour, new RectangleF(xOffset, yOffset, 400, 20));
+            gfx.FillRectangle(fullColour, new RectangleF(xOffset, yOffset, (float)(4 * percentRemaining), 20));
         }
 
         public string GetImageName(Direction direction, Move move, int frame)

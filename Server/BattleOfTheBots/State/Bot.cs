@@ -12,11 +12,13 @@ namespace BattleOfTheBots.State
         public int StartingHealth { get; set; }
         public int Health { get; set; }
 
+        public int StartingNumberOfFlips { get; set; }
         public int NumberOfFlipsRemaining { get; set; }
         public bool IsFlipped { get; set; }
 
         public Direction DesiredDirection { get; protected set; }
 
+        public int StartingFlameThrowerFuel { get; set; }
         public int FlameThrowerFuelRemaining { get; set; }
 
         public Bot Opponent { get; set; }

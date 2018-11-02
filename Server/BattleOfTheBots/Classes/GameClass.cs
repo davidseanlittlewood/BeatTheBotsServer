@@ -31,13 +31,17 @@ namespace BattleOfTheBots.Classes
         {
             bot1.StartingHealth = health;
             bot1.Health = health;
+            bot1.StartingNumberOfFlips = flips;
             bot1.NumberOfFlipsRemaining = flips;
+            bot1.StartingFlameThrowerFuel = fuel;
             bot1.FlameThrowerFuelRemaining = fuel;
             bot1.Position = CalculateStartPositionForBot(arenaSize, bot1.DesiredDirection);
 
             bot2.StartingHealth = health;
             bot2.Health = health;
+            bot2.StartingNumberOfFlips = flips;
             bot2.NumberOfFlipsRemaining = flips;
+            bot2.StartingFlameThrowerFuel = fuel;
             bot2.FlameThrowerFuelRemaining = fuel;
             bot2.Position = CalculateStartPositionForBot(arenaSize, bot2.DesiredDirection);
 
