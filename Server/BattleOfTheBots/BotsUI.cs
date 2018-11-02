@@ -46,41 +46,41 @@ namespace BattleOfTheBots.UIControl
             {
                 gfx.FillRectangle(Brushes.White, 0, 0, panelDrawArea.Width, panelDrawArea.Height);
                 this.DrawArenaFloor(gfx, arenaWidth);
-                this.DrawLeftBot(gfx, leftBot.Bot.Position, leftBot.Move, frame);
-                this.DrawRightBot(gfx, rightBot.Bot.Position, rightBot.Move, frame);                
+                this.DrawLeftBot(gfx, leftBot, frame);
+                this.DrawRightBot(gfx, rightBot, frame);                
             }
             this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
         }
 
 
-        public void DrawLeftBot(Graphics gfx, int position, Move move, int frame)
+        public void DrawLeftBot(Graphics gfx, BotMove bot, int frame)
         {
-            DrawBot(gfx, position, move, frame, Direction.Left, -450);            
+            DrawBot(gfx, bot, frame, Direction.Left, -450);            
         }
 
-        public void DrawRightBot(Graphics gfx, int position, Move move, int frame)
+        public void DrawRightBot(Graphics gfx, BotMove bot, int frame)
         {
-            DrawBot(gfx, position, move, frame, Direction.Right, 200);
+            DrawBot(gfx, bot, frame, Direction.Right, 200);
         }
 
-        public void DrawBot(Graphics gfx, int position, Move move, int frame, Direction direction, int bubbleXOffset)
+        public void DrawBot(Graphics gfx, BotMove bot, int frame, Direction direction, int bubbleXOffset)
         {
-            if (position >= 0 && position < 9)
+            if (bot.Bot.Position >= 0 && bot.Bot.Position < 9)
             {
-                var image = GetImageName(direction, move, frame);
-                Bitmap bot = UIManager.GetBitmapResource(image);
+                var image = GetImageName(direction, bot.Move, frame);
+                Bitmap botImage = UIManager.GetBitmapResource(image);
                 if (bot != null)
                 {
-                    gfx.DrawImage(bot, new Point(_arenaPositions[position] - bot.Width, panelDrawArea.Height - bot.Height - 17));
+                    gfx.DrawImage(botImage, new Point(_arenaPositions[bot.Bot.Position] - botImage.Width, panelDrawArea.Height - botImage.Height - 17));
                 }
 
-                var bubbleName = GetBubbleName(move);
+                var bubbleName = GetBubbleName(bot.Move);
                 if (bubbleName != null)
                 {
                     Bitmap bubble = UIManager.GetBitmapResource(bubbleName);
                     if (bubble != null)
                     {
-                        gfx.DrawImage(bubble, new Point(_arenaPositions[position] - 68 + bubbleXOffset, panelDrawArea.Height - bot.Height - 127));
+                        gfx.DrawImage(bubble, new Point(_arenaPositions[bot.Bot.Position] - 68 + bubbleXOffset, panelDrawArea.Height - botImage.Height - 127));
                     }
                 }
             }
