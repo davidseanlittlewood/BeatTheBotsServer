@@ -55,35 +55,23 @@ namespace BattleOfTheBots.UIControl
 
         public void DrawLeftBot(Graphics gfx, int position, Move move, int frame)
         {
-            if (position >= 0 && position < 9)
-            {
-                var image = GetImageName(Direction.Left, move, frame);
-                Bitmap leftBot1 = UIManager.GetBitmapResource(image);
-                if (leftBot1 != null)
-                {
-                    gfx.DrawImage(leftBot1, new Point(_arenaPositions[position] - 68, panelDrawArea.Height - leftBot1.Height - 17));
-                }
-                var bubbleName = GetBubbleName(move);
-                if (bubbleName != null)
-                {
-                    Bitmap bubble = UIManager.GetBitmapResource(bubbleName);
-                    if (bubble != null)
-                    {
-                        gfx.DrawImage(bubble, new Point(_arenaPositions[position] - 68 - 450, panelDrawArea.Height - leftBot1.Height - 127));
-                    }
-                }
-            }
+            DrawBot(gfx, position, move, frame, Direction.Left, -450);            
         }
 
         public void DrawRightBot(Graphics gfx, int position, Move move, int frame)
         {
+            DrawBot(gfx, position, move, frame, Direction.Right, 200);
+        }
+
+        public void DrawBot(Graphics gfx, int position, Move move, int frame, Direction direction, int bubbleXOffset)
+        {
             if (position >= 0 && position < 9)
             {
-                var image = GetImageName(Direction.Right, move, frame);
-                Bitmap rightBot1 = UIManager.GetBitmapResource(image);
-                if (rightBot1 != null)
+                var image = GetImageName(direction, move, frame);
+                Bitmap bot = UIManager.GetBitmapResource(image);
+                if (bot != null)
                 {
-                    gfx.DrawImage(rightBot1, new Point(_arenaPositions[position] - rightBot1.Width, panelDrawArea.Height - rightBot1.Height - 17));
+                    gfx.DrawImage(bot, new Point(_arenaPositions[position] - bot.Width, panelDrawArea.Height - bot.Height - 17));
                 }
 
                 var bubbleName = GetBubbleName(move);
@@ -92,7 +80,7 @@ namespace BattleOfTheBots.UIControl
                     Bitmap bubble = UIManager.GetBitmapResource(bubbleName);
                     if (bubble != null)
                     {
-                        gfx.DrawImage(bubble, new Point(_arenaPositions[position] - 68 + 200, panelDrawArea.Height - rightBot1.Height - 127));
+                        gfx.DrawImage(bubble, new Point(_arenaPositions[position] - 68 + bubbleXOffset, panelDrawArea.Height - bot.Height - 127));
                     }
                 }
             }

@@ -73,6 +73,16 @@ namespace BattleOfTheBots.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Axe {
+            get {
+                object obj = ResourceManager.GetObject("Axe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Axe_left_1 {
             get {
                 object obj = ResourceManager.GetObject("Axe_left_1", resourceCulture);
@@ -133,6 +143,16 @@ namespace BattleOfTheBots.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Flame {
+            get {
+                object obj = ResourceManager.GetObject("Flame", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Flame_left_1 {
             get {
                 object obj = ResourceManager.GetObject("Flame_left_1", resourceCulture);
@@ -146,6 +166,16 @@ namespace BattleOfTheBots.Properties {
         internal static System.Drawing.Bitmap Flame_right_1 {
             get {
                 object obj = ResourceManager.GetObject("Flame_right_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Flip {
+            get {
+                object obj = ResourceManager.GetObject("Flip", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -246,6 +276,16 @@ namespace BattleOfTheBots.Properties {
         internal static System.Drawing.Bitmap Neutral_right_1 {
             get {
                 object obj = ResourceManager.GetObject("Neutral_right_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Shunt {
+            get {
+                object obj = ResourceManager.GetObject("Shunt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

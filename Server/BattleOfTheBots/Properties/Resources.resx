@@ -121,6 +121,9 @@
   <data name="ArenaFloor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ArenaFloor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Axe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Axe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Axe_left_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Axe left - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,11 +142,17 @@
   <data name="Axe_right_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Axe right - 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Flame" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Flame_left_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flame left - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flame_right_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flame right - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flip_left_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flip left - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -174,6 +183,9 @@
   </data>
   <data name="Neutral_right_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Neutral right - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Shunt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shunt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="shunt_left_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shunt left - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
