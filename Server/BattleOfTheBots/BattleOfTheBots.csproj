@@ -183,9 +183,14 @@
     <None Include="Resources\ArenaFloor.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Axe.bmp" />
+    <Content Include="Resources\Axe.png" />
+    <Content Include="Resources\Flame.png" />
+    <Content Include="Resources\Flip.png" />
     <Content Include="Resources\Neutral left - 1.png" />
     <Content Include="Resources\Neutral left - 2.png" />
     <Content Include="Resources\Neutral right - 1.png" />
+    <Content Include="Resources\Shunt.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

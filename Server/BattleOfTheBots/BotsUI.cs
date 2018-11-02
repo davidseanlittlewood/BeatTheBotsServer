@@ -63,6 +63,15 @@ namespace BattleOfTheBots.UIControl
                 {
                     gfx.DrawImage(leftBot1, new Point(_arenaPositions[position] - 68, panelDrawArea.Height - leftBot1.Height - 17));
                 }
+                var bubbleName = GetBubbleName(move);
+                if (bubbleName != null)
+                {
+                    Bitmap bubble = UIManager.GetBitmapResource(bubbleName);
+                    if (bubble != null)
+                    {
+                        gfx.DrawImage(bubble, new Point(_arenaPositions[position] - 68 - 450, panelDrawArea.Height - leftBot1.Height - 127));
+                    }
+                }
             }
         }
 
@@ -75,6 +84,16 @@ namespace BattleOfTheBots.UIControl
                 if (rightBot1 != null)
                 {
                     gfx.DrawImage(rightBot1, new Point(_arenaPositions[position] - rightBot1.Width, panelDrawArea.Height - rightBot1.Height - 17));
+                }
+
+                var bubbleName = GetBubbleName(move);
+                if (bubbleName != null)
+                {
+                    Bitmap bubble = UIManager.GetBitmapResource(bubbleName);
+                    if (bubble != null)
+                    {
+                        gfx.DrawImage(bubble, new Point(_arenaPositions[position] - 68 + 200, panelDrawArea.Height - rightBot1.Height - 127));
+                    }
                 }
             }
         }
@@ -115,6 +134,23 @@ namespace BattleOfTheBots.UIControl
                     return "Flip";
                 default:
                     return "Neutral";
+            }
+        }
+
+        private string GetBubbleName(Move move)
+        {
+            switch (move)
+            {
+                case Logic.Move.AttackWithAxe:
+                    return "Axe";
+                case Logic.Move.FlameThrower:
+                    return "Flame";
+                case Logic.Move.Shunt:
+                    return "Shunt";
+                case Logic.Move.Flip:
+                    return "Flip";
+                default:
+                    return null;
             }
         }
 
