@@ -48,7 +48,15 @@ namespace BattleOfTheBots
 
                     botUI.Update(9, leftBot, rightBot, i);
                     
-                    Thread.Sleep(150); // this isn't good - it blocks the UI thread making it unresponsive
+
+                    /* Set short sleep and process messages in a loop 
+                       to stop Thread.sleep blocking UI
+                     */                    
+                    for (var x=0; x<10; x++)
+                    {
+                        Thread.Sleep(10); 
+                        Application.DoEvents();
+                    }
                 }
             }
         }

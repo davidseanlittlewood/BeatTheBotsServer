@@ -78,40 +78,37 @@
             this.panel2.Controls.Add(this.lblCurrentMatch);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1582, 86);
+            this.panel2.Size = new System.Drawing.Size(1186, 70);
             this.panel2.TabIndex = 1;
             // 
             // lblCurrentMatch
             // 
             this.lblCurrentMatch.AutoSize = true;
             this.lblCurrentMatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentMatch.Location = new System.Drawing.Point(16, 26);
-            this.lblCurrentMatch.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCurrentMatch.Location = new System.Drawing.Point(12, 21);
             this.lblCurrentMatch.Name = "lblCurrentMatch";
-            this.lblCurrentMatch.Size = new System.Drawing.Size(203, 36);
+            this.lblCurrentMatch.Size = new System.Drawing.Size(162, 29);
             this.lblCurrentMatch.TabIndex = 0;
             this.lblCurrentMatch.Text = "Current Match";
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.panelBotUIDock);
             this.panel1.Controls.Add(this.gridLeaderboard);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 86);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Location = new System.Drawing.Point(0, 70);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1582, 774);
+            this.panel1.Size = new System.Drawing.Size(1186, 674);
             this.panel1.TabIndex = 2;
             // 
             // panelBotUIDock
             // 
             this.panelBotUIDock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelBotUIDock.Location = new System.Drawing.Point(0, 367);
-            this.panelBotUIDock.Margin = new System.Windows.Forms.Padding(4);
+            this.panelBotUIDock.Location = new System.Drawing.Point(0, 267);
             this.panelBotUIDock.Name = "panelBotUIDock";
-            this.panelBotUIDock.Size = new System.Drawing.Size(1582, 407);
+            this.panelBotUIDock.Size = new System.Drawing.Size(1186, 407);
             this.panelBotUIDock.TabIndex = 2;
             // 
             // gridLeaderboard
@@ -131,7 +128,6 @@
             this.gridLeaderboard.Enabled = false;
             this.gridLeaderboard.EnableHeadersVisualStyles = false;
             this.gridLeaderboard.Location = new System.Drawing.Point(0, 0);
-            this.gridLeaderboard.Margin = new System.Windows.Forms.Padding(4);
             this.gridLeaderboard.Name = "gridLeaderboard";
             this.gridLeaderboard.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -151,7 +147,7 @@
             this.gridLeaderboard.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridLeaderboard.ShowEditingIcon = false;
             this.gridLeaderboard.ShowRowErrors = false;
-            this.gridLeaderboard.Size = new System.Drawing.Size(1582, 367);
+            this.gridLeaderboard.Size = new System.Drawing.Size(1186, 267);
             this.gridLeaderboard.TabIndex = 1;
             // 
             // nameDataGridViewTextBoxColumn
@@ -171,13 +167,12 @@
             // 
             // LeaderboardForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1582, 860);
+            this.ClientSize = new System.Drawing.Size(1186, 744);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LeaderboardForm";
             this.Text = "Battle of the bots leaderboard";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LeaderboardForm_FormClosing);

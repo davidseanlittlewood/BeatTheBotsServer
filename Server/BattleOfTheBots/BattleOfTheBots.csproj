@@ -185,6 +185,10 @@
   <ItemGroup>
     <None Include="Resources\Axe.bmp" />
     <Content Include="Resources\Axe.png" />
+    <None Include="Resources\Flame left - 2.png" />
+    <None Include="Resources\Flame left - 3.png" />
+    <None Include="Resources\flame left - 21.png" />
+    <None Include="Resources\flame left - 31.png" />
     <Content Include="Resources\Flame.png" />
     <Content Include="Resources\Flip.png" />
     <Content Include="Resources\Neutral left - 1.png" />

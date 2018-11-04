@@ -163,9 +163,49 @@ namespace BattleOfTheBots.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Flame_left_2 {
+            get {
+                object obj = ResourceManager.GetObject("Flame_left_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Flame_left_3 {
+            get {
+                object obj = ResourceManager.GetObject("Flame_left_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Flame_right_1 {
             get {
                 object obj = ResourceManager.GetObject("Flame_right_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Flame_right_2 {
+            get {
+                object obj = ResourceManager.GetObject("Flame_right_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Flame_right_3 {
+            get {
+                object obj = ResourceManager.GetObject("Flame_right_3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

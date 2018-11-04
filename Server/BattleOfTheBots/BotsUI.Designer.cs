@@ -33,7 +33,8 @@
             // 
             // panelDrawArea
             // 
-            this.panelDrawArea.BackColor = System.Drawing.Color.White;
+            this.panelDrawArea.BackColor = System.Drawing.Color.Transparent;
+            this.panelDrawArea.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelDrawArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDrawArea.Location = new System.Drawing.Point(0, 0);
             this.panelDrawArea.Name = "panelDrawArea";

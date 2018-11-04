@@ -148,8 +148,20 @@
   <data name="Flame_left_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flame left - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Flame_left_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\flame left - 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flame_left_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\flame left - 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Flame_right_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flame right - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flame_right_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flame left - 21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flame_right_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flame left - 31.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flip" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

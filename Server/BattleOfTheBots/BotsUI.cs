@@ -12,6 +12,7 @@ using System.Reflection;
 using BattleOfTheBots.UI;
 using BattleOfTheBots.State;
 using BattleOfTheBots.Logic;
+using System.Drawing.Imaging;
 
 namespace BattleOfTheBots.UIControl
 {
@@ -47,7 +48,7 @@ namespace BattleOfTheBots.UIControl
                 gfx.FillRectangle(Brushes.White, 0, 0, panelDrawArea.Width, panelDrawArea.Height);
                 this.DrawArenaFloor(gfx, arenaWidth);
                 this.DrawLeftBot(gfx, leftBot, frame);
-                this.DrawRightBot(gfx, rightBot, frame);                
+                this.DrawRightBot(gfx, rightBot, frame);
             }
             this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
         }
@@ -55,7 +56,7 @@ namespace BattleOfTheBots.UIControl
 
         public void DrawLeftBot(Graphics gfx, BotMove bot, int frame)
         {
-            DrawBot(gfx, bot, frame, Direction.Left, -450);            
+            DrawBot(gfx, bot, frame, Direction.Left,  -450);            
         }
 
         public void DrawRightBot(Graphics gfx, BotMove bot, int frame)
@@ -71,19 +72,25 @@ namespace BattleOfTheBots.UIControl
                 Bitmap botImage = UIManager.GetBitmapResource(image);
                 if (bot != null)
                 {
+
+                    int botxpos = direction == Direction.Right
+                        ? _arenaPositions[bot.Bot.Position] - botImage.Width  + 136 :
+                        _arenaPositions[bot.Bot.Position]  ;
+
                     if (bot.Bot.IsFlipped)
                     {
-                        var roFlip = direction == Direction.Right
+                        var roFlip = direction == Direction.Right   
                             ? RotateFlipType.Rotate90FlipNone
                             : RotateFlipType.Rotate270FlipNone;
 
                         botImage.RotateFlip(roFlip);
+
                         gfx.DrawImage(botImage,
-                            new Point(_arenaPositions[bot.Bot.Position] - botImage.Width, panelDrawArea.Height - botImage.Height - 17));
+                            new Point(botxpos, panelDrawArea.Height - botImage.Height - 55));
                     }
                     else
                     {
-                        gfx.DrawImage(botImage, new Point(_arenaPositions[bot.Bot.Position] - botImage.Width, panelDrawArea.Height - botImage.Height - 17));
+                        gfx.DrawImage(botImage, new Point(botxpos, panelDrawArea.Height - botImage.Height - 55));
                     }
                 }
 
@@ -93,7 +100,11 @@ namespace BattleOfTheBots.UIControl
                     Bitmap bubble = UIManager.GetBitmapResource(bubbleName);
                     if (bubble != null)
                     {
-                        gfx.DrawImage(bubble, new Point(_arenaPositions[bot.Bot.Position] - 68 + bubbleXOffset, panelDrawArea.Height - botImage.Height - 127));
+                        var bubblexpos = direction == Direction.Right 
+                            ? panelDrawArea.Width - (bubble.Width + 20) 
+                            : 20;
+
+                        gfx.DrawImage(bubble, new Point( bubblexpos, panelDrawArea.Height - (bubble.Height + 55)));
                     }
                 }
             }
@@ -140,6 +151,7 @@ namespace BattleOfTheBots.UIControl
                 case Logic.Move.AttackWithAxe:
                 case Logic.Move.Shunt:
                 case Logic.Move.Flip:
+                case Logic.Move.FlameThrower:
                     return 3;
                 default:
                     return 1;
@@ -179,11 +191,27 @@ namespace BattleOfTheBots.UIControl
                     return null;
             }
         }
-
-        public void DrawImageOnUIPanel(Bitmap image, Point location)
+        
+        public void DrawImageOnUIPanel(Bitmap image, Point location )
         {
-            Graphics g = panelDrawArea.CreateGraphics();
-            g.DrawImage(image, location);
+            
+
+            //ColorMatrix matrix = new ColorMatrix();
+            //matrix.Matrix33 = 0.1f;
+            //ImageAttributes attributes = new ImageAttributes();
+            //attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+            Bitmap destImg = new Bitmap(image.Width, image.Height);
+            Graphics g = Graphics.FromImage(destImg);
+
+            g.DrawImage((Image) image, new Rectangle(0, 0, destImg.Width, destImg.Height),
+                 0, 0, image.Width, image.Height,GraphicsUnit.Pixel);
+
+          
+
+            g = panelDrawArea.CreateGraphics();           
+            g.DrawImage(destImg, location);            
         }
-    }
+
+}
 }
