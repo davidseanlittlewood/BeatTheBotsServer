@@ -206,6 +206,8 @@ namespace BattleOfTheBots.UIControl
                 case Logic.Move.Flip:
                 case Logic.Move.FlameThrower:
                     return 3;
+                case Logic.Move.MoveForwards:
+                    return 2;
                 default:
                     return 1;
             }

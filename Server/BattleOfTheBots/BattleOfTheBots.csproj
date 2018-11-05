@@ -194,6 +194,7 @@
     <Content Include="Resources\Neutral left - 1.png" />
     <Content Include="Resources\Neutral left - 2.png" />
     <Content Include="Resources\Neutral right - 1.png" />
+    <None Include="Resources\Neutral right - 2.png" />
     <Content Include="Resources\Shunt.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
