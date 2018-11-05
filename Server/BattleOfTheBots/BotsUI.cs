@@ -87,6 +87,8 @@ namespace BattleOfTheBots.UIControl
             Bitmap botImage = UIManager.GetBitmapResource(image);
             botImage.MakeTransparent(Color.White);
 
+            Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");
+
             int yDeadDrop = 0;
             int arenaPosition;
             if (bot.Bot.Position < 0 || bot.Bot.Position >= arenaWidth)
@@ -123,6 +125,17 @@ namespace BattleOfTheBots.UIControl
 
                     gfx.DrawImage(botImage,
                         new Point(botxpos, panelDrawArea.Height - botImage.Height - 55 - yDeadDrop));
+                }
+                else if (bot.Bot.Health <= 0)
+                {
+                    var roFlip = direction == Direction.Right
+                        ? RotateFlipType.Rotate270FlipNone
+                        : RotateFlipType.Rotate90FlipNone;                    
+
+                    botImage.RotateFlip(roFlip);
+
+                    gfx.DrawImage(botImage,
+                        new Point(arenaPosition, panelDrawArea.Height - (arenaFloorTile.Height * 2)));
                 }
                 else
                 {
