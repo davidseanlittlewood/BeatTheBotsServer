@@ -71,17 +71,17 @@ namespace BattleOfTheBots.UIControl
                 var image = GetImageName(direction, bot.Move, frame);
                 Bitmap botImage = UIManager.GetBitmapResource(image);
                 if (bot != null)
-                {
-
-                    int botxpos = direction == Direction.Right
-                        ? _arenaPositions[bot.Bot.Position] - botImage.Width  + 136 :
-                        _arenaPositions[bot.Bot.Position]  ;
+                {                    
 
                     if (bot.Bot.IsFlipped)
                     {
                         var roFlip = direction == Direction.Right   
                             ? RotateFlipType.Rotate90FlipNone
                             : RotateFlipType.Rotate270FlipNone;
+
+                        int botxpos = direction == Direction.Right
+                        ? _arenaPositions[bot.Bot.Position] - (botImage.Width - 70) :
+                        _arenaPositions[bot.Bot.Position] - botImage.Height;
 
                         botImage.RotateFlip(roFlip);
 
@@ -90,6 +90,10 @@ namespace BattleOfTheBots.UIControl
                     }
                     else
                     {
+                        int botxpos = direction == Direction.Right
+                        ? _arenaPositions[bot.Bot.Position] - (botImage.Width - 70) :
+                        _arenaPositions[bot.Bot.Position];
+
                         gfx.DrawImage(botImage, new Point(botxpos, panelDrawArea.Height - botImage.Height - 55));
                     }
                 }
