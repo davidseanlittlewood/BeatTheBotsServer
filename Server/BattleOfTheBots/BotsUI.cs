@@ -118,8 +118,8 @@ namespace BattleOfTheBots.UIControl
                         : RotateFlipType.Rotate270FlipNone;
 
                     int botxpos = direction == Direction.Right
-                    ? arenaPosition - (botImage.Width - 70) :
-                    arenaPosition - botImage.Height;
+                    ? arenaPosition
+                    : arenaPosition - botImage.Height;
 
                     botImage.RotateFlip(roFlip);
 
