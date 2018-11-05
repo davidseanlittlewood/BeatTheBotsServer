@@ -6,6 +6,7 @@ using System.IO;
 using BattleOfTheBots.UIControl;
 using BattleOfTheBots.Logic;
 using System.Threading;
+using BattleOfTheBots.State;
 
 namespace BattleOfTheBots
 {    
@@ -30,13 +31,13 @@ namespace BattleOfTheBots
             gridLeaderboard.Refresh();
         }
 
-        public delegate void UpdateCurrentMatchdelegate(string matchDetails, BotMove botA, BotMove botB);
+        public delegate void UpdateCurrentMatchdelegate(Arena arena, string matchDetails, BotMove botA, BotMove botB);
 
-        public void UpdateCurrentMatch(string matchDetails, BotMove leftBot, BotMove rightBot)
+        public void UpdateCurrentMatch(Arena arena, string matchDetails, BotMove leftBot, BotMove rightBot)
         {
             if (InvokeRequired)
             {
-                Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), matchDetails, leftBot, rightBot);
+                Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), arena, matchDetails, leftBot, rightBot);
             }
             else
             {                            
@@ -46,7 +47,7 @@ namespace BattleOfTheBots
                     lblCurrentMatch.Text = matchDetails;
                     lblCurrentMatch.Refresh();
 
-                    botUI.Update(9, leftBot, rightBot, i);
+                    botUI.Update(arena.NumberOfSquares, leftBot, rightBot, i);
                     
 
                     /* Set short sleep and process messages in a loop 

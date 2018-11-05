@@ -25,14 +25,14 @@ namespace BattleOfTheBots.UIControl
 
         int[] _arenaPositions;
 
-        public void DrawArenaFloor(Graphics gfx, int ArenaSize)
+        public void DrawArenaFloor(Graphics gfx, int arenaSize)
         {
-            _arenaPositions = new int[ArenaSize];
+            _arenaPositions = new int[arenaSize];
             Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");            
-            int leftpos = ((panelDrawArea.Width / 2) - ((arenaFloorTile.Width * ArenaSize) / 2));
+            int leftpos = ((panelDrawArea.Width / 2) - ((arenaFloorTile.Width * arenaSize) / 2));
 
             int arraypos = 0;
-            for (var x = leftpos; x < (arenaFloorTile.Width * ArenaSize) + leftpos; x = x + (arenaFloorTile.Width))
+            for (var x = leftpos; x < (arenaFloorTile.Width * arenaSize) + leftpos; x = x + (arenaFloorTile.Width))
             {
                 _arenaPositions[arraypos] = x;
                 arraypos++;
@@ -47,26 +47,26 @@ namespace BattleOfTheBots.UIControl
             {
                 gfx.FillRectangle(Brushes.White, 0, 0, panelDrawArea.Width, panelDrawArea.Height);
                 this.DrawArenaFloor(gfx, arenaWidth);
-                this.DrawLeftBot(gfx, leftBot, frame);
-                this.DrawRightBot(gfx, rightBot, frame);
+                this.DrawLeftBot(gfx, arenaWidth, leftBot, frame);
+                this.DrawRightBot(gfx, arenaWidth, rightBot, frame);
             }
             this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
         }
 
 
-        public void DrawLeftBot(Graphics gfx, BotMove bot, int frame)
+        public void DrawLeftBot(Graphics gfx, int arenaWidth, BotMove bot, int frame)
         {
-            DrawBot(gfx, bot, frame, Direction.Left,  -450);            
+            DrawBot(gfx, arenaWidth, bot, frame, Direction.Left,  -450);            
         }
 
-        public void DrawRightBot(Graphics gfx, BotMove bot, int frame)
+        public void DrawRightBot(Graphics gfx, int arenaWidth, BotMove bot, int frame)
         {
-            DrawBot(gfx, bot, frame, Direction.Right, 200);
+            DrawBot(gfx, arenaWidth, bot, frame, Direction.Right, 200);
         }
 
-        public void DrawBot(Graphics gfx, BotMove bot, int frame, Direction direction, int bubbleXOffset)
+        public void DrawBot(Graphics gfx, int arenaWidth, BotMove bot, int frame, Direction direction, int bubbleXOffset)
         {            
-            if (bot.Bot.Position >= 0 && bot.Bot.Position < 9)
+            if (bot.Bot.Position >= 0 && bot.Bot.Position < arenaWidth)
             {
                 var image = GetImageName(direction, bot.Move, frame);
                 Bitmap botImage = UIManager.GetBitmapResource(image);

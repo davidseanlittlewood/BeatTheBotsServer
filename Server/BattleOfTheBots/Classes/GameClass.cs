@@ -60,7 +60,7 @@ namespace BattleOfTheBots.Classes
                 : (int)Math.Ceiling(arenaSize / 2D);
         }
 
-        public void CommenceBattle(Action<GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames)
+        public void CommenceBattle(Action<Arena, GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames)
         {
             if (this._bot1.SendStartInstruction(this._bot2.Name, this._arenaSize, this._flipOdds) == "failed")
             {
@@ -110,7 +110,7 @@ namespace BattleOfTheBots.Classes
                 this._bot1.PostOpponentsMove(botMove2.Move);
                 this._bot2.PostOpponentsMove(botMove1.Move);
 
-                updateAction(this, gameCount, totalGames, botMove1, botMove2);
+                updateAction(arena, this, gameCount, totalGames, botMove1, botMove2);
 
 
                 // This match is getting boring, let's find the bot who is ahead and declare them as the winner

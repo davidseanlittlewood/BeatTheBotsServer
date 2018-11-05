@@ -89,17 +89,18 @@ namespace BattleOfTheBots
                 tbOutput.AppendText(text);
         }
 
-        private delegate void UpdateCurrentMatchDelegate(GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB);
-        private void UpdateCurrentMatch(GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB)
+        private delegate void UpdateCurrentMatchDelegate(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB);
+        private void UpdateCurrentMatch(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB)
         {
             if (InvokeRequired)
             {
-                Invoke(new UpdateCurrentMatchDelegate(UpdateCurrentMatch), game, gameCount, totalGames, botA, botB);
+                Invoke(new UpdateCurrentMatchDelegate(UpdateCurrentMatch), arena, game, gameCount, totalGames, botA, botB);
             }
             else
             {
                 var text = string.Format("Game {4}/{5}:  {0} {2} vs {3} {1}", game.Bot1.Name, game.Bot2.Name, game.Bot1.Health, game.Bot2.Health, gameCount, totalGames);
-                leaderboard.UpdateCurrentMatch(text,
+                leaderboard.UpdateCurrentMatch(arena,
+                    text,
                     botA,
                     botB);
 
