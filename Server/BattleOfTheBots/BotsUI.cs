@@ -70,6 +70,7 @@ namespace BattleOfTheBots.UIControl
             {
                 var image = GetImageName(direction, bot.Move, frame);
                 Bitmap botImage = UIManager.GetBitmapResource(image);
+                botImage.MakeTransparent(Color.White);
                 if (bot != null)
                 {                    
 
@@ -102,6 +103,7 @@ namespace BattleOfTheBots.UIControl
                 if (bubbleName != null)
                 {
                     Bitmap bubble = UIManager.GetBitmapResource(bubbleName);
+                    bubble.MakeTransparent(Color.White);
                     if (bubble != null)
                     {
                         var bubblexpos = direction == Direction.Right 
