@@ -183,7 +183,6 @@
     <None Include="Resources\ArenaFloor.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Axe.bmp" />
     <Content Include="Resources\Axe.png" />
     <None Include="Resources\Flame left - 2.png" />
     <None Include="Resources\Flame left - 3.png" />
