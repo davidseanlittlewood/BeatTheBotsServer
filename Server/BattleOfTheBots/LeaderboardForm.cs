@@ -63,19 +63,33 @@ namespace BattleOfTheBots
         }
 
 
-        public delegate void RegisterBotWinDelegate(string botname);
- 
-        public void RegisterBotWin(string botname)
+        public delegate void RegisterDrawDelegate();
+
+        public void RegisterDraw()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new RegisterDrawDelegate(RegisterDraw));
+            }
+            else
+            {
+                botUI.WriteReallyBigText("Draw!");
+            }
+        }
+
+        public delegate void RegisterBotWinDelegate(Bot winner, Bot loser);
+
+        public void RegisterBotWin(Bot winner, Bot loser)
         {
 
             if (InvokeRequired)
             {
-                Invoke(new RegisterBotWinDelegate(RegisterBotWin), (object)botname);
+                Invoke(new RegisterBotWinDelegate(RegisterBotWin), winner, loser);
             }
             else
             {
                 DataRow botRow;
-                DataRow[] rows = dtLeaderBoard.Select(string.Format("Name = '{0}'", botname));
+                DataRow[] rows = dtLeaderBoard.Select(string.Format("Name = '{0}'", winner.Name));
                 if (rows.Length > 0)
                 {
                     botRow = rows.First();
@@ -84,7 +98,7 @@ namespace BattleOfTheBots
                 else
                 {
                     botRow = dtLeaderBoard.NewRow();
-                    botRow["Name"] = botname;
+                    botRow["Name"] = winner.Name;
                     botRow["Wins"] = 1;
 
                     dtLeaderBoard.Rows.Add(botRow);
@@ -96,6 +110,7 @@ namespace BattleOfTheBots
                 dtLeaderBoard.WriteXml(leaderboardConfigFile);
             }
 
+            botUI.WriteReallyBigText($"{winner.Name} wins!");
         }
 
         public delegate void SortResultsDelegate();

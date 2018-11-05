@@ -175,15 +175,19 @@ namespace BattleOfTheBots
             foreach (GameClass game in gamesList)
             {
 
-                game.CommenceBattle(UpdateCurrentMatch, gameCount, gamesList.Count());
+                var arena = game.CommenceBattle(UpdateCurrentMatch, gameCount, gamesList.Count());
 
                 if (!string.IsNullOrWhiteSpace(game.Winner))
                 {
                     OutputText(string.Format(">Game {0}:  Winner {1}  \n", gameCount, game.Winner));
-                    leaderboard.RegisterBotWin(game.Winner);
+
+                    var winner = arena.Winner;
+                    var loser = arena.Bots.Except(new Bot[] { winner }).Single();
+                    leaderboard.RegisterBotWin(winner, loser);
                 }
                 else
                 {
+                    leaderboard.RegisterDraw();
                     OutputText(string.Format(">Game {0}:  Draw\n", gameCount));
                 }                
 

@@ -59,6 +59,23 @@ namespace BattleOfTheBots.UIControl
             DrawBot(gfx, arenaWidth, bot, frame, Direction.Left,  -450);            
         }
 
+        public void WriteReallyBigText(string text)
+        {
+            using (var g = panelDrawArea.CreateGraphics())
+            {
+                var stringFormat = new StringFormat();
+                stringFormat.LineAlignment = StringAlignment.Center;
+                stringFormat.Alignment = StringAlignment.Center;
+
+                g.DrawString(text,
+                new Font(Font.FontFamily, 80, FontStyle.Bold),
+                Brushes.Black,
+                new Rectangle(0, 0, panelDrawArea.Width, panelDrawArea.Height),
+                stringFormat);
+                
+            }
+        }
+
         public void DrawRightBot(Graphics gfx, int arenaWidth, BotMove bot, int frame)
         {
             DrawBot(gfx, arenaWidth, bot, frame, Direction.Right, 200);

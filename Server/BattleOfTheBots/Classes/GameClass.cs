@@ -60,22 +60,22 @@ namespace BattleOfTheBots.Classes
                 : (int)Math.Ceiling(arenaSize / 2D);
         }
 
-        public void CommenceBattle(Action<Arena, GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames)
+        public Arena CommenceBattle(Action<Arena, GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames)
         {
+            var arena = new Arena(new Bot[] { this._bot1, this._bot2 }, _arenaSize);
             if (this._bot1.SendStartInstruction(this._bot2.Name, this._arenaSize, this._flipOdds) == "failed")
             {
                 AbandonBattle(this._bot2);
-                return;
+                return arena;
             }
 
             if (this._bot1.SendStartInstruction(this._bot1.Name, this._arenaSize, this._flipOdds) == "failed")
             {
                 AbandonBattle(this._bot1);
-                return;
+                return arena;
             }
 
-            IMoveManager moveManager = new MoveManager();
-            var arena = new Arena(new Bot[] { this._bot1, this._bot2 }, _arenaSize);
+            IMoveManager moveManager = new MoveManager();            
 
             Console.WriteLine($"Starting game between {_bot1.Name} (starting at position {_bot1.Position}) and {_bot2.Name} (at position {_bot2.Position}) in an arena with {arena.NumberOfSquares} spaces");
 
@@ -142,6 +142,8 @@ namespace BattleOfTheBots.Classes
             {
                 Console.WriteLine($"There was no winner...");
             }
+
+            return arena;
         }
 
         private void LogBotStatus(BotMove botMove)
