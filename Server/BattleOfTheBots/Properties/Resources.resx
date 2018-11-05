@@ -184,6 +184,9 @@
   <data name="Flip_right_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flip right - 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Forwards" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Forwards.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Neutral_flip_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Neutral flip - 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

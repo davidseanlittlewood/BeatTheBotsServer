@@ -283,6 +283,16 @@ namespace BattleOfTheBots.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Forwards {
+            get {
+                object obj = ResourceManager.GetObject("Forwards", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Neutral_flip_1 {
             get {
                 object obj = ResourceManager.GetObject("Neutral_flip_1", resourceCulture);
