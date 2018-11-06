@@ -60,6 +60,7 @@
     <Compile Include="Logic\IMoveManager.cs" />
     <Compile Include="Logic\PositionHelpers.cs" />
     <Compile Include="Logic\VictoryHelper.cs" />
+    <Compile Include="Logic\VictoryType.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

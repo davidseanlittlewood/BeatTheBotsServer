@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleOfTheBots.Logic;
 
 namespace BattleOfTheBots.State
 {
@@ -22,6 +23,7 @@ namespace BattleOfTheBots.State
         public int LongRangeFlameThrowerDamage { get; }
 
         public int NumberOfTurnsWithNoDamageToTolerate { get; }
+        public VictoryType? VictoryType { get; internal set; }
 
         public Arena(IEnumerable<Bot> bots,  int numberOfSquares = 9, int axeDamage = 10, int shuntDamage = 5, int shortRangeFlameThrowerDamage = 20, int longRangeFlameThrowerDamage = 10, int numberOfTurnsWithNoDamageToTolerate = 50, int flipOdds = 100)
         {

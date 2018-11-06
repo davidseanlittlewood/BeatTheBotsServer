@@ -135,10 +135,19 @@ namespace BattleOfTheBots.Classes
 
                 // This match is getting boring, let's find the bot who is ahead and declare them as the winner
                 if (unchangedHealthSpins > arena.NumberOfTurnsWithNoDamageToTolerate)
-                {                                        
-                    arena.Winner = VictoryHelper.GetBotWhoIsAhead(arena, _bot1, _bot2);
+                {
+                    VictoryType victoryType;
+                    arena.Winner = VictoryHelper.GetBotWhoIsAhead(arena, _bot1, _bot2, out victoryType);
                     if (arena.Winner != null)
                     {
+                        if (victoryType > VictoryType.Draw)
+                        {
+                            arena.VictoryType = victoryType;
+                        }
+                        else
+                        {
+                            arena.VictoryType = null;
+                        }
                         Console.WriteLine($"The game aborted after {unchangedHealthSpins} moves with no damage, {arena.Winner.Name} was given the victory because they were ahead");
                     }
                     else

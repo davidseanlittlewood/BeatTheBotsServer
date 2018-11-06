@@ -11,24 +11,25 @@ namespace BattleOfTheBots.Tests.VictoryHelperTests
 {
     public class CheckForWinnerTests : CommonTestBase
     {
-        [TestCase(3, 9, 100, 100, true, false, TestName = "Bot B drives backwards off the edge")]
-        [TestCase(3, -1, 100, 100, true, false, TestName = "Bot B drives forwards off the edge")]
-        [TestCase(9, 3, 100, 100, false, true, TestName = "Bot B drives backwards off the edge")]
-        [TestCase(-1, 3, 100, 100, false, true, TestName = "Bot B drives forwards off the edge")]
-        [TestCase(2, 3, 100, 100, false, false, TestName = "No Winner")]
-        [TestCase(2, 3, 0, 100, false, true, TestName = "Bot A has critical damage")]
-        [TestCase(2, 3, 100, 0, true, false, TestName = "Bot B has critical damage")]
-        [TestCase(4, 5, 0, 0, true, false, TestName = "Both bots run out of health with bot A position advantage")]
-        [TestCase(3, 4, 0, 0, false, true, TestName = "Both bots run out of health with bot B position advantage")]
-        [TestCase(3, 5, 0, 0, false, false, TestName = "Both bots run out of health with no position advantage")]
-        public void CheckVictory(int aPosition, int bPosition, int aHealth, int bHealth, bool aWinner, bool bWinner)
+        [TestCase(3, 9, 100, 100, true, false, VictoryType.OutOfBounds, TestName = "Bot B drives backwards off the edge")]
+        [TestCase(3, -1, 100, 100, true, false, VictoryType.OutOfBounds, TestName = "Bot B drives forwards off the edge")]
+        [TestCase(9, 3, 100, 100, false, true, VictoryType.OutOfBounds, TestName = "Bot B drives backwards off the edge")]
+        [TestCase(-1, 3, 100, 100, false, true, VictoryType.OutOfBounds, TestName = "Bot B drives forwards off the edge")]
+        [TestCase(2, 3, 100, 100, false, false, VictoryType.None, TestName = "No Winner")]
+        [TestCase(2, 3, 0, 100, false, true, VictoryType.ReducedToZeroHealth, TestName = "Bot A has critical damage")]
+        [TestCase(2, 3, 100, 0, true, false, VictoryType.ReducedToZeroHealth, TestName = "Bot B has critical damage")]
+        [TestCase(4, 5, 0, 0, true, false, VictoryType.GivenOnProgress, TestName = "Both bots run out of health with bot A position advantage")]
+        [TestCase(3, 4, 0, 0, false, true, VictoryType.GivenOnProgress, TestName = "Both bots run out of health with bot B position advantage")]
+        [TestCase(3, 5, 0, 0, false, false, VictoryType.Draw, TestName = "Both bots run out of health with no position advantage")]
+        public void CheckVictory(int aPosition, int bPosition, int aHealth, int bHealth, bool aWinner, bool bWinner, VictoryType expectedVictoryType)
         {
             FirstBot.Position = aPosition;
             LastBot.Position = bPosition;
             FirstBot.Health = aHealth;
             LastBot.Health = bHealth;
 
-            var winner = VictoryHelper.CheckForWinner(this.Arena, FirstBot, LastBot);
+            VictoryType victoryType;
+            var winner = VictoryHelper.CheckForWinner(this.Arena, FirstBot, LastBot, out victoryType);
 
             if(aWinner)
             {
@@ -42,6 +43,7 @@ namespace BattleOfTheBots.Tests.VictoryHelperTests
             {
                 Assert.IsNull(winner, "No winner should have been declared");
             }
+            Assert.AreEqual(expectedVictoryType, victoryType, "The victory type was incorrect");
         }
 
         [Test]
@@ -51,20 +53,22 @@ namespace BattleOfTheBots.Tests.VictoryHelperTests
             LastBot.IsFlipped = true;
             FirstBot.NumberOfFlipsRemaining = 1;
             LastBot.NumberOfFlipsRemaining = 0;
+            VictoryType victoryType;
 
-            var winner = VictoryHelper.CheckForWinner(this.Arena, FirstBot, LastBot);
+            var winner = VictoryHelper.CheckForWinner(this.Arena, FirstBot, LastBot, out victoryType);
 
             Assert.IsNull(winner);
+            Assert.AreEqual(VictoryType.None, victoryType);
         }
 
-        [TestCase(2, 3, 100, 100, false, true, TestName = "Bot B has made more progress and so should win")]
-        [TestCase(6, 8, 100, 100, true, false, TestName = "Bot A has made more progress and so should win")]
-        [TestCase(2, 3, 100, 85, true, false, TestName = "Bot B has made more progress but Bot A has more health so A should win")]
-        [TestCase(6, 8, 85, 100, false, true, TestName = "Bot A has made more progress but Bot B has more health so B should win")]
-        [TestCase(2, 3, 85, 100, false, true, TestName = "Bot B has made more progress and has more health so B should win")]
-        [TestCase(6, 8, 100, 85, true, false, TestName = "Bot A has made more progress and has more health so A should win")]
-        [TestCase(3, 5, 85, 85, false, false, TestName = "Both bots have the same progress and health so neither bot should win")]
-        public void CheckWhenBothFlipped(int aPosition, int bPosition, int aHealth, int bHealth, bool aWinner, bool bWinner)
+        [TestCase(2, 3, 100, 100, false, true, VictoryType.GivenOnProgress, TestName = "Bot B has made more progress and so should win")]
+        [TestCase(6, 8, 100, 100, true, false, VictoryType.GivenOnProgress, TestName = "Bot A has made more progress and so should win")]
+        [TestCase(2, 3, 100, 85, true, false, VictoryType.GivenOnDamage, TestName = "Bot B has made more progress but Bot A has more health so A should win")]
+        [TestCase(6, 8, 85, 100, false, true, VictoryType.GivenOnDamage, TestName = "Bot A has made more progress but Bot B has more health so B should win")]
+        [TestCase(2, 3, 85, 100, false, true, VictoryType.GivenOnDamage, TestName = "Bot B has made more progress and has more health so B should win")]
+        [TestCase(6, 8, 100, 85, true, false, VictoryType.GivenOnDamage, TestName = "Bot A has made more progress and has more health so A should win")]
+        [TestCase(3, 5, 85, 85, false, false, VictoryType.Draw, TestName = "Both bots have the same progress and health so neither bot should win")]
+        public void CheckWhenBothFlipped(int aPosition, int bPosition, int aHealth, int bHealth, bool aWinner, bool bWinner, VictoryType expectedVictoryType)
         {
             FirstBot.Position = aPosition;
             LastBot.Position = bPosition;
@@ -75,7 +79,8 @@ namespace BattleOfTheBots.Tests.VictoryHelperTests
             FirstBot.NumberOfFlipsRemaining = 0;
             LastBot.NumberOfFlipsRemaining = 0;
 
-            var winner = VictoryHelper.CheckForWinner(this.Arena, FirstBot, LastBot);
+            VictoryType victoryType;
+            var winner = VictoryHelper.CheckForWinner(this.Arena, FirstBot, LastBot, out victoryType);
 
             if (aWinner)
             {
@@ -89,6 +94,7 @@ namespace BattleOfTheBots.Tests.VictoryHelperTests
             {
                 Assert.IsNull(winner, "No winner should have been declared");
             }
+            Assert.AreEqual(expectedVictoryType, victoryType);
         }
     }
 }
