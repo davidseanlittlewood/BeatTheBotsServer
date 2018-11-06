@@ -108,10 +108,10 @@ namespace BattleOfTheBots
                 gridLeaderboard.Refresh();
 
                 dtLeaderBoard.WriteXml(leaderboardConfigFile);
-            }
 
-            var gloatText = GetGloatText(winner, loser, victoryType);
-            botUI.WriteReallyBigText($"{winner.Name} wins!{Environment.NewLine}{gloatText}");
+                var gloatText = GetGloatText(winner, loser, victoryType);
+                botUI.WriteReallyBigText($"{winner.Name} wins!{Environment.NewLine}{gloatText}");
+            }
         }
 
         private string GetGloatText(Bot winner, Bot loser, VictoryType victoryType)
