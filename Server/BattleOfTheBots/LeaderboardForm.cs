@@ -121,25 +121,48 @@ namespace BattleOfTheBots
                 case VictoryType.OutOfBounds:
                     return GetOutOfBoundsGloat(winner, loser);
                 case VictoryType.ReducedToZeroHealth:
-                    return "Knock Out!";
+                    return GetZeroHeathGloat(winner, loser);
                 case VictoryType.GivenOnDamage:
                     return $"{winner.Name} inflicted more damage";
                 case VictoryType.GivenOnProgress:
-                    return $"{winner.Name} made more progress!";
+                    return $"{winner.Name} made more progress";
                 default:
                     return null;
             }
         }
 
+        private static string GetZeroHeathGloat(Bot winner, Bot loser)
+        {
+            var rand = new Random();
+            switch (rand.Next(0, 5))
+            {
+                case 0:
+                    return $"{loser.Name} needs a screwdriver";
+                case 1:
+                    return $"{loser.Name} is spare parts";
+                case 2:
+                    return $"Does anyone have a spanner?";
+                case 3:
+                    return $"{loser.Name} is considering a career as a doorstop";
+                default:
+                    return "Knock Out";
+            }
+            
+        }
+
         private string GetOutOfBoundsGloat(Bot winner, Bot loser)
         {
             var rand = new Random();
-            switch (rand.Next(0, 2))
+            switch (rand.Next(0, 4))
             {
                 case 0:
-                    return $"{loser.Name} went for a swim!";
+                    return $"{loser.Name} went for a swim";
+                case 1:
+                    return $"{loser.Name} doesn't like the water...";
+                case 2:
+                    return $"{loser.Name} makes a better anchor than a boat";
                 default:
-                    return $"{loser.Name} swam like a brick!";
+                    return $"{loser.Name} swam like a brick";
             }
         }
 
