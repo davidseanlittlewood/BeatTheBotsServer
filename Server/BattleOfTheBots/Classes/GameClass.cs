@@ -96,6 +96,8 @@ namespace BattleOfTheBots.Classes
 
                 moveManager.ProcessMove(arena, botMove1, botMove2);
 
+                lastTotalHealth = totalHealth;
+
                 if (Bot1.IsFlipped)
                 {
                     Bot1.PostFlipped();
@@ -111,7 +113,7 @@ namespace BattleOfTheBots.Classes
                     if (botMove1.Move == Move.Flip)
                         Bot1.PostOpponentFlipped();
                 }
-                    lastTotalHealth = totalHealth;
+                
                 totalHealth = _bot1.Health + _bot2.Health;
                 if (totalHealth == lastTotalHealth)
                 {
