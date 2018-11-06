@@ -77,14 +77,14 @@ namespace BattleOfTheBots
             }
         }
 
-        public delegate void RegisterBotWinDelegate(Bot winner, Bot loser);
+        public delegate void RegisterBotWinDelegate(Bot winner, Bot loser, VictoryType victoryType);
 
-        public void RegisterBotWin(Bot winner, Bot loser)
+        public void RegisterBotWin(Bot winner, Bot loser, VictoryType victoryType)
         {
 
             if (InvokeRequired)
             {
-                Invoke(new RegisterBotWinDelegate(RegisterBotWin), winner, loser);
+                Invoke(new RegisterBotWinDelegate(RegisterBotWin), winner, loser, victoryType);
             }
             else
             {
@@ -110,7 +110,37 @@ namespace BattleOfTheBots
                 dtLeaderBoard.WriteXml(leaderboardConfigFile);
             }
 
-            botUI.WriteReallyBigText($"{winner.Name} wins!");
+            var gloatText = GetGloatText(winner, loser, victoryType);
+            botUI.WriteReallyBigText($"{winner.Name} wins!{Environment.NewLine}{gloatText}");
+        }
+
+        private string GetGloatText(Bot winner, Bot loser, VictoryType victoryType)
+        {            
+            switch (victoryType)
+            {
+                case VictoryType.OutOfBounds:
+                    return GetOutOfBoundsGloat(winner, loser);
+                case VictoryType.ReducedToZeroHealth:
+                    return "Knock Out!";
+                case VictoryType.GivenOnDamage:
+                    return $"{winner.Name} inflicted more damage";
+                case VictoryType.GivenOnProgress:
+                    return $"{winner.Name} made more progress!";
+                default:
+                    return null;
+            }
+        }
+
+        private string GetOutOfBoundsGloat(Bot winner, Bot loser)
+        {
+            var rand = new Random();
+            switch (rand.Next(0, 2))
+            {
+                case 0:
+                    return $"{loser.Name} went for a swim!";
+                default:
+                    return $"{loser.Name} swam like a brick!";
+            }
         }
 
         public delegate void SortResultsDelegate();

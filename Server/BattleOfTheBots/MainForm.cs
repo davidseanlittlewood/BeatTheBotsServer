@@ -183,7 +183,7 @@ namespace BattleOfTheBots
 
                     var winner = arena.Winner;
                     var loser = arena.Bots.Except(new Bot[] { winner }).Single();
-                    leaderboard.RegisterBotWin(winner, loser);
+                    leaderboard.RegisterBotWin(winner, loser, arena.VictoryType ?? VictoryType.None);
                 }
                 else
                 {
