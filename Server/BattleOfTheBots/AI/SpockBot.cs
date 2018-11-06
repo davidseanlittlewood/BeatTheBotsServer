@@ -10,7 +10,8 @@ namespace BattleOfTheBots.AI
 {
     public class SpockBot : Bot
     {
-        public List<Move> PreviousMoves { get; set; }        
+        public List<Move> PreviousMoves { get; set; }
+        public int FlipOdds { get; private set; }
 
         public SpockBot(Direction direction)
             : base(direction, "Sir Spock")
@@ -38,7 +39,7 @@ namespace BattleOfTheBots.AI
                         }
                         else
                         {
-                            if (this.NumberOfFlipsRemaining > 1 && (rand.Next(100) > 80))
+                            if (this.NumberOfFlipsRemaining > 1 && (rand.Next(100) > 80) && this.FlipOdds > 50)
                             {
                                 move = Move.Flip;
                             }
@@ -92,6 +93,7 @@ namespace BattleOfTheBots.AI
 
         public override string SendStartInstruction(string opponentBotName, int arenaSize, int flipOdds)
         {
+            this.FlipOdds = flipOdds;
             return "OK";
         }
     }

@@ -10,6 +10,7 @@ namespace BattleOfTheBots.AI
 {
     public class LadyCassandra : Bot
     {
+        public int FlipOdds { get; private set; }
         public List<Move> PreviousMoves { get; set; }      
         
         public int? StartingFlips { get; set; }
@@ -71,7 +72,7 @@ namespace BattleOfTheBots.AI
                             {
                                 move = Move.MoveBackwards;
                             }
-                            else if (IsOpponentLikelyToShunt() && this.NumberOfFlipsRemaining > 1 && rand.Next(100) > 20) // if we think they're going to shunt then flip
+                            else if (IsOpponentLikelyToShunt() && FlipIsLikelyToSucceed() && this.NumberOfFlipsRemaining > 1 && rand.Next(100) > 20) // if we think they're going to shunt then flip
                             {
                                 move = Move.Flip;
                             }
@@ -79,7 +80,7 @@ namespace BattleOfTheBots.AI
                             {
                                 move = Move.FlameThrower;
                             }
-                            else if (this.NumberOfFlipsRemaining > 1 && rand.Next(100) > 50) // otherwise think about flipping
+                            else if (this.NumberOfFlipsRemaining > 1 && FlipIsLikelyToSucceed() && rand.Next(100) > 50) // otherwise think about flipping
                             {
                                 move = Move.Flip;
                             }
@@ -120,6 +121,12 @@ namespace BattleOfTheBots.AI
             }
 
             return new BotMove(this, move);
+        }
+
+        private bool FlipIsLikelyToSucceed()
+        {
+            var rand = new Random();
+            return this.FlipOdds + rand.Next(50) > 50; // we're not saying don't flip, but each 1% moves us away from 50:50
         }
 
         public bool IsOpponentLikelyToFlip()
@@ -186,6 +193,7 @@ namespace BattleOfTheBots.AI
 
         public override string SendStartInstruction(string opponentBotName, int arenaSize, int flipOdds)
         {
+            this.FlipOdds = flipOdds;
             this.PreviousMoves = new List<Move>();
             this.ArenaSize = arenaSize;
             return "OK";
