@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotBaseClass.cs" />
+    <Compile Include="Bots\Flipper.cs" />
+    <Compile Include="Bots\ResourceBot.cs" />
+    <Compile Include="Bots\Shunt.cs" />
     <Compile Include="Bots\RandomBot.cs" />
     <Compile Include="HttpListener.cs" />
     <Compile Include="Move.cs" />

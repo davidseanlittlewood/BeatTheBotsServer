@@ -63,6 +63,9 @@ namespace BattleOfTheBots.Classes
         public Arena CommenceBattle(Action<Arena, GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames)
         {
             var arena = new Arena(new Bot[] { this._bot1, this._bot2 }, _arenaSize);
+
+            arena.FlipOdds = this._flipOdds;
+
             if (this._bot1.SendStartInstruction(this._bot2.Name, this._arenaSize, this._flipOdds) == "failed")
             {
                 AbandonBattle(this._bot2);
@@ -93,7 +96,22 @@ namespace BattleOfTheBots.Classes
 
                 moveManager.ProcessMove(arena, botMove1, botMove2);
 
-                lastTotalHealth = totalHealth;
+                if (Bot1.IsFlipped)
+                {
+                    Bot1.PostFlipped();
+
+                    if (botMove2.Move == Move.Flip)
+                        Bot2.PostOpponentFlipped();
+                }
+
+                if (Bot2.IsFlipped)
+                {
+                    Bot2.PostFlipped();
+
+                    if (botMove1.Move == Move.Flip)
+                        Bot1.PostOpponentFlipped();
+                }
+                    lastTotalHealth = totalHealth;
                 totalHealth = _bot1.Health + _bot2.Health;
                 if (totalHealth == lastTotalHealth)
                 {

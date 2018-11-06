@@ -30,6 +30,16 @@ namespace BattleOfTheBots.State
             HTTPUtility.PostMove(this.Url, moveStr);
         }
 
+        public override void PostFlipped ()
+        {
+            HTTPUtility.PostFlipped(this.Url);
+        }
+
+        public override void PostOpponentFlipped()
+        {
+            HTTPUtility.PostOpponentFlipped(this.Url);
+        }
+
         public override string SendStartInstruction(string opponentBotName, int arenaSize, int flipOdds)
         {
             var charDirection = Enum.GetName(typeof(Direction), this.DesiredDirection).ToLower().ToCharArray()[0];

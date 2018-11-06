@@ -46,6 +46,17 @@ namespace BattleOfTheBots.State
             throw new NotImplementedException();
         }
 
+        public virtual void PostFlipped()
+        {
+            
+        }
+
+        public virtual void PostOpponentFlipped()
+        {
+
+        }
+
+
         public virtual string SendStartInstruction(string opponentBotName, int arenaSize, int flipOdds)
         {
             return "failed";

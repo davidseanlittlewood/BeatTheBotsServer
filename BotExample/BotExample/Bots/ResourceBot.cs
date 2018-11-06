@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BotExample.Bots
 {
-    public class RandomBot : BotBaseClass
+    public class ResourceBot : BotBaseClass
     {
         public string OpponentName { get; set; }
         public List<Move> PreviousMoves { get; set; }
@@ -18,7 +18,7 @@ namespace BotExample.Bots
         public int ArenaSize { get; set; }
         public char Direction { get; set; }
 
-        public RandomBot()
+        public ResourceBot()
         {
             this.PreviousMoves = new List<Move>();
         }
@@ -28,7 +28,7 @@ namespace BotExample.Bots
         /// </summary>
         public override Move GetMove()
         {
-            return GetRandomResponse(); // This bot isn't very smart - it'll pick a random move and carry it out
+            return GetResponse(); // This bot isn't very smart - it'll pick a random move and carry it out
         }
 
         public override void SetStartValues(string opponentName, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction, int startIndex)
@@ -62,7 +62,7 @@ namespace BotExample.Bots
         /// Select a random response
         /// </summary>
         /// <returns></returns>
-        public Move GetRandomResponse()
+        public Move GetResponse()
         {
 
             if (this.Flipped && Flips > 0)
@@ -72,44 +72,12 @@ namespace BotExample.Bots
                 return Move.Flip;
             }
 
-            Random random = new System.Random(Environment.TickCount + 500);
-            int rnd = random.Next(6);
-            switch (rnd)
-            {
-                case 0:
-                    {
-                        return Move.MoveForwards;
-                    }
-                case 1:
-                    {
-                        return Move.MoveBackwards;
-                    }
-                case 2:
-                    {
-                        return Move.AttackWithAxe;
-                    }
-                case 3:
-                    {
-                        return Move.Shunt;
-                    }
-                case 4:
-                    {
-                        Fuel--;
-                        return Move.FlameThrower;
-                    }
-                default:
-                    {
-                        if (Flips > 0) // if we have remaining flips
-                        {
-                            Flips--; // record that we're using a flip
-                            return Move.Flip; // and try to turn them over
-                        }
-                        else // otherwise just hit them with an axe
-                        {
-                            return Move.AttackWithAxe;
-                        }
-                    }
-            }
+
+
+            if (this.Fuel > 0)
+                return Move.FlameThrower;
+            
+            return Move.Shunt;
         }
     }
 }

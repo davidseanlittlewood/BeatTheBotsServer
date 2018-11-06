@@ -6,19 +6,21 @@ using System.Threading.Tasks;
 
 namespace BotExample.Bots
 {
-    public class RandomBot : BotBaseClass
+    public class Flipper : BotBaseClass
     {
         public string OpponentName { get; set; }
         public List<Move> PreviousMoves { get; set; }
         public bool Flipped { get; set; }
+        public bool OpponentFlipped { get; set; }
         public int Health { get; set; }
         public int Flips { get; set; }
         public int Fuel { get; set; }
         public int FlipOdds { get; set; }
         public int ArenaSize { get; set; }
         public char Direction { get; set; }
+        public bool firstmove = true;
 
-        public RandomBot()
+        public Flipper()
         {
             this.PreviousMoves = new List<Move>();
         }
@@ -28,7 +30,7 @@ namespace BotExample.Bots
         /// </summary>
         public override Move GetMove()
         {
-            return GetRandomResponse(); // This bot isn't very smart - it'll pick a random move and carry it out
+            return GetResponse(); // This bot isn't very smart - it'll pick a random move and carry it out
         }
 
         public override void SetStartValues(string opponentName, int health, int arenaSize, int flips, int flipOdds, int fuel, char direction, int startIndex)
@@ -40,12 +42,18 @@ namespace BotExample.Bots
             FlipOdds = flipOdds;
             Fuel = fuel;
             Direction = direction;
+            firstmove = true;
+            Flipped = false;
+            OpponentFlipped = false;
 
             base.SetStartValues(opponentName, health, arenaSize, flips, flipOdds, fuel, direction, startIndex);
         }
 
         public override void CaptureOpponentsLastMove(Move lastOpponentsMove)
         {
+            if (lastOpponentsMove == Move.Flip && OpponentFlipped)
+                OpponentFlipped = false;
+
             PreviousMoves.Add(lastOpponentsMove);
 
             base.CaptureOpponentsLastMove(lastOpponentsMove);
@@ -57,59 +65,35 @@ namespace BotExample.Bots
 
             base.SetFlippedStatus(flipped);
         }
+        public override void SetOpponentFlippedStatus(bool opponentFlipped)
+        {
+            Flips--;
+            OpponentFlipped = opponentFlipped;            
+            base.SetOpponentFlippedStatus(opponentFlipped);
+        }
 
         /// <summary>
         /// Select a random response
         /// </summary>
         /// <returns></returns>
-        public Move GetRandomResponse()
+        public Move GetResponse()
         {
-
-            if (this.Flipped && Flips > 0)
+            if (firstmove)
             {
-                Flips--;
+                firstmove = false;
+                return (Move.MoveForwards);                
+            }
+
+            if (Flips > 0  && !OpponentFlipped)
+            {
+                if (Flipped)
+                    Flips--;
+
                 Flipped = false;
                 return Move.Flip;
             }
-
-            Random random = new System.Random(Environment.TickCount + 500);
-            int rnd = random.Next(6);
-            switch (rnd)
-            {
-                case 0:
-                    {
-                        return Move.MoveForwards;
-                    }
-                case 1:
-                    {
-                        return Move.MoveBackwards;
-                    }
-                case 2:
-                    {
-                        return Move.AttackWithAxe;
-                    }
-                case 3:
-                    {
-                        return Move.Shunt;
-                    }
-                case 4:
-                    {
-                        Fuel--;
-                        return Move.FlameThrower;
-                    }
-                default:
-                    {
-                        if (Flips > 0) // if we have remaining flips
-                        {
-                            Flips--; // record that we're using a flip
-                            return Move.Flip; // and try to turn them over
-                        }
-                        else // otherwise just hit them with an axe
-                        {
-                            return Move.AttackWithAxe;
-                        }
-                    }
-            }
+            else
+                return Move.Shunt;
         }
     }
 }

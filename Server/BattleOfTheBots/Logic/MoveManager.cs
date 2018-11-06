@@ -54,7 +54,8 @@ namespace BattleOfTheBots.Logic
             {
                 if (botA.Move == Move.Flip
                     && !botA.Bot.IsFlipped
-                    && botA.Bot.NumberOfFlipsRemaining > 0)
+                    && botA.Bot.NumberOfFlipsRemaining > 0 
+                    && FlipSuccess(arena.FlipOdds))
                 {                    
                     bWasFlippedThisTurn = true;
                     if(botB.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
@@ -65,7 +66,8 @@ namespace BattleOfTheBots.Logic
                 }
                 if (botB.Move == Move.Flip
                     && !botB.Bot.IsFlipped
-                    && botB.Bot.NumberOfFlipsRemaining > 0)
+                    && botB.Bot.NumberOfFlipsRemaining > 0
+                    && FlipSuccess(arena.FlipOdds))
                 {                    
                     aWasFlippedThisTurn = true;
                     if (botA.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
@@ -107,6 +109,16 @@ namespace BattleOfTheBots.Logic
                     TheBotIsFlippedOntoItsWheels(botA);
                 }
             }
+        }
+
+        private bool FlipSuccess(int flipOdds)
+        {
+            Random random = new System.Random(Environment.TickCount);
+            int rnd = random.Next(100/flipOdds);
+            if (rnd == 0)
+                return true;
+            else
+                return false;
         }
 
         private void ProcessWeaponDamage(Arena arena, BotMove botA, BotMove botB)

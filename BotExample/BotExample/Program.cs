@@ -16,7 +16,7 @@ namespace BotExample
             }
 
 
-            HttpListenerClass httpListener = new HttpListenerClass(port, new RandomBot());
+            HttpListenerClass httpListener = new HttpListenerClass(port, new Flipper());
         
         }
     }

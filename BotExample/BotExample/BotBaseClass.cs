@@ -62,6 +62,10 @@ namespace BotExample
         {            
         }
 
+        public virtual void SetOpponentFlippedStatus(bool flipped)
+        {
+        }
+
         /// <summary>
         /// The method which is called to request your move, if not overridden your BOT will always attack with an axe
         /// 

@@ -64,7 +64,66 @@ namespace BattleOfTheBots.HTTP
 
                 var data = Encoding.ASCII.GetBytes(move);
 
-                //request.Timeout = 5000; 
+                request.Timeout = 5000; 
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = data.Length;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                var response = (HttpWebResponse)request.GetResponse();
+
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                return responseString;
+            }
+            catch
+            {
+                return "failed";
+            }
+        }
+
+        internal static string PostFlipped(string url)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/flipped", url));
+
+
+                var data = Encoding.ASCII.GetBytes("TRUE");
+
+                request.Timeout = 5000; 
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = data.Length;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                var response = (HttpWebResponse)request.GetResponse();
+
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                return responseString;
+            }
+            catch
+            {
+                return "failed";
+            }
+        }
+        internal static string PostOpponentFlipped(string url)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/opponentflipped", url));
+
+
+                var data = Encoding.ASCII.GetBytes("TRUE");
+
+                request.Timeout = 5000;
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
@@ -91,7 +150,7 @@ namespace BattleOfTheBots.HTTP
             {
                 var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/move", url));
 
-                //request.Timeout = 5000;
+                request.Timeout = 5000;
                 request.Method = "GET";
                 request.ContentType = "application/x-www-form-urlencoded";
 

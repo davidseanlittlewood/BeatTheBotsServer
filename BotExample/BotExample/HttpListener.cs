@@ -167,9 +167,22 @@ namespace BotExample
 
                         break;
                     }
-                case "status":
+                case "flipped":
                     {
-                        ProcessStatusResponse(body);
+                        ProcessFlippedResponse(body);
+                        context.Response.StatusCode = (int)HttpStatusCode.OK;
+                        context.Response.ContentType = "text/plain";
+                        StreamWriter sw = new StreamWriter(context.Response.OutputStream);
+                        using (sw)
+                        {
+                            sw.WriteLine(context.Request.RawUrl);
+                        }
+
+                        break;
+                    }
+                case "opponentflipped":
+                    {
+                        ProcessOpponentFlippedResponse(body);
                         context.Response.StatusCode = (int)HttpStatusCode.OK;
                         context.Response.ContentType = "text/plain";
                         StreamWriter sw = new StreamWriter(context.Response.OutputStream);
@@ -303,35 +316,16 @@ namespace BotExample
             _bot.SetStartValues(opponentName, health, arenaSize, flips, flipOdds, fuel, direction, startPosition);
         }
 
-        private void ProcessStatusResponse(string responseBody)
+        private void ProcessFlippedResponse(string responseBody)
         {
-            bool flipped = false;
-
-
-            string[] parameters = responseBody.Split(new char[] { '&' });
-            foreach (var parameter in parameters)
-            {
-                if (parameter.Contains('='))
-                {
-                    string paramName = parameter.Split(new char[] { '=' })[0];
-                    string paramValue = parameter.Split(new char[] { '=' })[1];
-
-                    switch (paramName.ToLower())
-                    {
-
-                        case "flipped":
-                            {
-                                flipped = bool.Parse(paramValue);
-                                break;
-                            }
-                    }
-                }
-            }
-
-            Console.WriteLine(string.Format("FLIPPED? {0}", flipped ? "True" : "False"));
-
-            _bot.SetFlippedStatus(flipped);
+            _bot.SetFlippedStatus(true);
         }
+
+        private void ProcessOpponentFlippedResponse(string responseBody)
+        {
+            _bot.SetOpponentFlippedStatus(true);
+        }
+
 
         private void Initialize(int port)
         {
