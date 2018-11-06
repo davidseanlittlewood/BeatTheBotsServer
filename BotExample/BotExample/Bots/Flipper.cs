@@ -66,8 +66,7 @@ namespace BotExample.Bots
             base.SetFlippedStatus(flipped);
         }
         public override void SetOpponentFlippedStatus(bool opponentFlipped)
-        {
-            Flips--;
+        {            
             OpponentFlipped = opponentFlipped;            
             base.SetOpponentFlippedStatus(opponentFlipped);
         }
@@ -84,16 +83,40 @@ namespace BotExample.Bots
                 return (Move.MoveForwards);                
             }
 
-            if (Flips > 0  && !OpponentFlipped)
+            if (Flips > 2 && !OpponentFlipped)
             {
-                if (Flipped)
-                    Flips--;
-
+                
+                Flips--;
                 Flipped = false;
                 return Move.Flip;
             }
             else
+            if (OpponentFlipped)
                 return Move.Shunt;
+            else
+            {
+                Random random = new Random(Environment.TickCount + 50);
+                int rnd = random.Next(Fuel > 0 ? 3 : 2);
+                switch (rnd)
+                {
+                    case 0:
+                        {
+                            return Move.Shunt;
+                        }
+                    case 1:
+                        {
+                            return Move.AttackWithAxe;
+                        }
+                    case 2:
+                        {
+                            Fuel--;
+                            return Move.FlameThrower;
+                        }
+                }
+
+                return Move.Shunt;
+
+            }
         }
     }
 }
