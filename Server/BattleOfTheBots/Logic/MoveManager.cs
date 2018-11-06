@@ -113,7 +113,7 @@ namespace BattleOfTheBots.Logic
 
         private bool FlipSuccess(int flipOdds)
         {
-            Random random = new System.Random(Environment.TickCount);
+            Random random = new System.Random(Guid.NewGuid().GetHashCode());
             int rnd = random.Next(100/flipOdds);
             if (rnd == 0)
                 return true;
