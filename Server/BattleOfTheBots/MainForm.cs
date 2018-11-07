@@ -174,28 +174,46 @@ namespace BattleOfTheBots
 
             foreach (GameClass game in gamesList)
             {
-
-                var arena = game.CommenceBattle(UpdateCurrentMatch, gameCount, gamesList.Count());
-
-                if (!string.IsNullOrWhiteSpace(game.Winner))
+                int retries = 0;
+                bool success = false;
+                do
                 {
-                    OutputText(string.Format(">Game {0}:  Winner {1}  \n", gameCount, game.Winner));
-
-                    var winner = arena.Winner;
-                    var loser = arena.Bots.Except(new Bot[] { winner }).Single();
-                    leaderboard.RegisterBotWin(winner, loser, arena.VictoryType ?? VictoryType.None);
-                }
-                else
-                {
-                    leaderboard.RegisterDraw();
-                    OutputText(string.Format(">Game {0}:  Draw\n", gameCount));
-                }                
-
-                Thread.Sleep(2500);
+                    try
+                    {
+                        leaderboard?.SaveLeaderboard();
+                        RunGame(gamesList.Count(), gameCount, game);
+                        retries++;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"{ex.Message} {ex.StackTrace}");
+                    }
+                } while (!success && retries < 3);
 
                 gameCount++;
-                
+
             }
+        }
+
+        private void RunGame(int allGameCount, int currentGameCount, GameClass game)
+        {
+            var arena = game.CommenceBattle(UpdateCurrentMatch, currentGameCount, allGameCount);
+
+            if (!string.IsNullOrWhiteSpace(game.Winner))
+            {
+                OutputText(string.Format(">Game {0}:  Winner {1}  \n", currentGameCount, game.Winner));
+
+                var winner = arena.Winner;
+                var loser = arena.Bots.Except(new Bot[] { winner }).Single();
+                leaderboard.RegisterBotWin(winner, loser, arena.VictoryType ?? VictoryType.None);
+            }
+            else
+            {
+                leaderboard.RegisterDraw();
+                OutputText(string.Format(">Game {0}:  Draw\n", currentGameCount));
+            }
+
+            Thread.Sleep(2500);
         }
 
         private List<GameClass> CreateGamesList()

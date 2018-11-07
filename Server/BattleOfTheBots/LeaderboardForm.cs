@@ -107,11 +107,16 @@ namespace BattleOfTheBots
                 SortResults();
                 gridLeaderboard.Refresh();
 
-                dtLeaderBoard.WriteXml(leaderboardConfigFile);
+                SaveLeaderboard();
 
                 var gloatText = GetGloatText(winner, loser, victoryType);
                 botUI.WriteReallyBigText($"{winner.Name} wins!{Environment.NewLine}{gloatText}");
             }
+        }
+
+        public void SaveLeaderboard()
+        {
+            dtLeaderBoard.WriteXml(leaderboardConfigFile);
         }
 
         private string GetGloatText(Bot winner, Bot loser, VictoryType victoryType)
