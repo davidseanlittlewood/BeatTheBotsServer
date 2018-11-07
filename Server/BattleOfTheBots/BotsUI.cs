@@ -23,12 +23,26 @@ namespace BattleOfTheBots.UIControl
             InitializeComponent();
         }
 
-        int[] _arenaPositions;
+        int[] _arenaPositions;        
+
+        public void Update(int arenaWidth, BotMove leftBot, BotMove rightBot, int frame)
+        {
+            var bitmap = new Bitmap(panelDrawArea.Width, panelDrawArea.Height);
+            using (var gfx = Graphics.FromImage(bitmap))
+            {
+                gfx.FillRectangle(Brushes.White, 0, 0, panelDrawArea.Width, panelDrawArea.Height);
+                this.DrawArenaFloor(gfx, arenaWidth);
+                this.DrawLeftBot(gfx, arenaWidth, leftBot, frame);
+                this.DrawRightBot(gfx, arenaWidth, rightBot, frame);
+                this.DrawWater(gfx);
+            }
+            this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
+        }
 
         public void DrawArenaFloor(Graphics gfx, int arenaSize)
         {
             _arenaPositions = new int[arenaSize];
-            Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");            
+            Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");
             int leftpos = ((panelDrawArea.Width / 2) - ((arenaFloorTile.Width * arenaSize) / 2));
 
             int arraypos = 0;
@@ -40,19 +54,16 @@ namespace BattleOfTheBots.UIControl
             }
         }
 
-        public void Update(int arenaWidth, BotMove leftBot, BotMove rightBot, int frame)
+        public void DrawWater(Graphics gfx)
         {
-            var bitmap = new Bitmap(panelDrawArea.Width, panelDrawArea.Height);
-            using (var gfx = Graphics.FromImage(bitmap))
-            {
-                gfx.FillRectangle(Brushes.White, 0, 0, panelDrawArea.Width, panelDrawArea.Height);
-                this.DrawArenaFloor(gfx, arenaWidth);
-                this.DrawLeftBot(gfx, arenaWidth, leftBot, frame);
-                this.DrawRightBot(gfx, arenaWidth, rightBot, frame);
-            }
-            this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
+            Bitmap water = UIManager.GetBitmapResource("Water");
+            water.MakeTransparent(Color.White);
+            var width = water.Width;
+            for(int i = 0; i < panelDrawArea.Width;  i += width)
+            {                
+                gfx.DrawImage(water, new Point(i, panelDrawArea.Height - water.Height));
+            }            
         }
-
 
         public void DrawLeftBot(Graphics gfx, int arenaWidth, BotMove bot, int frame)
         {
@@ -71,8 +82,7 @@ namespace BattleOfTheBots.UIControl
                 new Font(Font.FontFamily, 48, FontStyle.Bold),
                 Brushes.Black,
                 new Rectangle(0, 0, panelDrawArea.Width, panelDrawArea.Height),
-                stringFormat);
-                
+                stringFormat);                
             }
         }
 
