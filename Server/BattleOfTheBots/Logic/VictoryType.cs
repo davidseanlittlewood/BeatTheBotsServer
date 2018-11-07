@@ -7,6 +7,7 @@
         OutOfBounds,
         ReducedToZeroHealth,
         GivenOnDamage,
-        GivenOnProgress
+        GivenOnProgress,
+        Disconnect
     }
 }

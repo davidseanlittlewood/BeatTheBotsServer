@@ -68,13 +68,13 @@ namespace BattleOfTheBots.Classes
 
             if (this._bot1.SendStartInstruction(this._bot2.Name, this._arenaSize, this._flipOdds) == "failed")
             {
-                AbandonBattle(this._bot2);
+                AbandonBattle(arena, this._bot2);
                 return arena;
             }
 
             if (this._bot2.SendStartInstruction(this._bot1.Name, this._arenaSize, this._flipOdds) == "failed")
             {
-                AbandonBattle(this._bot1);
+                AbandonBattle(arena, this._bot1);
                 return arena;
             }
 
@@ -180,9 +180,11 @@ namespace BattleOfTheBots.Classes
             Console.WriteLine($"{botMove.Bot.Name} - Health: {botMove.Bot.Health} Position: {botMove.Bot.Position} Fuel: {botMove.Bot.FlameThrowerFuelRemaining} Flips: {botMove.Bot.NumberOfFlipsRemaining} IsFlipped: {botMove.Bot.IsFlipped}");
         }
 
-        private void AbandonBattle(Bot winningBot)
+        private void AbandonBattle(Arena arena, Bot winningBot)
         {
-            this._winner = winningBot.Name;            
+            this._winner = winningBot.Name;
+            arena.Winner = winningBot;
+            arena.VictoryType = VictoryType.Disconnect;
         }
 
     }

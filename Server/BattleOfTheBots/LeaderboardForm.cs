@@ -126,6 +126,8 @@ namespace BattleOfTheBots
                     return $"{winner.Name} inflicted more damage";
                 case VictoryType.GivenOnProgress:
                     return $"{winner.Name} made more progress";
+                case VictoryType.Disconnect:
+                    return $"{loser.Name} disconnected";
                 default:
                     return null;
             }
