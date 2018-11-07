@@ -223,7 +223,10 @@
   <data name="shunt_right_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shunt right - 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Water" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Water.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Water_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Water 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Water_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Water 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

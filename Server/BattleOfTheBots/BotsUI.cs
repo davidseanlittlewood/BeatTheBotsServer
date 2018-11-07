@@ -34,7 +34,7 @@ namespace BattleOfTheBots.UIControl
                 this.DrawArenaFloor(gfx, arenaWidth);
                 this.DrawLeftBot(gfx, arenaWidth, leftBot, frame);
                 this.DrawRightBot(gfx, arenaWidth, rightBot, frame);
-                this.DrawWater(gfx);
+                this.DrawWater(gfx, frame);
             }
             this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
         }
@@ -54,14 +54,16 @@ namespace BattleOfTheBots.UIControl
             }
         }
 
-        public void DrawWater(Graphics gfx)
+        public void DrawWater(Graphics gfx, int frame)
         {
-            Bitmap water = UIManager.GetBitmapResource("Water");
+            var random = new Random(Guid.NewGuid().GetHashCode());
+            var name = $"Water_{1 + (frame % 2)}";
+            Bitmap water = UIManager.GetBitmapResource(name);
             water.MakeTransparent(Color.White);
             var width = water.Width;
             for(int i = 0; i < panelDrawArea.Width;  i += width)
             {                
-                gfx.DrawImage(water, new Point(i, panelDrawArea.Height - water.Height));
+                gfx.DrawImage(water, new Point(i, panelDrawArea.Height - water.Height + random.Next(0, 5)));
             }            
         }
 
