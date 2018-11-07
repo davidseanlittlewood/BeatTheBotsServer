@@ -182,11 +182,12 @@ namespace BattleOfTheBots
                     {
                         leaderboard?.SaveLeaderboard();
                         RunGame(gamesList.Count(), gameCount, game);
-                        retries++;
+                        success = true;
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"{ex.Message} {ex.StackTrace}");
+                        retries++;
                     }
                 } while (!success && retries < 3);
 
