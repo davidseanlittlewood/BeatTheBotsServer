@@ -68,7 +68,7 @@ namespace BattleOfTheBots.UIControl
                 stringFormat.Alignment = StringAlignment.Center;
 
                 g.DrawString(text,
-                new Font(Font.FontFamily, 80, FontStyle.Bold),
+                new Font(Font.FontFamily, 48, FontStyle.Bold),
                 Brushes.Black,
                 new Rectangle(0, 0, panelDrawArea.Width, panelDrawArea.Height),
                 stringFormat);
