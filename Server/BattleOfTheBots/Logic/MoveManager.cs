@@ -52,14 +52,14 @@ namespace BattleOfTheBots.Logic
 
             if (PositionHelpers.AreSideBySide(botA.Bot, botB.Bot)) // you can only flip if they're side by side
             {
-                if (botA.Move == Move.Flip                    
-                    && botA.Bot.NumberOfFlipsRemaining > 0)
+                if (botA.Move == Move.Flip
+                    && botA.Bot.NumberOfFlipsRemaining > 0
+                    && !botA.Bot.IsFlipped)
                 {
 
                     botA.Bot.NumberOfFlipsRemaining--;
 
-                    if (FlipSuccess(arena.FlipOdds) 
-                        && !botA.Bot.IsFlipped)
+                    if (FlipSuccess(arena.FlipOdds))
                     {
                         bWasFlippedThisTurn = true;
                         if (botB.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
@@ -70,12 +70,12 @@ namespace BattleOfTheBots.Logic
                     }
                 }
                 if (botB.Move == Move.Flip
-                    && botB.Bot.NumberOfFlipsRemaining > 0)
+                    && botB.Bot.NumberOfFlipsRemaining > 0
+                        && !botB.Bot.IsFlipped)
                 {
                     botB.Bot.NumberOfFlipsRemaining--;
 
-                    if (FlipSuccess(arena.FlipOdds)
-                        && !botB.Bot.IsFlipped)
+                    if (FlipSuccess(arena.FlipOdds))
                     {
                         aWasFlippedThisTurn = true;
                         if (botA.Move == Move.Shunt) // if they were shunting a flip then throw them further backwards
@@ -121,7 +121,8 @@ namespace BattleOfTheBots.Logic
         }
 
         private bool FlipSuccess(int flipOdds)
-        {
+        {            
+
             if (flipOdds == 0)
                 return false;
 
