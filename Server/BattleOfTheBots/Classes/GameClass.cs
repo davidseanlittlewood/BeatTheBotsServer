@@ -72,7 +72,7 @@ namespace BattleOfTheBots.Classes
                 return arena;
             }
 
-            if (this._bot1.SendStartInstruction(this._bot1.Name, this._arenaSize, this._flipOdds) == "failed")
+            if (this._bot2.SendStartInstruction(this._bot1.Name, this._arenaSize, this._flipOdds) == "failed")
             {
                 AbandonBattle(this._bot1);
                 return arena;
