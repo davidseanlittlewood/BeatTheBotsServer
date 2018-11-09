@@ -245,10 +245,13 @@ namespace BattleOfTheBots
                         bot1Class.AddCompetitor(bot2Class);
                         bot2Class.AddCompetitor(bot1Class);
 
+                        var bothBots = new Bot[] { bot1Class, bot2Class }.OrderBy(b => Guid.NewGuid()).ToArray();
+
+
                         gamesList.Add(
                             new GameClass(
-                                bot1Class,
-                                bot2Class,
+                                bothBots.First(),
+                                bothBots.Last(),
                                 Convert.ToInt16(gameRow["Health"]), Convert.ToInt16(gameRow["Flips"]), Convert.ToInt16(gameRow["FlipOdds"]), Convert.ToInt16(gameRow["Fuel"]),
                                 Convert.ToInt16(gameRow["ArenaSize"])));
                     }
