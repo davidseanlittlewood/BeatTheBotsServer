@@ -16,7 +16,7 @@ namespace BattleOfTheBots.State
         public int NumberOfFlipsRemaining { get; set; }
         public bool IsFlipped { get; set; }
 
-        public Direction DesiredDirection { get; protected set; }
+        public Direction DesiredDirection { get; set; }
 
         public int StartingFlameThrowerFuel { get; set; }
         public int FlameThrowerFuelRemaining { get; set; }

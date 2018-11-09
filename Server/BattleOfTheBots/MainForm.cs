@@ -246,7 +246,8 @@ namespace BattleOfTheBots
                         bot2Class.AddCompetitor(bot1Class);
 
                         var bothBots = new Bot[] { bot1Class, bot2Class }.OrderBy(b => Guid.NewGuid()).ToArray();
-
+                        bothBots.First().DesiredDirection = Direction.Right;
+                        bothBots.Last().DesiredDirection = Direction.Left;
 
                         gamesList.Add(
                             new GameClass(

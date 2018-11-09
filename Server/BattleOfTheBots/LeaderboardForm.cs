@@ -55,7 +55,7 @@ namespace BattleOfTheBots
                      */                    
                     for (var x=0; x<10; x++)
                     {
-                        Thread.Sleep(10); 
+                        Thread.Sleep(5); 
                         Application.DoEvents();
                     }
                 }

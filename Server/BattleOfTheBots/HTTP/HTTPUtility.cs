@@ -34,7 +34,7 @@ namespace BattleOfTheBots.HTTP
                 var data = Encoding.ASCII.GetBytes(postData);
 
                 request.Method = "POST";
-                request.Timeout = 5000;
+                request.Timeout = 1000;
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
 
@@ -64,7 +64,7 @@ namespace BattleOfTheBots.HTTP
 
                 var data = Encoding.ASCII.GetBytes(move);
 
-                request.Timeout = 5000; 
+                request.Timeout = 1000; 
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
@@ -94,7 +94,7 @@ namespace BattleOfTheBots.HTTP
 
                 var data = Encoding.ASCII.GetBytes("TRUE");
 
-                request.Timeout = 5000; 
+                request.Timeout = 1000; 
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
@@ -123,7 +123,7 @@ namespace BattleOfTheBots.HTTP
 
                 var data = Encoding.ASCII.GetBytes("TRUE");
 
-                request.Timeout = 5000;
+                request.Timeout = 1000;
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
@@ -150,7 +150,7 @@ namespace BattleOfTheBots.HTTP
             {
                 var request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/move", url));
 
-                request.Timeout = 5000;
+                request.Timeout = 1000;
                 request.Method = "GET";
                 request.ContentType = "application/x-www-form-urlencoded";
 
