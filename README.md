@@ -4,7 +4,7 @@ BotWars is a game designed for a hackathon or team building event. Teams compete
 
 ![BotWars Screenshot](/Screenshots/MainGame.png)
 
-## Why run BotWars
+## Why run BotWars?
 
 BotWars is a great (and fun) way to bring together people from different disciplines and from different teams. If you're in any doubt here's some feedback from people who took part in our event:
 
