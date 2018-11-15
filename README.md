@@ -4,6 +4,17 @@ BotWars is a game designed for a hackathon or team building event. Teams compete
 
 ![BotWars Screenshot](/Screenshots/MainGame.png)
 
+## Why run BotWars
+
+BotWars is a great (and fun) way to bring together people from different disciplines and from different teams. If you're in any doubt here's some feedback from people who took part in our event:
+
+* It was great as a business person to get fully involved in the hackathon, as it's not always a guarantee if you haven't got the coding skills! It was a great problem to digest in the short space of an afternoon and good to meet people from other areas of the business.
+* Opportunity to work with colleagues from other teams in a fun engaging environment
+* Getting together with colleagues having never worked with before, food, drinks and laughter of bots "fighting" each other.
+* The light heartedness of the event and getting the opportunity to work with new people
+* It allowed people to work with people they would possibly never normally speak to or see, creating better bonds and relationships within the company. It also promoted creative problem solving skills while keeping the subject fun and lighthearted allowing non-coders to be involved also
+
+
 ## How to run BotWars
 
 Running a BotWars event is easy. You need half a day, a quiet space, and a group of people.
@@ -29,6 +40,6 @@ The scores for rounds 1, 2, and 3 are cumulative so it's better to have a very s
 * Make sure your teams are running the bot solution as an administrator, it helps with the permissions for the HttpListener class
 * Make sure each team can connect in the initial 45 minutes tinker time, you don't want technical problems spoiling your first round
 
-## Questions and Feedback
+## Questions, Bugs, and Feedback
 
-Please post any questions and feedback on the [Issues](https://github.com/davidseanlittlewood/BeatTheBotsServer/issues) page
+Please post any questions and feedback on the [Issues](https://github.com/davidseanlittlewood/BeatTheBotsServer/issues) page.
