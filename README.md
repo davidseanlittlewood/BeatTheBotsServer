@@ -31,4 +31,4 @@ The scores for rounds 1, 2, and 3 are cumulative so it's better to have a very s
 
 ## Questions and Feedback
 
-Please post any questions and feedback on the [https://github.com/davidseanlittlewood/BeatTheBotsServer/issues](Issues) page
+Please post any questions and feedback on the [Issues](https://github.com/davidseanlittlewood/BeatTheBotsServer/issues) page
