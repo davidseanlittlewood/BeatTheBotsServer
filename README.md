@@ -21,7 +21,7 @@ Running a BotWars event is easy. You need half a day, a quiet space, and a group
 
 We recommend teams of four or five people, each one seeded with a developer. One of the huge motivations for running a BotWars event is to meet and work alongside new people so we recommend randomising the other team members. Names in a hat is a tried and tested method.
 
-Each of your teams should have a laptop, a copy of the rules, and the BotExample solution (assuming you're working in .NET). We also recommend a selection of pens and squared paper. As the organisor you will need a copy of the BattleOfTheBots application running on your computer.
+Each of your teams should have a laptop, a copy of the rules, and the [BotExample solution](https://github.com/davidseanlittlewood/BotWarsClient) (assuming you're working in .NET). We also recommend a selection of pens and squared paper. As the organisor you will need a copy of the BattleOfTheBots application running on your computer.
 
 Rounds can be randomised but we recommend:
 
