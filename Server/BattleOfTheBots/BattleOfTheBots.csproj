@@ -57,6 +57,7 @@
     <Compile Include="BotsUI.Designer.cs">
       <DependentUpon>BotsUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Options.cs" />
     <Compile Include="Logic\IMoveManager.cs" />
     <Compile Include="Logic\PositionHelpers.cs" />
     <Compile Include="Logic\VictoryHelper.cs" />

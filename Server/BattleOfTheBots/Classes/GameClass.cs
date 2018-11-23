@@ -60,7 +60,7 @@ namespace BattleOfTheBots.Classes
                 : (int)Math.Ceiling(arenaSize / 2D);
         }
 
-        public Arena CommenceBattle(Action<Arena, GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames)
+        public Arena CommenceBattle(Action<Arena, GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames, Options options)
         {
             var arena = new Arena(new Bot[] { this._bot1, this._bot2 }, _arenaSize);
 
