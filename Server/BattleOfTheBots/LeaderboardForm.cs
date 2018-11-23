@@ -159,7 +159,7 @@ namespace BattleOfTheBots
                     $"{winner.Name} made the naughty list",
                     $"Dancer and Prancer tried their best but only {winner.Name} got the prize",
                     $"{winner.Name} won -boosting his elf-esteem",
-                    "Mistletoe!? more like missleToe!",
+                    "Mistletoe!? more like missileToe!",
                     $"Christmas came early for {winner.Name}",
                     $"{winner.Name} reined down damage on that poor deer",
                     $"{loser.Name} should have asked for more flamethrower fuel for Christmas",
@@ -188,7 +188,7 @@ namespace BattleOfTheBots
                 all.AddRange(new string[]
                 {
                     $"{loser.Name} jingled all the way down",
-                    $"{winner.Name}, {loser.Name} had snow-where else to go",
+                    $"{loser.Name} had snow-where else to go",
                     $"No sprout about it, the winner is {winner.Name}",
                  });
             }
