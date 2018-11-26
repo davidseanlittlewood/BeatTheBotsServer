@@ -37,8 +37,8 @@ namespace BattleOfTheBots.UIControl
             {
                 gfx.FillRectangle(Brushes.White, 0, 0, panelDrawArea.Width, panelDrawArea.Height);
                 this.DrawArenaFloor(gfx, arenaWidth);
-                this.DrawLeftBot(gfx, arenaWidth, leftBot, frame);
-                this.DrawRightBot(gfx, arenaWidth, rightBot, frame);
+                this.DrawLeftBot(gfx, arenaWidth, leftBot, frame, options);
+                this.DrawRightBot(gfx, arenaWidth, rightBot, frame, options);
                 if(options.IsChristmas)
                 {
                     this.DrawSnow(gfx, arenaWidth);
@@ -141,9 +141,9 @@ namespace BattleOfTheBots.UIControl
             }            
         }
 
-        public void DrawLeftBot(Graphics gfx, int arenaWidth, BotMove bot, int frame)
+        public void DrawLeftBot(Graphics gfx, int arenaWidth, BotMove bot, int frame, Options options)
         {
-            DrawBot(gfx, arenaWidth, bot, frame, Direction.Left,  -450);            
+            DrawBot(gfx, arenaWidth, bot, frame, Direction.Left,  -450, options);
         }
 
         public void WriteReallyBigText(string text)
@@ -162,12 +162,12 @@ namespace BattleOfTheBots.UIControl
             }
         }
 
-        public void DrawRightBot(Graphics gfx, int arenaWidth, BotMove bot, int frame)
+        public void DrawRightBot(Graphics gfx, int arenaWidth, BotMove bot, int frame, Options options)
         {
-            DrawBot(gfx, arenaWidth, bot, frame, Direction.Right, 200);
+            DrawBot(gfx, arenaWidth, bot, frame, Direction.Right, 200, options);
         }
 
-        public void DrawBot(Graphics gfx, int arenaWidth, BotMove bot, int frame, Direction direction, int bubbleXOffset)
+        public void DrawBot(Graphics gfx, int arenaWidth, BotMove bot, int frame, Direction direction, int bubbleXOffset, Options options)
         {
             var image = GetImageName(direction, bot.Move, frame);
             Bitmap botImage = UIManager.GetBitmapResource(image);
@@ -248,10 +248,10 @@ namespace BattleOfTheBots.UIControl
                 }
             }
 
-            DrawHealthbar(gfx, bot, direction);
+            DrawHealthbar(gfx, bot, direction, options, frame);
         }
 
-        private void DrawHealthbar(Graphics gfx, BotMove bot, Direction direction)
+        private void DrawHealthbar(Graphics gfx, BotMove bot, Direction direction, Options options, int frame)
         {
             var xOffset = direction == Direction.Left
                 ? 10
@@ -265,7 +265,60 @@ namespace BattleOfTheBots.UIControl
             DrawBar(gfx, xOffset, 50, Brushes.Green, Brushes.Red, bot.Bot.StartingHealth, bot.Bot.Health);
             DrawBar(gfx, xOffset, 70, Brushes.LightBlue, Brushes.Black, bot.Bot.StartingNumberOfFlips, bot.Bot.NumberOfFlipsRemaining);
             DrawBar(gfx, xOffset, 90, Brushes.Yellow, Brushes.Black, bot.Bot.StartingFlameThrowerFuel, bot.Bot.FlameThrowerFuelRemaining);
+
+            if(options.IsChristmas && direction == Direction.Left)
+            {
+                var random = new Random();
+                if(!WhereIsSanta.HasValue)
+                {
+                    WhatIsSantaUpTo = 0;
+                    WhereIsSanta = 300;
+                }
+
+                // Does he start walking?
+                if(WhatIsSantaUpTo == 0 && random.Next(0, 100) > 80)
+                {
+                    WhatIsSantaUpTo = random.Next(1, 2);
+                }
+
+                // Does he stop walking?
+                if (WhatIsSantaUpTo != 0 && random.Next(0, 100) > 95)
+                {
+                    WhatIsSantaUpTo = 0;
+                }
+
+                // is he about to walk off the edge (or just fancies a new direction)
+                if (random.Next(0, 100) > 95 || WhereIsSanta.Value < 100 || WhereIsSanta > 350)
+                {
+                    if (WhatIsSantaUpTo == 2) WhatIsSantaUpTo = 1;
+                    else if (WhatIsSantaUpTo == 1) WhatIsSantaUpTo = 2;
+                }
+                if (WhatIsSantaUpTo == 2) WhereIsSanta += 2;
+                if (WhatIsSantaUpTo == 1) WhereIsSanta -= 2;
+
+
+                // We probably don't need to do this every frame!
+                var allSantas = UIManager.GetBitmapResource("Santa");
+                var frames = new List<List<Bitmap>>();
+                var width = allSantas.Width / 3;
+                var height = allSantas.Height / 4;
+                for (int row = 0; row < 4; row++)
+                {
+                    frames.Add(new List<Bitmap>()); // there are four rows
+                    for (int column = 0; column < 3; column++)
+                    {
+                        frames[row].Add(allSantas.Clone(new Rectangle(column * width, row * height, width, height), allSantas.PixelFormat));
+                        frames[row][column].MakeTransparent(Color.White);
+                    }
+                }
+
+                var frameToDraw = WhatIsSantaUpTo == 0 ? 1 : frame - 1;
+                gfx.DrawImage(frames[WhatIsSantaUpTo.Value][frameToDraw], new Point(WhereIsSanta.Value, 50 - frames[0][0].Height));
+            }
         }
+
+        protected int? WhatIsSantaUpTo { get; set; }
+        protected int? WhereIsSanta { get; set; }
 
         private void DrawBar(Graphics gfx, int xOffset, int yOffset, Brush fullColour, Brush usedColour, int full, int remaining)
         {
