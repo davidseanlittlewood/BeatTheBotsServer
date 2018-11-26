@@ -159,10 +159,14 @@ namespace BattleOfTheBots
                 t.Start();
             }
             else
+            {
                 t.Resume();
-            
-            
-
+            }
+                        
+            if(this.leaderboard != null && !this.leaderboard.Visible)
+            {
+                this.leaderboard.Show();
+            }
             startToolStripMenuItem.Enabled = false;
         }
 
