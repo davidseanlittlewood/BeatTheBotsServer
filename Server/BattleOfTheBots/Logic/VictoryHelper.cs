@@ -21,7 +21,7 @@ namespace BattleOfTheBots.Logic
                 victoryType = VictoryType.OutOfBounds;
             }
 
-            if (botA.Health == 0 && botB.Health == 0) // did we both run out of health at the same time?
+            if (botA.Health <= 0 && botB.Health <= 0) // did we both run out of health at the same time?
             {                
                 winner = GetBotWhoMadeMostProgress(arena, botA, botB);
                 victoryType = winner == null
