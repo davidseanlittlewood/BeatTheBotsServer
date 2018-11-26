@@ -46,15 +46,32 @@ namespace BattleOfTheBots.UIControl
 
         private void DrawSnow(Graphics gfx, int arenaSize)
         {
-            Bitmap snow = UIManager.GetBitmapResource("snow");
-            Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");
-            snow.MakeTransparent(Color.Black);
+            Bitmap snow = UIManager.GetBitmapResource("Snow");
+            Bitmap snowREnd = UIManager.GetBitmapResource("SnowRightEnd");
+            Bitmap snowLEnd = UIManager.GetBitmapResource("SnowLeftEnd");
+            Bitmap paintSnow;
+            Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");            
             var width = snow.Width;
             int leftpos = ((panelDrawArea.Width / 2) - ((arenaFloorTile.Width * arenaSize) / 2));
 
             for (int i = 0; i < arenaSize; i++)
             {
-                gfx.DrawImage(snow, new Point(leftpos + (i * width), panelDrawArea.Height - snow.Height - arenaFloorTile.Height + 10));
+                if(i == 0)
+                {
+                    paintSnow = snowLEnd;
+                }
+                else if (i == arenaSize - 1)
+                {
+                    paintSnow = snowREnd;
+                    paintSnow.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+                }
+                else
+                {
+                    paintSnow = snow;
+                }
+
+                paintSnow.MakeTransparent(Color.Black);
+                gfx.DrawImage(paintSnow, new Point(leftpos + (i * width), panelDrawArea.Height - snow.Height - arenaFloorTile.Height + 10));
             }
         }
 
