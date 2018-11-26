@@ -91,12 +91,12 @@ namespace BattleOfTheBots
                 tbOutput.AppendText(text);
         }
 
-        private delegate void UpdateCurrentMatchDelegate(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB);
-        private void UpdateCurrentMatch(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB)
+        private delegate void UpdateCurrentMatchDelegate(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB, Options options);
+        private void UpdateCurrentMatch(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB, Options options)
         {
             if (InvokeRequired)
             {
-                Invoke(new UpdateCurrentMatchDelegate(UpdateCurrentMatch), arena, game, gameCount, totalGames, botA, botB);
+                Invoke(new UpdateCurrentMatchDelegate(UpdateCurrentMatch), arena, game, gameCount, totalGames, botA, botB, options);
             }
             else
             {
@@ -104,7 +104,8 @@ namespace BattleOfTheBots
                 leaderboard.UpdateCurrentMatch(arena,
                     text,
                     botA,
-                    botB);
+                    botB,
+                    options);
 
                 lblBot1Name.Text = game.Bot1.Name;
                 lblBot2Name.Text = game.Bot2.Name;

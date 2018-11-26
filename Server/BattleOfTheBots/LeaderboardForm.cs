@@ -33,13 +33,13 @@ namespace BattleOfTheBots
             gridLeaderboard.Refresh();
         }
 
-        public delegate void UpdateCurrentMatchdelegate(Arena arena, string matchDetails, BotMove botA, BotMove botB);
+        public delegate void UpdateCurrentMatchdelegate(Arena arena, string matchDetails, BotMove botA, BotMove botB, Options options);
 
-        public void UpdateCurrentMatch(Arena arena, string matchDetails, BotMove leftBot, BotMove rightBot)
+        public void UpdateCurrentMatch(Arena arena, string matchDetails, BotMove leftBot, BotMove rightBot, Options options)
         {
             if (InvokeRequired)
             {
-                Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), arena, matchDetails, leftBot, rightBot);
+                Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), arena, matchDetails, leftBot, rightBot, options);
             }
             else
             {                            
@@ -49,7 +49,7 @@ namespace BattleOfTheBots
                     lblCurrentMatch.Text = matchDetails;
                     lblCurrentMatch.Refresh();
 
-                    botUI.Update(arena.NumberOfSquares, leftBot, rightBot, i);
+                    botUI.Update(arena.NumberOfSquares, leftBot, rightBot, i, options);
                     
 
                     /* Set short sleep and process messages in a loop 

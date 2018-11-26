@@ -13,6 +13,7 @@ using BattleOfTheBots.UI;
 using BattleOfTheBots.State;
 using BattleOfTheBots.Logic;
 using System.Drawing.Imaging;
+using BattleOfTheBots.Classes;
 
 namespace BattleOfTheBots.UIControl
 {
@@ -25,7 +26,7 @@ namespace BattleOfTheBots.UIControl
 
         int[] _arenaPositions;        
 
-        public void Update(int arenaWidth, BotMove leftBot, BotMove rightBot, int frame)
+        public void Update(int arenaWidth, BotMove leftBot, BotMove rightBot, int frame, Options options)
         {
             var bitmap = new Bitmap(panelDrawArea.Width, panelDrawArea.Height);
             using (var gfx = Graphics.FromImage(bitmap))
@@ -34,9 +35,24 @@ namespace BattleOfTheBots.UIControl
                 this.DrawArenaFloor(gfx, arenaWidth);
                 this.DrawLeftBot(gfx, arenaWidth, leftBot, frame);
                 this.DrawRightBot(gfx, arenaWidth, rightBot, frame);
+                if(options.IsChristmas)
+                {
+                    this.DrawSnow(gfx);
+                }
                 this.DrawWater(gfx, frame);
             }
             this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
+        }
+
+        private void DrawSnow(Graphics gfx)
+        {
+            Bitmap snow = UIManager.GetBitmapResource("snow");
+            snow.MakeTransparent(Color.Black);
+            var width = snow.Width;
+            for (int i = 0; i < panelDrawArea.Width; i += width)
+            {
+                gfx.DrawImage(snow, new Point(i, panelDrawArea.Height - snow.Height));
+            }
         }
 
         public void DrawArenaFloor(Graphics gfx, int arenaSize)

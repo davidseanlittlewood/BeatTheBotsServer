@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Axe.png" />
+    <Content Include="Resources\Snow.png" />
     <None Include="Resources\Water 2.png" />
     <None Include="Resources\Water 1.png" />
     <None Include="Resources\Water.png" />
