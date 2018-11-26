@@ -37,21 +37,24 @@ namespace BattleOfTheBots.UIControl
                 this.DrawRightBot(gfx, arenaWidth, rightBot, frame);
                 if(options.IsChristmas)
                 {
-                    this.DrawSnow(gfx);
+                    this.DrawSnow(gfx, arenaWidth);
                 }
                 this.DrawWater(gfx, frame);
             }
             this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
         }
 
-        private void DrawSnow(Graphics gfx)
+        private void DrawSnow(Graphics gfx, int arenaSize)
         {
             Bitmap snow = UIManager.GetBitmapResource("snow");
+            Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");
             snow.MakeTransparent(Color.Black);
             var width = snow.Width;
-            for (int i = 0; i < panelDrawArea.Width; i += width)
+            int leftpos = ((panelDrawArea.Width / 2) - ((arenaFloorTile.Width * arenaSize) / 2));
+
+            for (int i = 0; i < arenaSize; i++)
             {
-                gfx.DrawImage(snow, new Point(i, panelDrawArea.Height - snow.Height));
+                gfx.DrawImage(snow, new Point(leftpos + (i * width), panelDrawArea.Height - snow.Height - arenaFloorTile.Height + 10));
             }
         }
 
