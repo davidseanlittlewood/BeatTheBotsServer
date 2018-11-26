@@ -22,11 +22,19 @@ namespace BattleOfTheBots.Logic
             }
 
             if (botA.Health <= 0 && botB.Health <= 0) // did we both run out of health at the same time?
-            {                
-                winner = GetBotWhoMadeMostProgress(arena, botA, botB);
-                victoryType = winner == null
-                    ? VictoryType.Draw
-                    : VictoryType.GivenOnProgress;
+            {
+                if (botA.Health != botB.Health)
+                {
+                    winner = new Bot[] { botA, botB }.OrderByDescending(b => b.Health).First();
+                    victoryType = VictoryType.GivenOnDamage;
+                }
+                else
+                {
+                    winner = GetBotWhoMadeMostProgress(arena, botA, botB);
+                    victoryType = winner == null
+                        ? VictoryType.Draw
+                        : VictoryType.GivenOnProgress;
+                }
             }
             else if (botA.Health <= 0)
             {
