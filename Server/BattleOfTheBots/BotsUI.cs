@@ -19,9 +19,13 @@ namespace BattleOfTheBots.UIControl
 {
     public partial class BotsUI : UserControl
     {
+
+        public List<Point> Precipitation { get; set; }
+
         public BotsUI()
         {
             InitializeComponent();
+            this.Precipitation = new List<Point>();
         }
 
         int[] _arenaPositions;        
@@ -38,10 +42,44 @@ namespace BattleOfTheBots.UIControl
                 if(options.IsChristmas)
                 {
                     this.DrawSnow(gfx, arenaWidth);
+                    this.DrawFlakes(gfx);
                 }
                 this.DrawWater(gfx, frame);
             }
             this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
+        }
+
+        private void DrawFlakes(Graphics gfx)
+        {
+            var rand = new Random();
+            if(this.Precipitation.Count < 100)
+            {
+                var numberToAdd = Math.Min(5, 100 - this.Precipitation.Count());
+                for(int i = 0; i < numberToAdd; i++)
+                {
+                    this.Precipitation.Add(new Point(rand.Next(0, this.panelDrawArea.Width), 0));
+                }
+            }
+
+            var newList = new List<Point>();
+            foreach(var flake in this.Precipitation)
+            {
+                var newX = rand.Next(15) - 5;
+                var newY = rand.Next(5) + 10;
+
+                var newPoint = new Point(flake.X + newX, flake.Y + newY);
+                if (newPoint.Y < this.panelDrawArea.Height)
+                {                    
+                    newList.Add(newPoint);
+                }
+            }
+            this.Precipitation = newList;
+
+            foreach (var flake in this.Precipitation)
+            {
+                gfx.DrawRectangle(Pens.LightGray, new Rectangle(flake, new Size(2, 2)));
+                gfx.DrawRectangle(Pens.LightBlue, new Rectangle(flake, new Size(1, 1)));
+            }
         }
 
         private void DrawSnow(Graphics gfx, int arenaSize)
