@@ -269,20 +269,32 @@ namespace BattleOfTheBots.UIControl
             if(options.IsChristmas && direction == Direction.Left)
             {
                 var random = new Random();
-                if(!WhatIsSantaUpTo.HasValue || !WhereIsSanta.HasValue)
+                if(!WhereIsSanta.HasValue)
                 {
-                    WhatIsSantaUpTo = 2;
-                    WhereIsSanta = 100;
+                    WhatIsSantaUpTo = 0;
+                    WhereIsSanta = 300;
+                }
+
+                // Does he start walking?
+                if(WhatIsSantaUpTo == 0 && random.Next(0, 100) > 80)
+                {
+                    WhatIsSantaUpTo = random.Next(1, 2);
+                }
+
+                // Does he stop walking?
+                if (WhatIsSantaUpTo != 0 && random.Next(0, 100) > 95)
+                {
+                    WhatIsSantaUpTo = 0;
                 }
 
                 // is he about to walk off the edge (or just fancies a new direction)
-                if(random.Next(0, 100) > 95 || WhereIsSanta.Value < 100 || WhereIsSanta > 350)
+                if (random.Next(0, 100) > 95 || WhereIsSanta.Value < 100 || WhereIsSanta > 350)
                 {
                     if (WhatIsSantaUpTo == 2) WhatIsSantaUpTo = 1;
                     else if (WhatIsSantaUpTo == 1) WhatIsSantaUpTo = 2;
                 }
-                if (WhatIsSantaUpTo == 2) WhereIsSanta += 5;
-                if (WhatIsSantaUpTo == 1) WhereIsSanta -= 5;
+                if (WhatIsSantaUpTo == 2) WhereIsSanta += 2;
+                if (WhatIsSantaUpTo == 1) WhereIsSanta -= 2;
 
 
                 // We probably don't need to do this every frame!
@@ -300,7 +312,8 @@ namespace BattleOfTheBots.UIControl
                     }
                 }
 
-                gfx.DrawImage(frames[WhatIsSantaUpTo.Value][frame - 1], new Point(WhereIsSanta.Value, 50 - frames[0][0].Height));
+                var frameToDraw = WhatIsSantaUpTo == 0 ? 1 : frame - 1;
+                gfx.DrawImage(frames[WhatIsSantaUpTo.Value][frameToDraw], new Point(WhereIsSanta.Value, 50 - frames[0][0].Height));
             }
         }
 
