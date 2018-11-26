@@ -103,7 +103,9 @@ namespace BattleOfTheBots.Classes
                     Bot1.PostFlipped();
 
                     if (botMove2.Move == Move.Flip)
+                    {
                         Bot2.PostOpponentFlipped();
+                    }
                 }
 
                 if (Bot2.IsFlipped)
@@ -111,7 +113,9 @@ namespace BattleOfTheBots.Classes
                     Bot2.PostFlipped();
 
                     if (botMove1.Move == Move.Flip)
+                    {
                         Bot1.PostOpponentFlipped();
+                    }
                 }
                 
                 totalHealth = _bot1.Health + _bot2.Health;
