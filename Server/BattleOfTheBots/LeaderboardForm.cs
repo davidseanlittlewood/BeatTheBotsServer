@@ -7,6 +7,8 @@ using BattleOfTheBots.UIControl;
 using BattleOfTheBots.Logic;
 using System.Threading;
 using BattleOfTheBots.State;
+using BattleOfTheBots.Classes;
+using System.Collections.Generic;
 
 namespace BattleOfTheBots
 {    
@@ -31,13 +33,13 @@ namespace BattleOfTheBots
             gridLeaderboard.Refresh();
         }
 
-        public delegate void UpdateCurrentMatchdelegate(Arena arena, string matchDetails, BotMove botA, BotMove botB);
+        public delegate void UpdateCurrentMatchdelegate(Arena arena, string matchDetails, BotMove botA, BotMove botB, Options options);
 
-        public void UpdateCurrentMatch(Arena arena, string matchDetails, BotMove leftBot, BotMove rightBot)
+        public void UpdateCurrentMatch(Arena arena, string matchDetails, BotMove leftBot, BotMove rightBot, Options options)
         {
             if (InvokeRequired)
             {
-                Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), arena, matchDetails, leftBot, rightBot);
+                Invoke(new UpdateCurrentMatchdelegate(UpdateCurrentMatch), arena, matchDetails, leftBot, rightBot, options);
             }
             else
             {                            
@@ -47,7 +49,7 @@ namespace BattleOfTheBots
                     lblCurrentMatch.Text = matchDetails;
                     lblCurrentMatch.Refresh();
 
-                    botUI.Update(arena.NumberOfSquares, leftBot, rightBot, i);
+                    botUI.Update(arena.NumberOfSquares, leftBot, rightBot, i, options);
                     
 
                     /* Set short sleep and process messages in a loop 
@@ -77,14 +79,14 @@ namespace BattleOfTheBots
             }
         }
 
-        public delegate void RegisterBotWinDelegate(Bot winner, Bot loser, VictoryType victoryType);
+        public delegate void RegisterBotWinDelegate(Bot winner, Bot loser, VictoryType victoryType, Options options);
 
-        public void RegisterBotWin(Bot winner, Bot loser, VictoryType victoryType)
+        public void RegisterBotWin(Bot winner, Bot loser, VictoryType victoryType, Options options)
         {
 
             if (InvokeRequired)
             {
-                Invoke(new RegisterBotWinDelegate(RegisterBotWin), winner, loser, victoryType);
+                Invoke(new RegisterBotWinDelegate(RegisterBotWin), winner, loser, victoryType, options);
             }
             else
             {
@@ -109,7 +111,7 @@ namespace BattleOfTheBots
 
                 SaveLeaderboard();
 
-                var gloatText = GetGloatText(winner, loser, victoryType);
+                var gloatText = GetGloatText(winner, loser, victoryType, options);
                 botUI.WriteReallyBigText($"{winner.Name} wins!{Environment.NewLine}{gloatText}");
             }
         }
@@ -119,14 +121,14 @@ namespace BattleOfTheBots
             dtLeaderBoard.WriteXml(leaderboardConfigFile);
         }
 
-        private string GetGloatText(Bot winner, Bot loser, VictoryType victoryType)
+        private string GetGloatText(Bot winner, Bot loser, VictoryType victoryType, Options options)
         {            
             switch (victoryType)
             {
                 case VictoryType.OutOfBounds:
-                    return GetOutOfBoundsGloat(winner, loser);
+                    return GetOutOfBoundsGloat(winner, loser, options);
                 case VictoryType.ReducedToZeroHealth:
-                    return GetZeroHeathGloat(winner, loser);
+                    return GetZeroHeathGloat(winner, loser, options);
                 case VictoryType.GivenOnDamage:
                     return $"{winner.Name} inflicted more damage";
                 case VictoryType.GivenOnProgress:
@@ -138,39 +140,61 @@ namespace BattleOfTheBots
             }
         }
 
-        private static string GetZeroHeathGloat(Bot winner, Bot loser)
+        private static string GetZeroHeathGloat(Bot winner, Bot loser, Options options)
         {
             var rand = new Random();
-            switch (rand.Next(0, 5))
+            var all = new List<string>()
             {
-                case 0:
-                    return $"{loser.Name} needs a screwdriver";
-                case 1:
-                    return $"{loser.Name} is spare parts";
-                case 2:
-                    return $"Does anyone have a spanner?";
-                case 3:
-                    return $"{loser.Name} is considering a career as a doorstop";
-                default:
-                    return "Knock Out";
+                $"{loser.Name} needs a screwdriver",
+                $"{loser.Name} is spare parts",
+                $"Does anyone have a spanner?",
+                $"{loser.Name} is considering a career as a doorstop",
+                "Knock Out"
+            };
+
+            if (options.IsChristmas)
+            {
+                all.AddRange(new string[]
+                {
+                    $"{winner.Name} made the naughty list",
+                    $"Dancer and Prancer tried their best but only {winner.Name} got the prize",
+                    $"{winner.Name} won -boosting his elf-esteem",
+                    "Mistletoe!? more like missileToe!",
+                    $"Christmas came early for {winner.Name}",
+                    $"{winner.Name} reined down damage on that poor deer",
+                    $"{loser.Name} should have asked for more flamethrower fuel for Christmas",
+                    $"and like the turkey {loser.Name} is done"
+            });
             }
-            
+
+            var index = rand.Next(0, all.Count - 1);
+            return all.ElementAtOrDefault(index) ?? "Knock Out";
         }
 
-        private string GetOutOfBoundsGloat(Bot winner, Bot loser)
+        private string GetOutOfBoundsGloat(Bot winner, Bot loser, Options options)
         {
             var rand = new Random();
-            switch (rand.Next(0, 4))
+            var all = new List<string>()
             {
-                case 0:
-                    return $"{loser.Name} went for a swim";
-                case 1:
-                    return $"{loser.Name} doesn't like the water...";
-                case 2:
-                    return $"{loser.Name} makes a better anchor than a boat";
-                default:
-                    return $"{loser.Name} swam like a brick";
+                $"{loser.Name} went for a swim",
+                $"{loser.Name} took a dive",
+                $"{loser.Name} doesn't like the water...",
+                $"{loser.Name} makes a better anchor than a boat",
+                $"{loser.Name} swam like a brick"
+            };
+
+            if (options.IsChristmas)
+            {
+                all.AddRange(new string[]
+                {
+                    $"{loser.Name} jingled all the way down",
+                    $"{loser.Name} had snow-where else to go",
+                    $"No sprout about it, the winner is {winner.Name}",
+                 });
             }
+
+            var index = rand.Next(0, all.Count - 1);
+            return all.ElementAtOrDefault(index) ?? "Out of bounds!";
         }
 
         public delegate void SortResultsDelegate();

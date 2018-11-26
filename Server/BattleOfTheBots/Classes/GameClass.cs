@@ -60,7 +60,7 @@ namespace BattleOfTheBots.Classes
                 : (int)Math.Ceiling(arenaSize / 2D);
         }
 
-        public Arena CommenceBattle(Action<Arena, GameClass, int , int,BotMove, BotMove> updateAction, int gameCount, int totalGames)
+        public Arena CommenceBattle(Action<Arena, GameClass, int , int,BotMove, BotMove, Options> updateAction, int gameCount, int totalGames, Options options)
         {
             var arena = new Arena(new Bot[] { this._bot1, this._bot2 }, _arenaSize);
 
@@ -130,7 +130,7 @@ namespace BattleOfTheBots.Classes
                 this._bot1.PostOpponentsMove(botMove2.Move);
                 this._bot2.PostOpponentsMove(botMove1.Move);
 
-                updateAction(arena, this, gameCount, totalGames, botMove1, botMove2);
+                updateAction(arena, this, gameCount, totalGames, botMove1, botMove2, options);
 
 
                 // This match is getting boring, let's find the bot who is ahead and declare them as the winner

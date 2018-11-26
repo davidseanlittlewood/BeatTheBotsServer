@@ -413,6 +413,36 @@ namespace BattleOfTheBots.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Snow {
+            get {
+                object obj = ResourceManager.GetObject("Snow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SnowLeftEnd {
+            get {
+                object obj = ResourceManager.GetObject("SnowLeftEnd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SnowRightEnd {
+            get {
+                object obj = ResourceManager.GetObject("SnowRightEnd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Water_1 {
             get {
                 object obj = ResourceManager.GetObject("Water_1", resourceCulture);

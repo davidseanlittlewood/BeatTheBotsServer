@@ -15,8 +15,9 @@ namespace BattleOfTheBots
     {
         
         private Thread t;
-        private LeaderboardForm leaderboard = new LeaderboardForm();       
+        private LeaderboardForm leaderboard = new LeaderboardForm();
 
+        public bool IsChristmas { get; private set; }
 
         public MainForm()
         {
@@ -64,7 +65,8 @@ namespace BattleOfTheBots
         }
 
         private void LoadGameConfig()
-        {
+        {            
+            this.isChristmasToolStripMenuItem.Checked = DateTime.Now.AddDays(20) > new DateTime(DateTime.Now.Year, 12, 25);
             dsGameConfig.Clear();
             try
             {
@@ -89,12 +91,12 @@ namespace BattleOfTheBots
                 tbOutput.AppendText(text);
         }
 
-        private delegate void UpdateCurrentMatchDelegate(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB);
-        private void UpdateCurrentMatch(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB)
+        private delegate void UpdateCurrentMatchDelegate(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB, Options options);
+        private void UpdateCurrentMatch(Arena arena, GameClass game, int gameCount, int totalGames, BotMove botA, BotMove botB, Options options)
         {
             if (InvokeRequired)
             {
-                Invoke(new UpdateCurrentMatchDelegate(UpdateCurrentMatch), arena, game, gameCount, totalGames, botA, botB);
+                Invoke(new UpdateCurrentMatchDelegate(UpdateCurrentMatch), arena, game, gameCount, totalGames, botA, botB, options);
             }
             else
             {
@@ -102,7 +104,8 @@ namespace BattleOfTheBots
                 leaderboard.UpdateCurrentMatch(arena,
                     text,
                     botA,
-                    botB);
+                    botB,
+                    options);
 
                 lblBot1Name.Text = game.Bot1.Name;
                 lblBot2Name.Text = game.Bot2.Name;
@@ -198,7 +201,11 @@ namespace BattleOfTheBots
 
         private void RunGame(int allGameCount, int currentGameCount, GameClass game)
         {
-            var arena = game.CommenceBattle(UpdateCurrentMatch, currentGameCount, allGameCount);
+            var options = new Options
+            {
+                IsChristmas = this.isChristmasToolStripMenuItem.Checked
+            };
+            var arena = game.CommenceBattle(UpdateCurrentMatch, currentGameCount, allGameCount, options);
 
             if (!string.IsNullOrWhiteSpace(game.Winner))
             {
@@ -206,7 +213,7 @@ namespace BattleOfTheBots
 
                 var winner = arena.Winner;
                 var loser = arena.Bots.Except(new Bot[] { winner }).Single();
-                leaderboard.RegisterBotWin(winner, loser, arena.VictoryType ?? VictoryType.None);
+                leaderboard.RegisterBotWin(winner, loser, arena.VictoryType ?? VictoryType.None, options);
             }
             else
             {

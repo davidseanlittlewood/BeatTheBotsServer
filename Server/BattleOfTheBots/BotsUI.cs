@@ -13,6 +13,7 @@ using BattleOfTheBots.UI;
 using BattleOfTheBots.State;
 using BattleOfTheBots.Logic;
 using System.Drawing.Imaging;
+using BattleOfTheBots.Classes;
 
 namespace BattleOfTheBots.UIControl
 {
@@ -25,7 +26,7 @@ namespace BattleOfTheBots.UIControl
 
         int[] _arenaPositions;        
 
-        public void Update(int arenaWidth, BotMove leftBot, BotMove rightBot, int frame)
+        public void Update(int arenaWidth, BotMove leftBot, BotMove rightBot, int frame, Options options)
         {
             var bitmap = new Bitmap(panelDrawArea.Width, panelDrawArea.Height);
             using (var gfx = Graphics.FromImage(bitmap))
@@ -34,9 +35,44 @@ namespace BattleOfTheBots.UIControl
                 this.DrawArenaFloor(gfx, arenaWidth);
                 this.DrawLeftBot(gfx, arenaWidth, leftBot, frame);
                 this.DrawRightBot(gfx, arenaWidth, rightBot, frame);
+                if(options.IsChristmas)
+                {
+                    this.DrawSnow(gfx, arenaWidth);
+                }
                 this.DrawWater(gfx, frame);
             }
             this.DrawImageOnUIPanel(bitmap, new Point(0, 0));
+        }
+
+        private void DrawSnow(Graphics gfx, int arenaSize)
+        {
+            Bitmap snow = UIManager.GetBitmapResource("Snow");
+            Bitmap snowREnd = UIManager.GetBitmapResource("SnowRightEnd");
+            Bitmap snowLEnd = UIManager.GetBitmapResource("SnowLeftEnd");
+            Bitmap paintSnow;
+            Bitmap arenaFloorTile = UIManager.GetBitmapResource("ArenaFloor");            
+            var width = snow.Width;
+            int leftpos = ((panelDrawArea.Width / 2) - ((arenaFloorTile.Width * arenaSize) / 2));
+
+            for (int i = 0; i < arenaSize; i++)
+            {
+                if(i == 0)
+                {
+                    paintSnow = snowLEnd;
+                }
+                else if (i == arenaSize - 1)
+                {
+                    paintSnow = snowREnd;
+                    paintSnow.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+                }
+                else
+                {
+                    paintSnow = snow;
+                }
+
+                paintSnow.MakeTransparent(Color.Black);
+                gfx.DrawImage(paintSnow, new Point(leftpos + (i * width), panelDrawArea.Height - snow.Height - arenaFloorTile.Height + 10));
+            }
         }
 
         public void DrawArenaFloor(Graphics gfx, int arenaSize)

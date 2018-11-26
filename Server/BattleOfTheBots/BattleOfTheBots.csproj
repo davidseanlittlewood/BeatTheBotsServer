@@ -57,6 +57,7 @@
     <Compile Include="BotsUI.Designer.cs">
       <DependentUpon>BotsUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Options.cs" />
     <Compile Include="Logic\IMoveManager.cs" />
     <Compile Include="Logic\PositionHelpers.cs" />
     <Compile Include="Logic\VictoryHelper.cs" />
@@ -185,6 +186,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Axe.png" />
+    <Content Include="Resources\Snow.png" />
+    <None Include="Resources\SnowRightEnd.png" />
+    <None Include="Resources\SnowLeftEnd.png" />
+    <None Include="Resources\SnowEnd.png" />
     <None Include="Resources\Water 2.png" />
     <None Include="Resources\Water 1.png" />
     <None Include="Resources\Water.png" />
